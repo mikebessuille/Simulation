@@ -8,17 +8,18 @@
 
 class SIM_API Simulation
 {
+// Private Variables
+private:
+	bool bRunning;
+	std::thread SimThread; 
+
 public:
 	Simulation();
 	~Simulation();
 
 	void Start();
 	void Stop();
-
-// Private Variables
-private:
-	bool bRunning;
-	std::thread SimThread;
+	bool IsRunning() { return(bRunning); }
 	
 // Private Methods
 private:	
