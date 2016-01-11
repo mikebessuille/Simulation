@@ -39,6 +39,8 @@ void Simulation::Stop()
 	std::cout << "Loop Completed\n";
 }
 
+
+// The main Simulation loop, which executes on a separate thread.
 void Simulation::Loop()
 {
 	int nTick = 0;
@@ -49,6 +51,8 @@ void Simulation::Loop()
 	{
 		std::cout << "\b\b\b\b\b\b\b\b\b\b\b" << std::flush;
 		std::cout << "Tick: " << nTick << std::flush;
+
+		std::this_thread::sleep_until();
 		nTick++;
 	}
 
