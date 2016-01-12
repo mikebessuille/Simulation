@@ -3,37 +3,49 @@
 // This class controls the simulation frame rate
 TickControl::TickControl()
 {
-	nTick = 0;
-	nTickSize = std::chrono::milliseconds( DEFAULT_SIMULATION_FRAME );
-	nTickTime = 0;
+	nCurrentTick = 0;
+	nTickSize = chrono::milliseconds( DEFAULT_SIMULATION_FRAME );
+	nCurrentTickTime = chrono::steady_clock::now();
 }
 
 
 void TickControl::Start()
 {
 	// starts ticking
-	nTickTime = std::chrono::system_clock::now();
+	nCurrentTickTime = chrono::steady_clock::now();
 }
 
 
 void TickControl::Stop()
 {
-	nTickTime = 0;
+	// nCurrentTickTime = chrono::steady_clock::now();
 }
 
 // TODO:  Need some way of incrementing the tick (should be a call from the thread loop)
 
 
 // Returns the size of each simulation frame, in MS
-std::chrono::duration<double> TickControl::GetTickSize()
+chrono::milliseconds TickControl::GetTickSize()
 {
 	return( nTickSize );
 }
 
-
-std::chrono::time_point<std::chrono::system_clock> TickControl::NextTickTime()
+unsigned long TickControl::GetCurrentTick()
 {
-	return(nTickTime + nTickSize)
+	return(nCurrentTick);
+}
+
+
+chrono::steady_clock::time_point TickControl::NextTickTime()
+{
+	return(nCurrentTickTime + nTickSize );
+}
+
+unsigned long TickControl::Next()
+{
+	nCurrentTick++;
+	nCurrentTickTime = chrono::steady_clock::now();
+	return( nCurrentTick );
 }
 
 /*

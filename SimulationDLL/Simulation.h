@@ -3,15 +3,18 @@
 #include <iostream>
 #include <thread>
 #include "SimDLL.h"
+#include "TickControl.h"
 
 #define MAX_TICK 5000000
+
+using namespace std;
 
 class SIM_API Simulation
 {
 // Private Variables
 private:
 	bool bRunning;
-	std::thread SimThread; 
+	thread SimThread; 
 
 public:
 	Simulation();
@@ -24,4 +27,5 @@ public:
 // Private Methods
 private:	
 	void Loop();
+	TickControl ticker;
 };
