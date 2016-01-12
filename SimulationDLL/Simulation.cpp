@@ -52,9 +52,9 @@ void Simulation::Loop()
 		cout << "Tick: " << nTick << flush;
 
 		//TODO:  This clearly isn't ever causing the current thread to sleep...
-		this_thread::sleep_until( ticker.NextTickTime() + chrono::seconds(5));
+		this_thread::sleep_until( ticker.NextTickTime() + chrono::seconds(500));
 
-		this_thread::sleep_until(ticker.NextTickTime());
+		//this_thread::sleep_until(ticker.NextTickTime());
 		nTick = ticker.Next();
 	}
 
