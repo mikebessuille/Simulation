@@ -7,6 +7,9 @@
 Simulation::Simulation()
 {
 	bRunning = false;
+	// pSimThread = new thread();
+	pSimThread = NULL;
+	pTicker = new TickControl;
 }
 
 
@@ -18,8 +21,18 @@ Simulation::~Simulation()
 		// Todo:  some kind of error happened because the simulation object is being deleted while
 		// the simluation is still running!
 	}
-	if (SimThread.joinable())
-		SimThread.join();  // main thread waits for SimThread to complete
+	if (pSimThread)
+	{
+		if (pSimThread->joinable())
+			pSimThread->join();  // main thread waits for SimThread to complete
+
+		// TODO:  Why does klocwork tell me this is double-freeing the thread??
+		// delete pSimThread;
+		pSimThread = NULL;
+	}
+
+	delete pTicker; 
+	// pTicker = NULL;
 }
 
 // Starts the simulation loop.  May start the simulation multiple times (after pause)
@@ -27,7 +40,7 @@ void Simulation::Start()
 {
 	cout << "Simulation Start\n";
 	bRunning = true;
-	SimThread = thread(&Simulation::Loop, this);
+	pSimThread = new thread(&Simulation::Loop, this);
 }
 
 // Stops the simulation; could just be paused.
@@ -35,6 +48,7 @@ void Simulation::Stop()
 {
 	bRunning = false;
 	// TODO: actually stop the thread! ??
+	// TODO: Then delete the thread
 
 	cout << "Loop Completed" << endl;
 }
@@ -43,8 +57,8 @@ void Simulation::Stop()
 // The main Simulation loop, which executes on a separate thread.
 void Simulation::Loop()
 {
-	unsigned long nTick = ticker.GetCurrentTick();
-	ticker.Start();
+	unsigned long nTick = pTicker->GetCurrentTick();
+	pTicker->Start();
 
 	while (bRunning && nTick < MAX_TICK)
 	{
@@ -52,10 +66,13 @@ void Simulation::Loop()
 		cout << "Tick: " << nTick << flush;
 
 		//TODO:  This clearly isn't ever causing the current thread to sleep...
-		this_thread::sleep_until( ticker.NextTickTime() + chrono::seconds(500));
+		// this_thread::sleep_until( pTicker->NextTickTime() + chrono::seconds(500));
+		chrono::steady_clock::time_point sleep_until_time = pTicker->NextTickTime() + chrono::seconds(500);
+		this_thread::sleep_until( sleep_until_time );
+
 
 		//this_thread::sleep_until(ticker.NextTickTime());
-		nTick = ticker.Next();
+		nTick = pTicker->Next();
 	}
 
 	cout << endl;

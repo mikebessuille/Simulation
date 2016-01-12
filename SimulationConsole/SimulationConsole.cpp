@@ -4,7 +4,7 @@
 #include "stdafx.h"
 #include <iostream>
 
-#include "SimDLL.h"
+// #include "SimDLL.h"
 #include "Simulation.h"
 
 using namespace std;
