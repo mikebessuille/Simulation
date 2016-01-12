@@ -26,13 +26,12 @@ Simulation::~Simulation()
 		if (pSimThread->joinable())
 			pSimThread->join();  // main thread waits for SimThread to complete
 
-		// TODO:  Why does klocwork tell me this is double-freeing the thread??
-		// delete pSimThread;
+		delete pSimThread;
 		pSimThread = NULL;
 	}
 
 	delete pTicker; 
-	// pTicker = NULL;
+	pTicker = NULL;
 }
 
 // Starts the simulation loop.  May start the simulation multiple times (after pause)
@@ -47,8 +46,11 @@ void Simulation::Start()
 void Simulation::Stop()
 {
 	bRunning = false;
+	// TODO: put join() here instead of destructor?  Maybe not... if we expect to be able to start & stop the threads often...
+	// TODO:  maybe I should just set the bRunning flag false, and leave it at that. The thread loop should stop. Can I easily restart the thread with the same
+	// tickcontrol?
 	// TODO: actually stop the thread! ??
-	// TODO: Then delete the thread
+	// TODO: Then delete the thread?
 
 	cout << "Loop Completed" << endl;
 }

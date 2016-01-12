@@ -4,7 +4,7 @@
 // Example file for PR-29218
 foo::foo()
 {
-	pBar = new Bar();
+	pBar = new bar();
 }
 
 
