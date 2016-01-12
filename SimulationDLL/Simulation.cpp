@@ -67,13 +67,14 @@ void Simulation::Loop()
 		cout << "\b\b\b\b\b\b\b\b\b\b\b" << flush;
 		cout << "Tick: " << nTick << flush;
 
-		//TODO:  This clearly isn't ever causing the current thread to sleep...
-		// this_thread::sleep_until( pTicker->NextTickTime() + chrono::seconds(500));
-		chrono::steady_clock::time_point sleep_until_time = pTicker->NextTickTime() + chrono::seconds(500);
-		this_thread::sleep_until( sleep_until_time );
+		//Test code - this wasn't working with steady_clock but works with system_clock.  Bug in STL.
+		// See https://www.reddit.com/r/cpp_questions/comments/3o71ic/sleep_until_not_working_with_a_time_pointsteady/
+		//chrono::system_clock::time_point cur_time = chrono::system_clock::now();
+		//chrono::system_clock::time_point sleep_until_time = pTicker->NextTickTime() + chrono::seconds(500);
+		// this_thread::sleep_until( sleep_until_time );
 
 
-		//this_thread::sleep_until(ticker.NextTickTime());
+		this_thread::sleep_until(pTicker->NextTickTime());
 		nTick = pTicker->Next();
 	}
 

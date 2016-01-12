@@ -5,20 +5,20 @@ TickControl::TickControl()
 {
 	nCurrentTick = 0;
 	nTickSize = chrono::milliseconds( DEFAULT_SIMULATION_FRAME );
-	nCurrentTickTime = chrono::steady_clock::now();
+	nCurrentTickTime = chrono::system_clock::now();
 }
 
 
 void TickControl::Start()
 {
 	// starts ticking
-	nCurrentTickTime = chrono::steady_clock::now();
+	nCurrentTickTime = chrono::system_clock::now();
 }
 
 
 void TickControl::Stop()
 {
-	// nCurrentTickTime = chrono::steady_clock::now();
+	// nCurrentTickTime = chrono::system_clock::now();
 }
 
 
@@ -34,7 +34,7 @@ unsigned long TickControl::GetCurrentTick()
 }
 
 
-chrono::steady_clock::time_point TickControl::NextTickTime()
+chrono::system_clock::time_point TickControl::NextTickTime()
 {
 	return(nCurrentTickTime + nTickSize );
 }
@@ -44,7 +44,7 @@ chrono::steady_clock::time_point TickControl::NextTickTime()
 unsigned long TickControl::Next()
 {
 	nCurrentTick++;
-	nCurrentTickTime = chrono::steady_clock::now();
+	nCurrentTickTime = chrono::system_clock::now();
 	return( nCurrentTick );
 }
 

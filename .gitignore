@@ -89,6 +89,10 @@ ipch/
 # TFS 2012 Local Workspace
 $tf/
 
+# Klocwork files
+.klocwork/
+.klocwork
+
 # Guidance Automation Toolkit
 *.gpState
 
