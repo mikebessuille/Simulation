@@ -24,7 +24,14 @@ int main()
 
 	Simulation sim;
 	sim.Start();
+	cin.get(); // Waits for user input (enter).  Then stops the sim.
+	sim.Stop();
 
+
+	// Test to see if we can restart the simulation after it's been stopped.
+	cout << "Hit Enter to restart..." << endl;
+	std::cin.get();
+	sim.Start();
 	cin.get(); // Waits for user input (enter).  Then stops the sim.
 	sim.Stop();
 

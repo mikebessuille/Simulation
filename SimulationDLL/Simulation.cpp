@@ -18,8 +18,9 @@ Simulation::~Simulation()
 {
 	if (bRunning)
 	{
-		// Todo:  some kind of error happened because the simulation object is being deleted while
+		// some kind of error happened because the simulation object is being deleted while
 		// the simluation is still running!
+		cout << "Failed to Stop simulation before killing app\n";
 	}
 	if (pSimThread)
 	{
@@ -39,6 +40,7 @@ void Simulation::Start()
 {
 	cout << "Simulation Start\n";
 	bRunning = true;
+	assert(!pSimThread);
 	pSimThread = new thread(&Simulation::Loop, this);
 }
 
@@ -46,11 +48,18 @@ void Simulation::Start()
 void Simulation::Stop()
 {
 	bRunning = false;
-	// TODO: put join() here instead of destructor?  Maybe not... if we expect to be able to start & stop the threads often...
-	// TODO:  maybe I should just set the bRunning flag false, and leave it at that. The thread loop should stop. Can I easily restart the thread with the same
-	// tickcontrol?
-	// TODO: actually stop the thread! ??
-	// TODO: Then delete the thread?
+
+	// Join the thread to the main thread so main waits for the thread to finish.
+	// Setting the bRunning flag above should accomplish the same thing; the thread should immediately exit
+	// (after it finishes processing the current tick and checks bRunning again).
+	if (pSimThread)
+	{
+		if (pSimThread->joinable())
+			pSimThread->join();  // main thread waits for SimThread to complete
+
+		delete pSimThread;
+		pSimThread = NULL;
+	}
 
 	cout << "Loop Completed" << endl;
 }

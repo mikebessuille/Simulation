@@ -4,6 +4,7 @@
 #include <thread>
 #include "SimDLL.h"
 #include "TickControl.h"
+#include <assert.h>
 
 #define MAX_TICK 5000000
 
