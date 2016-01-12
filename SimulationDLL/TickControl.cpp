@@ -21,8 +21,6 @@ void TickControl::Stop()
 	// nCurrentTickTime = chrono::steady_clock::now();
 }
 
-// TODO:  Need some way of incrementing the tick (should be a call from the thread loop)
-
 
 // Returns the size of each simulation frame, in MS
 chrono::milliseconds TickControl::GetTickSize()
@@ -41,6 +39,8 @@ chrono::steady_clock::time_point TickControl::NextTickTime()
 	return(nCurrentTickTime + nTickSize );
 }
 
+
+// Increments the tick and returns the new tick number.
 unsigned long TickControl::Next()
 {
 	nCurrentTick++;
