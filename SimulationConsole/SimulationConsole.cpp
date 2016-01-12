@@ -4,13 +4,15 @@
 #include "stdafx.h"
 #include <iostream>
 
-#include "SimDLL.h"
+// #include "SimDLL.h"
 #include "Simulation.h"
+
+using namespace std;
 
 int main()
 {
-	std::cout << "Simulation Console Running\n";
-	// std::cin.ignore(); // Accepts user input but doesn't ever close.
+	std::cout << "Simulation Console Running.  Hit Enter to start Simulation..." << endl;
+	// std::cin.ignore(); // Accepts user input.
 	std::cin.get(); // gets any user input (requires user to hit enter as well)
 
 	/*
@@ -18,10 +20,12 @@ int main()
 	simDLL.RunSimulation();
 	*/
 
+	cout << "Simulation Looping: Hit Enter to stop..." << endl;
+
 	Simulation sim;
 	sim.Start();
 
-	std::cin.get(); // Waits for user input (enter).  Then stops the sim.
+	cin.get(); // Waits for user input (enter).  Then stops the sim.
 	sim.Stop();
 
     return 0;

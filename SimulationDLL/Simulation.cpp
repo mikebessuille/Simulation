@@ -7,6 +7,9 @@
 Simulation::Simulation()
 {
 	bRunning = false;
+	// pSimThread = new thread();
+	pSimThread = NULL;
+	pTicker = new TickControl;
 }
 
 
@@ -18,41 +21,63 @@ Simulation::~Simulation()
 		// Todo:  some kind of error happened because the simulation object is being deleted while
 		// the simluation is still running!
 	}
-	if (SimThread.joinable())
-		SimThread.join();
+	if (pSimThread)
+	{
+		if (pSimThread->joinable())
+			pSimThread->join();  // main thread waits for SimThread to complete
+
+		delete pSimThread;
+		pSimThread = NULL;
+	}
+
+	delete pTicker; 
+	pTicker = NULL;
 }
 
 // Starts the simulation loop.  May start the simulation multiple times (after pause)
 void Simulation::Start()
 {
-	std::cout << "Simulation Start\n";
+	cout << "Simulation Start\n";
 	bRunning = true;
-	SimThread = std::thread(&Simulation::Loop, this);
+	pSimThread = new thread(&Simulation::Loop, this);
 }
 
 // Stops the simulation; could just be paused.
 void Simulation::Stop()
 {
 	bRunning = false;
-	// TODO: actually stop the thread!
+	// TODO: put join() here instead of destructor?  Maybe not... if we expect to be able to start & stop the threads often...
+	// TODO:  maybe I should just set the bRunning flag false, and leave it at that. The thread loop should stop. Can I easily restart the thread with the same
+	// tickcontrol?
+	// TODO: actually stop the thread! ??
+	// TODO: Then delete the thread?
 
-	std::cout << "Loop Completed\n";
+	cout << "Loop Completed" << endl;
 }
 
+
+// The main Simulation loop, which executes on a separate thread.
 void Simulation::Loop()
 {
-	int nTick = 0;
-	
-	std::cout << "Simulation Looping: Hit Enter to stop\n";
+	unsigned long nTick = pTicker->GetCurrentTick();
+	pTicker->Start();
 
 	while (bRunning && nTick < MAX_TICK)
 	{
-		std::cout << "\b\b\b\b\b\b\b\b\b\b\b" << std::flush;
-		std::cout << "Tick: " << nTick << std::flush;
-		nTick++;
+		cout << "\b\b\b\b\b\b\b\b\b\b\b" << flush;
+		cout << "Tick: " << nTick << flush;
+
+		//TODO:  This clearly isn't ever causing the current thread to sleep...
+		// this_thread::sleep_until( pTicker->NextTickTime() + chrono::seconds(500));
+		chrono::steady_clock::time_point sleep_until_time = pTicker->NextTickTime() + chrono::seconds(500);
+		this_thread::sleep_until( sleep_until_time );
+
+
+		//this_thread::sleep_until(ticker.NextTickTime());
+		nTick = pTicker->Next();
 	}
 
-	std::cout << "\n";
+	cout << endl;
 }
 
 /* Happy Face annimation: (From Henry)
