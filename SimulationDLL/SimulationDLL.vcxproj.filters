@@ -24,16 +24,22 @@
     <ClCompile Include="SimDLL.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UnitMgr.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Simulation.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TickControl.h">
-      <Filter>Source Files</Filter>
+    <ClInclude Include="UnitMgr.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SimDLL.h">
-      <Filter>Source Files</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Simulation.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TickControl.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
