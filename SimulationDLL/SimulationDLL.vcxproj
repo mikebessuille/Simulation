@@ -22,12 +22,14 @@
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="TickControl.cpp" />
+    <ClCompile Include="Unit.cpp" />
     <ClCompile Include="UnitMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="TickControl.h" />
+    <ClInclude Include="Unit.h" />
     <ClInclude Include="UnitMgr.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

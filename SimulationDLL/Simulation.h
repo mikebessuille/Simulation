@@ -17,7 +17,7 @@ private:
 	bool bRunning;
 	thread *pSimThread;		// Keep this a pointer and instantiate in constructor, so that I avoid warnings
 							// about exporting a class with STL class
-
+	
 public:
 	Simulation();
 	~Simulation();
