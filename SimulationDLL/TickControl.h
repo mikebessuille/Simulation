@@ -9,6 +9,7 @@ class TickControl sealed
 {
 public:
 	TickControl();
+	~TickControl();
 	void Start();
 	void Stop();
 	chrono::milliseconds GetTickSize();

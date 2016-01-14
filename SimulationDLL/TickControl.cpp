@@ -8,6 +8,10 @@ TickControl::TickControl()
 	nCurrentTickTime = chrono::system_clock::now();
 }
 
+TickControl::~TickControl()
+{
+}
+
 
 void TickControl::Start()
 {
