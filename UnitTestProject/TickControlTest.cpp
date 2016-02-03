@@ -13,7 +13,7 @@ namespace UnitTestProject
 		// Stuff that is setup by the class initializer; these must be static.
 		static TickControl *pStaticTicker;	// Testing statics and CLASS_INITIALIZE.
 		TickControl *pTicker; // use this in the Test Methods; non-static.
-		TickControl ticker;
+		TickControl ticker;  // Single object for this class, so it's not safe to use it in more than one test method
 
 	public:
 		TEST_CLASS_INITIALIZE(TickControlInit)
@@ -50,10 +50,44 @@ namespace UnitTestProject
 
 		TEST_METHOD(TestTickIncrement)
 		{
-			unsigned long cur_tick = ticker.GetCurrentTick();
-			if (cur_tick != 0)
+			unsigned long start_tick = ticker.GetCurrentTick();
+			if (start_tick != 0)
 				Assert::Fail();
 			// Else it succeeds automatically.
+
+			ticker.Start();
+			// Make sure the current tick is still the same as it was before starting. (Starting shouldn't increment the tick).
+			unsigned long cur_tick = ticker.GetCurrentTick();
+			Assert::AreSame(cur_tick, start_tick);
+			
+			// Increment tick , make sure they are different.
+			cur_tick = ticker.Next();
+			Assert::AreNotSame(cur_tick, start_tick);
+			ticker.Stop();
+
+			Assert::AreSame(cur_tick, ticker.GetCurrentTick());
+		}
+
+		TEST_METHOD(TestTickIncrementWithoutStart)
+		{
+			Assert::IsNotNull(pTicker);
+			unsigned long start_tick = pTicker->GetCurrentTick();
+			if (start_tick != 0)
+				Assert::Fail();
+
+			// Try incrementing the tick without Start()
+			unsigned long cur_tick = pTicker->Next();
+			Assert::AreSame(cur_tick, start_tick);
+
+			// Try Starting and stopping the ticker, and then incrementing the tick
+			pTicker->Start();
+			cur_tick = pTicker->Next();
+			Assert::AreNotSame(cur_tick, start_tick);
+			pTicker->Stop();
+
+			// Trying to increment tick when ticker is stopped...
+			unsigned long new_tick = pTicker->Next();
+			Assert::AreSame(new_tick, cur_tick);
 		}
 
 		TEST_METHOD(TestTickDesignedToFail)

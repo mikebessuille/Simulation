@@ -20,6 +20,7 @@ public:
 	unsigned long Next();
 
 private:
+	bool bRunning;
 	unsigned long nCurrentTick;		// The current tick number
 	// chrono::steady_clock::time_point nCurrentTickTime;  // The starting time of the current tick
 	chrono::system_clock::time_point nCurrentTickTime;  // The starting time of the current tick
