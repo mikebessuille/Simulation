@@ -30,7 +30,10 @@
     <ClCompile Include="UnitMgr.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Unit.cpp">
+    <ClCompile Include="UnitBase.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
+    <ClCompile Include="ExampleUnit.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
   </ItemGroup>
@@ -47,8 +50,14 @@
     <ClInclude Include="TickControl.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Unit.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="UnitBase.h">
+      <Filter>Source Files\Units</Filter>
     </ClInclude>
+    <ClInclude Include="ExampleUnit.h">
+      <Filter>Source Files\Units</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
 </Project>

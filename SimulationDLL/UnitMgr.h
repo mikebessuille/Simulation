@@ -1,6 +1,6 @@
 #pragma once
 
-#include "Unit.h"
+#include "UnitBase.h"
 #include <vector>
 #include <iostream>
 
@@ -15,6 +15,6 @@ public:
 	
 
 private:
-	std::vector<Unit*> unitList;
+	std::vector<UnitBase*> unitList;
 };
 

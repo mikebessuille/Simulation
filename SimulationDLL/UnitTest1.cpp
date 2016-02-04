@@ -3,17 +3,14 @@
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
-namespace NewTestClass
+namespace SimulationDLL
 {		
-	TEST_CLASS(NewTestClass)
+	TEST_CLASS(SimulationDLL)
 	{
 	public:
-		TEST_METHOD(TestMethod3)
+		TEST_METHOD(TestMethod1)
 		{
 			// TODO: Your test code here
-			int i = 3;
-			int j = 4;
-			//Assert::NotEqual(i, j);
 		}
 	};
 }

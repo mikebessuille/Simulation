@@ -19,18 +19,23 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ExampleUnit.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="TickControl.cpp" />
-    <ClCompile Include="Unit.cpp" />
+    <ClCompile Include="UnitBase.cpp" />
     <ClCompile Include="UnitMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ExampleUnit.h" />
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="TickControl.h" />
-    <ClInclude Include="Unit.h" />
+    <ClInclude Include="UnitBase.h" />
     <ClInclude Include="UnitMgr.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram.cd" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{7743794C-1618-4671-88D7-769E12E79CA4}</ProjectGuid>
