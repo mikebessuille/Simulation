@@ -58,36 +58,36 @@ namespace UnitTestProject
 			ticker.Start();
 			// Make sure the current tick is still the same as it was before starting. (Starting shouldn't increment the tick).
 			unsigned long cur_tick = ticker.GetCurrentTick();
-			Assert::AreSame(cur_tick, start_tick);
+			Assert::AreEqual(cur_tick, start_tick);
 			
 			// Increment tick , make sure they are different.
 			cur_tick = ticker.Next();
-			Assert::AreNotSame(cur_tick, start_tick);
+			Assert::AreNotEqual(cur_tick, start_tick);
 			ticker.Stop();
 
-			Assert::AreSame(cur_tick, ticker.GetCurrentTick());
+			Assert::AreEqual(cur_tick, ticker.GetCurrentTick());
 		}
 
 		TEST_METHOD(TestTickIncrementWithoutStart)
 		{
 			Assert::IsNotNull(pTicker);
 			unsigned long start_tick = pTicker->GetCurrentTick();
-			if (start_tick != 0)
-				Assert::Fail();
+			Assert::AreEqual(start_tick, (unsigned long)0);
 
 			// Try incrementing the tick without Start()
 			unsigned long cur_tick = pTicker->Next();
-			Assert::AreSame(cur_tick, start_tick);
+			Assert::AreEqual(cur_tick, start_tick);
 
 			// Try Starting and stopping the ticker, and then incrementing the tick
 			pTicker->Start();
 			cur_tick = pTicker->Next();
-			Assert::AreNotSame(cur_tick, start_tick);
+			Assert::AreNotEqual(cur_tick, start_tick);
 			pTicker->Stop();
 
 			// Trying to increment tick when ticker is stopped...
 			unsigned long new_tick = pTicker->Next();
-			Assert::AreSame(new_tick, cur_tick);
+			Assert::AreEqual(new_tick, cur_tick);
+			Assert::AreNotEqual(new_tick, start_tick);
 		}
 
 		TEST_METHOD(TestTickDesignedToFail)

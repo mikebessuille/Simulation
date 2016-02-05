@@ -12,6 +12,7 @@ class UnitMgr
 public:
 	UnitMgr();
 	~UnitMgr();
+	int NumUnits() { return unitList.size(); }
 	
 
 private:

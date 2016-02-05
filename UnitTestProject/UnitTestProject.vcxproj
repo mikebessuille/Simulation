@@ -179,6 +179,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="UnitMgrTest.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SimulationDLL\SimulationDLL.vcxproj">
