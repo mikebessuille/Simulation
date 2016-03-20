@@ -10,6 +10,8 @@ Simulation::Simulation()
 	// pSimThread = new thread();
 	pSimThread = NULL;
 	pTicker = new TickControl;
+
+	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
 }
 
 
@@ -76,12 +78,7 @@ void Simulation::Loop()
 		cout << "\b\b\b\b\b\b\b\b\b\b\b" << flush;
 		cout << "Tick: " << nTick << flush;
 
-		//Test code - this wasn't working with steady_clock but works with system_clock.  Bug in STL.
-		// See https://www.reddit.com/r/cpp_questions/comments/3o71ic/sleep_until_not_working_with_a_time_pointsteady/
-		//chrono::system_clock::time_point cur_time = chrono::system_clock::now();
-		//chrono::system_clock::time_point sleep_until_time = pTicker->NextTickTime() + chrono::seconds(500);
-		// this_thread::sleep_until( sleep_until_time );
-
+		// TODO:  Put the per-tick work here
 
 		this_thread::sleep_until(pTicker->NextTickTime());
 		nTick = pTicker->Next();
