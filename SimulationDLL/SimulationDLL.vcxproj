@@ -20,6 +20,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ExampleUnit.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="TickControl.cpp" />
@@ -28,6 +29,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ExampleUnit.h" />
+    <ClInclude Include="Player.h" />
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="TickControl.h" />
