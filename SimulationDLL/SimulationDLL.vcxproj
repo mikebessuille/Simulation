@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="ExampleUnit.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="PlayerList.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="TickControl.cpp" />
@@ -30,6 +31,7 @@
   <ItemGroup>
     <ClInclude Include="ExampleUnit.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="PlayerList.h" />
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="TickControl.h" />

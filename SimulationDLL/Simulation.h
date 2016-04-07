@@ -5,6 +5,7 @@
 #include "SimDLL.h"
 #include "TickControl.h"
 #include <assert.h>
+#include "PlayerList.h"
 
 #define MAX_TICK 5000000
 
@@ -18,9 +19,10 @@ private:
 	thread *pSimThread;		// Keep this a pointer and instantiate in constructor, so that I avoid warnings
 							// about exporting a class with STL class
 	TickControl *pTicker;	// Needs to be a pointer in order to avoid warnings about STL classes being exported.
-	
+	PlayerList *pPlayers;
+
 public:
-	Simulation();
+	Simulation(PlayerList *);
 	~Simulation();
 
 	void Start();

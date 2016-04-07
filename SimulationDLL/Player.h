@@ -2,7 +2,6 @@
 
 #include "UnitMgr.h"
 
-
 class Player
 {
 public:

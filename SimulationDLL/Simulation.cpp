@@ -1,15 +1,19 @@
 ﻿#include "Simulation.h"
 #include <thread>
+#include <assert.h>
 // #include <chrono>
 
 
 // Initialize the simulation.
-Simulation::Simulation()
+Simulation::Simulation( PlayerList *pPlayerList )
 {
 	bRunning = false;
 	// pSimThread = new thread();
 	pSimThread = NULL;
 	pTicker = new TickControl;
+	pPlayers = pPlayerList;
+
+	assert(pPlayerList);
 
 	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
 }
