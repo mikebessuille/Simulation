@@ -3,6 +3,7 @@
 #include "UnitBase.h"
 #include <vector>
 #include <iostream>
+#include <chrono>
 
 
 // using namespace std;
@@ -25,7 +26,7 @@ private:
 public:
 	UnitMgr();
 	~UnitMgr();
-	void Action();
+	void Action( unsigned long nTick, std::chrono::milliseconds nTickSize );
 	
 private:
 	int NumUnits() { return unitList.size(); }

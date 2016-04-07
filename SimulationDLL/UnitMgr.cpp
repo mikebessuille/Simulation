@@ -42,12 +42,12 @@ void UnitMgr::DestroyUnit(int id, UnitBase * pUnit)
 
 
 // Take action on each unit, called once per tick
-void UnitMgr::Action()
+void UnitMgr::Action( unsigned long nTick, std::chrono::milliseconds nTickSize )
 {
 	for (auto &it : unitList)
 	{
-		// TODO:  Do something with each unit
-		// it.something...
+		// Do something with each unit
+		it->Action( nTick );
 	}
 }
 

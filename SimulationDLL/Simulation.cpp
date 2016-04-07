@@ -77,6 +77,7 @@ void Simulation::Stop()
 void Simulation::Loop()
 {
 	unsigned long nTick = pTicker->GetCurrentTick();
+	std::chrono::milliseconds nTickSize = pTicker->GetTickSize();
 	pTicker->Start();
 
 	while (bRunning && nTick < MAX_TICK)
@@ -87,7 +88,7 @@ void Simulation::Loop()
 		// Per-tick work:
 		for (auto pl : pGame->playerList)
 		{
-			pl.UM.Action();
+			pl.UM.Action( nTick, nTickSize );
 		}
 
 		this_thread::sleep_until(pTicker->NextTickTime());
