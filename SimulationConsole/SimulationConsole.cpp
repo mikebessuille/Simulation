@@ -3,9 +3,12 @@
 
 #include "stdafx.h"
 #include <iostream>
+#include <string>
 
 // #include "SimDLL.h"
 #include "Simulation.h"
+#include "Game.h"
+#include "Player.h"
 
 using namespace std;
 
@@ -20,24 +23,28 @@ int main()
 	simDLL.RunSimulation();
 	*/
 
+	Game game;
+	
+	// TODO:  Move all this to a new Unit Test!!!
 
-	// TODO: Replace all this code with a new Game object which holds the players, simulation, etc.
-	// And which has an IntegrationTest runner which does the stuff below...?
+	for (auto pl : game.playerList)
+	{
+		cout << pl.Name << endl;
+	}
+	cout << endl;
 
 	cout << "Simulation Looping: Hit Enter to stop..." << endl;
-
-	Simulation sim;
-	sim.Start();
+	game.sim.Start();
 	cin.get(); // Waits for user input (enter).  Then stops the sim.
-	sim.Stop();
+	game.sim.Stop();
 
 
 	// Test to see if we can restart the simulation after it's been stopped.
 	cout << "Hit Enter to restart..." << endl;
 	std::cin.get();
-	sim.Start();
+	game.sim.Start();
 	cin.get(); // Waits for user input (enter).  Then stops the sim.
-	sim.Stop();
+	game.sim.Stop();
 
     return 0;
 }

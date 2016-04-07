@@ -2,9 +2,9 @@
 
 
 
-Player::Player()
+Player::Player(std::string n )
 {
-
+	Name = n;
 }
 
 

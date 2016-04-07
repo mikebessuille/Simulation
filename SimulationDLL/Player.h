@@ -5,10 +5,11 @@
 class Player
 {
 public:
-	Player();
+	Player(std::string n);
 	~Player();
 
 public:
 	UnitMgr UM;
+	std::string Name;
 };
 
