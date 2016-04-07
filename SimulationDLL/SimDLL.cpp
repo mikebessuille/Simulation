@@ -1,12 +1,18 @@
 
 #include "SimDLL.h"
+#include "Game.h"
 #include "Simulation.h"
 
 bool DLLClass::RunSimulation()
 {
-	Simulation sim;
+	// Old, replaced by Game object
+	//Simulation sim;
+	//sim.Start();
 
-	sim.Start();
+	Game game;
+
+	game.sim.Start();
+
 
 	return(true);
 }

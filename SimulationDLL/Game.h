@@ -4,6 +4,7 @@
 #include <list>
 
 // Game class to hold the simulation, players, etc.
+
 class Game
 {
 // Member Variables

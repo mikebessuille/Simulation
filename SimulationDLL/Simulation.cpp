@@ -5,12 +5,14 @@
 
 
 // Initialize the simulation.
-Simulation::Simulation()
+Simulation::Simulation( Game *parent )
 {
 	bRunning = false;
 	// pSimThread = new thread();
 	pSimThread = NULL;
 	pTicker = new TickControl;
+	pGame = parent;
+	assert( pGame );
 
 	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
 }

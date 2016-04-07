@@ -10,6 +10,8 @@
 
 using namespace std;
 
+class Game; // forward declare
+
 class SIM_API Simulation
 {
 // Private Variables
@@ -18,9 +20,10 @@ private:
 	thread *pSimThread;		// Keep this a pointer and instantiate in constructor, so that I avoid warnings
 							// about exporting a class with STL class
 	TickControl *pTicker;	// Needs to be a pointer in order to avoid warnings about STL classes being exported.
+	Game *pGame;			// parent!
 
 public:
-	Simulation();
+	Simulation( Game *parent );
 	~Simulation();
 
 	void Start();

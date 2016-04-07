@@ -2,7 +2,7 @@
 
 // Game class to hold the simulation, players, etc.
 
-Game::Game()
+Game::Game() : sim(this)
 {
 	// Todo:  move this to a unit (integration) test...
 	playerList.push_back(Player("Mike"));
