@@ -9,6 +9,8 @@ Game::Game() : sim(this)
 	playerList.push_back(Player("Bob"));
 	playerList.push_back(Player("Sally"));
 
+	// TODO: initialize each player's Unit Manager
+
 }
 
 

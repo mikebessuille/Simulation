@@ -1,6 +1,9 @@
 ﻿#include "Simulation.h"
+#include "Game.h"
+#include "UnitMgr.h"
 #include <thread>
 #include <assert.h>
+#include <string>
 // #include <chrono>
 
 
@@ -81,7 +84,11 @@ void Simulation::Loop()
 		cout << "\b\b\b\b\b\b\b\b\b\b\b" << flush;
 		cout << "Tick: " << nTick << flush;
 
-		// TODO:  Put the per-tick work here
+		// Per-tick work:
+		for (auto pl : pGame->playerList)
+		{
+			pl.UM.Action();
+		}
 
 		this_thread::sleep_until(pTicker->NextTickTime());
 		nTick = pTicker->Next();

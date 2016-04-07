@@ -25,6 +25,7 @@ private:
 public:
 	UnitMgr();
 	~UnitMgr();
+	void Action();
 	
 private:
 	int NumUnits() { return unitList.size(); }

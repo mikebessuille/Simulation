@@ -14,13 +14,6 @@ UnitMgr::UnitMgr()
 
 UnitMgr::~UnitMgr()
 {
-	/* Older iterator format...
-	for (std::vector<Unit*>::iterator it = unitList.begin(); it != unitList.end(); ++it)
-	{
-		// std::cout << *it; ...
-	}
-	*/
-
 	// C++11 functionality for iterators!
 	for (auto &it : unitList)
 	{
@@ -48,14 +41,17 @@ void UnitMgr::DestroyUnit(int id, UnitBase * pUnit)
 }
 
 
+// Take action on each unit, called once per tick
+void UnitMgr::Action()
+{
+	for (auto &it : unitList)
+	{
+		// TODO:  Do something with each unit
+		// it.something...
+	}
+}
+
 // removes the unit from this list without destroying it (for example, if you're moving this unit to another UnitMgr).
 void UnitMgr::RemoveUnit( int id, UnitBase * pUnit)
 {
 }
-
-/* STD: Vector iterator:  Something like this:
-for (auto &unit : UM.unitList)
-{
-	unit->...();
-}
-*/
