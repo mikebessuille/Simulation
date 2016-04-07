@@ -20,6 +20,10 @@ int main()
 	simDLL.RunSimulation();
 	*/
 
+
+	// TODO: Replace all this code with a new Game object which holds the players, simulation, etc.
+	// And which has an IntegrationTest runner which does the stuff below...?
+
 	cout << "Simulation Looping: Hit Enter to stop..." << endl;
 
 	Simulation sim;
