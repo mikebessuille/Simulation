@@ -5,15 +5,12 @@
 
 
 // Initialize the simulation.
-Simulation::Simulation( PlayerList *pPlayerList )
+Simulation::Simulation()
 {
 	bRunning = false;
 	// pSimThread = new thread();
 	pSimThread = NULL;
 	pTicker = new TickControl;
-	pPlayers = pPlayerList;
-
-	assert(pPlayerList);
 
 	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
 }
