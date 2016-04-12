@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "UnitMgr.h"
-#include "UnitBase.h"
 #include "ExampleUnit.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -32,28 +31,25 @@ namespace UnitTestProject
 
 		void DestroyList(UnitMgr UM)
 		{
-			/*
-			// This is a terrible way to destroy the list... and it leaks the actual objects!
-			// (It's a list of pointers; this just removes the pointers but doesn't free what is being pointed to)
 			auto it = UM.unitList.begin();
-			while (it != UM.unitList.end())
+			while( it != UM.unitList.end() )
 			{
 				int nOldSize = UM.NumUnits();
-				it = UM.unitList.erase(it);
-				int nNewSize = UM.NumUnits();
-				Assert::AreNotEqual(nOldSize, nNewSize);
-				// How can we verify that the memory actually got deleted?
-			}
-			*/
+				UnitBase *pUnit = *it;
+				delete pUnit;
 
-			for (auto unit : UM.unitList)
-			{
-				int nOldSize = UM.NumUnits();
-				// TODO:  Not sure why this fails to compile!
-				delete (UnitBase)*unit;	// Delete the unit that is pointed to
-				unit = UM.unitList.erase(unit);	// Remove it from the Vector
+				std::list<UnitBase *>::iterator newIt = it;
+				UM.unitList.erase(newIt); // ignore it's return iterator
 				int nNewSize = UM.NumUnits();
 				Assert::AreNotEqual(nOldSize, nNewSize);
+
+				++it;
+				// increment at end of while loop.  If i tried to use a for loop, I would get a KW ITER.END.DEREF.MIGHT
+				// with:
+				// delete pUnit;
+				// it = UM.unitList.erase( it ); // returns next iterator
+				// because the iterator returned by erase may point to the end.  Then it was being incremented in the for loop
+				// (now pointing past the end!)
 			}
 		}
 
@@ -77,14 +73,3 @@ namespace UnitTestProject
 
 	};
 }
-
-
-/* // This doesn't work... exception in Vector class.
-for (int pos = UM.NumUnits(); pos > 0; pos-- )
-{
-int nOldSize = UM.NumUnits();
-UnitBase *pUnit = UM.unitList.at(pos);
-UM.DestroyUnit(pos, pUnit );
-
-}
-*/

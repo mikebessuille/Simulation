@@ -1,7 +1,7 @@
 #pragma once
 
 #include "UnitBase.h"
-#include <vector>
+#include <list>
 #include <iostream>
 #include <chrono>
 
@@ -20,7 +20,7 @@ class UnitMgr
 
 // Class Variables
 private:
-	std::vector<UnitBase*> unitList;
+	std::list<UnitBase*> unitList;
 
 // Class Methods
 public:
@@ -31,7 +31,7 @@ public:
 private:
 	int NumUnits() { return unitList.size(); }
 	void AddUnit(UnitBase *pUnit);
-	void DestroyUnit(int id, UnitBase *pUnit);
-	void RemoveUnit(int id, UnitBase *pUnit);
+	void DestroyUnit( std::list<UnitBase*>::iterator it);
+	void RemoveUnit(std::list<UnitBase*>::iterator it);
 };
 
