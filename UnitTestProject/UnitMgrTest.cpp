@@ -4,6 +4,7 @@
 #include "ExampleUnit.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
+using namespace std;
 
 namespace UnitTestProject
 {		
@@ -20,16 +21,22 @@ namespace UnitTestProject
 		}
 		
 		
-		void PopulateList(UnitMgr UM)
+		void PopulateList(UnitMgr &UM)
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				UM.AddUnit(new ExampleUnit());
+				ExampleUnit *pUnit = new ExampleUnit();
+				pUnit->x = 0;
+				pUnit->y = i;
+				pUnit->dx = (double)10/(i+1);
+				pUnit->dy = 0;
+				UM.AddUnit( pUnit );
 				Assert::AreEqual(UM.NumUnits(), i + 1);
 			}
+			Assert::AreEqual(UM.NumUnits(), 10);
 		}
 
-		void DestroyList(UnitMgr UM)
+		void DestroyList(UnitMgr &UM)
 		{
 			auto it = UM.unitList.begin();
 			while( it != UM.unitList.end() )
@@ -38,27 +45,48 @@ namespace UnitTestProject
 				UnitBase *pUnit = *it;
 				delete pUnit;
 
+				/*
 				std::list<UnitBase *>::iterator newIt = it;
-				UM.unitList.erase(newIt); // ignore it's return iterator
+				UM.unitList.erase(newIt);
+				++it;
+				*/
+				it = UM.unitList.erase(it);
 				int nNewSize = UM.NumUnits();
 				Assert::AreNotEqual(nOldSize, nNewSize);
+			}
+			Assert::AreEqual(UM.NumUnits(), 0);
+		}
 
-				++it;
-				// increment at end of while loop.  If i tried to use a for loop, I would get a KW ITER.END.DEREF.MIGHT
-				// with:
-				// delete pUnit;
-				// it = UM.unitList.erase( it ); // returns next iterator
-				// because the iterator returned by erase may point to the end.  Then it was being incremented in the for loop
-				// (now pointing past the end!)
+
+		void OutputLocations(UnitMgr &UM)
+		{
+			for (auto it : UM.unitList)
+			{
+				std::string message = "X: " + to_string(it->x) + "		Y: " + to_string(it->y);
+				const char * c_msg = message.c_str();
+				Logger::WriteMessage(c_msg);
 			}
 		}
 
-		void DoSomethingWithList(UnitMgr UM)
+
+		void DoSomethingWithList(UnitMgr &UM)
 		{
-			for (auto &unit : UM.unitList)
+			Logger::WriteMessage("Starting Unit Positions:");
+			OutputLocations(UM);
+			
+			
+			for (int nTick = 0; nTick < 10; nTick++)
 			{
-				//unit->...();
+				for (auto &unit : UM.unitList)
+				{
+					unit->x += unit->dx;
+					unit->y += unit->dy;
+				}
 			}
+			
+			// After moving all the units, output their locations to the test output console
+			Logger::WriteMessage("Ending Unit Positions:");
+			OutputLocations(UM);
 		}
 
 		TEST_METHOD(TestUnitMgrList)

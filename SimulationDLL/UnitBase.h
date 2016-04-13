@@ -9,5 +9,9 @@ public:
 // Member Variables
 private:
 	unsigned long nLastUpdateTick;
+
+public:
+	double x, y;
+	double dx, dy;
 };
 

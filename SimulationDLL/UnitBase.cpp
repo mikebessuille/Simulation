@@ -5,6 +5,8 @@
 UnitBase::UnitBase()
 {
 	nLastUpdateTick = 0;
+	x = y = 0;
+	dx = dy = 0;
 }
 
 
