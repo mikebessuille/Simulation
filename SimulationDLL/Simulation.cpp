@@ -6,6 +6,7 @@
 #include <string>
 // #include <chrono>
 
+mutex Simulation::simLock;
 
 // Initialize the simulation.
 Simulation::Simulation( Game *parent )
@@ -18,6 +19,9 @@ Simulation::Simulation( Game *parent )
 	assert( pGame );
 
 	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
+
+	// TODO: need to use simLock mutex to lock access to Simulation data that may be accessed by multiple threads.
+	// Including Ticker?
 }
 
 

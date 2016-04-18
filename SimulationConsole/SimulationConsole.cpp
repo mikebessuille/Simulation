@@ -12,6 +12,15 @@
 
 using namespace std;
 
+
+void CreateSomeUsers( Game &g )
+{
+	g.playerList.push_back(Player("Mike"));
+	g.playerList.push_back(Player("Bob"));
+	g.playerList.push_back(Player("Sally"));
+}
+
+
 int main()
 {
 	std::cout << "Simulation Console Running.  Hit Enter to start Simulation..." << endl;
@@ -24,9 +33,11 @@ int main()
 	*/
 
 	Game game;
-	
-	// TODO:  Move all this to a new Unit Test!!!
 
+	// TODO:  Move all this to a new Unit Test!!!
+	CreateSomeUsers(game);
+
+	cout << "Players:" << endl;
 	for (auto pl : game.playerList)
 	{
 		cout << pl.Name << endl;

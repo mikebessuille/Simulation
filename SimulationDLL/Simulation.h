@@ -5,6 +5,8 @@
 #include "SimDLL.h"
 #include "TickControl.h"
 #include <assert.h>
+#include <mutex>
+#include <shared_mutex>
 
 #define MAX_TICK 5000000
 
@@ -21,6 +23,7 @@ private:
 							// about exporting a class with STL class
 	TickControl *pTicker;	// Needs to be a pointer in order to avoid warnings about STL classes being exported.
 	Game *pGame;			// parent!
+	static mutex simLock;	// For locking any data within Simulation that might be accessed by multiple threads.
 
 public:
 	Simulation( Game *parent );
