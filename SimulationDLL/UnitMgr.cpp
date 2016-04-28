@@ -56,11 +56,23 @@ void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 
 
 // Take action on each unit, called once per tick
-void UnitMgr::Action(unsigned long nTick, std::chrono::milliseconds nTickSize)
+// TickSize used to determine how far to move each unit.
+void UnitMgr::Action(unsigned long nTick)
 {
 	for (auto &it : unitList)
 	{
 		// Do something with each unit
 		it->Action(nTick);
+
+		// TODO:  Check to make sure we haven't spent too much time in this loop.
+		// May not update all units each tick, if we run out of time.
+		// Which is why each unit stores its last-updated-tick value each time it gets an action.
+		// need some mechanism to evaluate which units haven't taken an action recently and do them first.
+		// (Build a list of pointers to least-recently-updated units, and go through them IF the previous tick didn't
+		// manage to upate all units)
+
+		// TODO:  NO!  The above is wrong.  Never process more than one tick at a time, and always process a whole tick.
+		// The system has to be deterministic between all machines running the exact same simulation.  A tick must be processed as a whole,
+		// in exactly the same way (same order, same random seed, etc) in order to ensure it is identical on each machine in the network.
 	}
 }

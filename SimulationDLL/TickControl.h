@@ -18,6 +18,7 @@ public:
 	chrono::system_clock::time_point NextTickTime();
 	unsigned long GetCurrentTick();
 	unsigned long Next();
+	bool Late();
 
 private:
 	bool bRunning;

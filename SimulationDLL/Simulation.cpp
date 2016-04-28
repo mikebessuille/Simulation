@@ -4,7 +4,6 @@
 #include <thread>
 #include <assert.h>
 #include <string>
-// #include <chrono>
 
 mutex Simulation::simLock;
 
@@ -81,7 +80,6 @@ void Simulation::Stop()
 void Simulation::Loop()
 {
 	unsigned long nTick = pTicker->GetCurrentTick();
-	std::chrono::milliseconds nTickSize = pTicker->GetTickSize();
 	pTicker->Start();
 
 	while (bRunning && nTick < MAX_TICK)
@@ -90,12 +88,22 @@ void Simulation::Loop()
 		cout << "Tick: " << nTick << flush;
 
 		// Per-tick work:
-		for (auto pl : pGame->playerList)
+		for (auto player : pGame->playerList)
 		{
-			pl.UM.Action( nTick, nTickSize );
+			player.UM.Action( nTick );
 		}
-
-		this_thread::sleep_until(pTicker->NextTickTime());
+				
+		if (pTicker->Late())
+		{
+			// TODO:  We spent more time processing that tick than the ticksize; if so, we are falling behind and need
+			// to inform the other computers in the simulation?  Or we need to try to catch up somehow on this machine...
+		}
+		else
+		{
+			this_thread::sleep_until(pTicker->NextTickTime());
+		}
+		
+		// process the next tick
 		nTick = pTicker->Next();
 	}
 

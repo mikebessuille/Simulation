@@ -26,7 +26,7 @@ private:
 public:
 	UnitMgr();
 	~UnitMgr();
-	void Action( unsigned long nTick, std::chrono::milliseconds nTickSize );
+	void Action( unsigned long nTick );
 	
 private:
 	int NumUnits() { return unitList.size(); }

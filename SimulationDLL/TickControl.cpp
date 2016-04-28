@@ -60,3 +60,12 @@ unsigned long TickControl::Next()
 	}
 	return(nCurrentTick);
 }
+
+// Returns true if we are past the time that we should have started the next tick.
+bool TickControl::Late()
+{
+	if (chrono::system_clock::now() > (nCurrentTickTime + nTickSize))
+		return true;
+	else
+		return false;
+}
