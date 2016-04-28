@@ -12,7 +12,14 @@ private:
 	unsigned long nLastUpdateTick;
 
 public:
-	double x, y;
-	double dx, dy;
+	double x, y;	// current location; should change this to some kind of "point" structure/object
+	double dx, dy;	// current velocity
+
+	//TODO:  Need destination location
+	//TODO:  Need a pointer (or identifier) of an enemy target
+
+// Statics
+public:
+	static unsigned long FrameSize; // milliseconds per tick
 };
 

@@ -1,6 +1,8 @@
 #include "UnitBase.h"
+#include <assert.h>
 
-
+// Initialize class statics
+unsigned long UnitBase::FrameSize = 0;
 
 UnitBase::UnitBase()
 {
@@ -19,5 +21,7 @@ void UnitBase::Action( unsigned long nTick )
 {
 	// TODO: Get rid of nLastUpdateTick; not needed, because we must never process more than one tick at a time for each unit,
 	// because that would break exact determinism between different machines in the same game.
+	// For now, use it as error checking to ensure we update every tick.
+	assert(nLastUpdateTick == 0 || nTick == nLastUpdateTick + 1);
 	nLastUpdateTick = nTick;
 }

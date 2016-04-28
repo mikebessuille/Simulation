@@ -97,6 +97,7 @@ void Simulation::Loop()
 		{
 			// TODO:  We spent more time processing that tick than the ticksize; if so, we are falling behind and need
 			// to inform the other computers in the simulation?  Or we need to try to catch up somehow on this machine...
+			cout << endl << "LATE!!  Took too long to process a tick." << endl;
 		}
 		else
 		{

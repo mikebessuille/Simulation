@@ -55,8 +55,10 @@ void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 }
 
 
-// Take action on each unit, called once per tick
-// TickSize used to determine how far to move each unit.
+// Take action on each unit, called once per tick.  Must be called once per tick, in order to keep this deterministic
+// between all the machines in the game so that they all run the exact same simulation.
+// Always process an entire tick at once, for all units.  Must be in the exact same order on each machine in the game.
+// Never try to process multiple ticks at once!
 void UnitMgr::Action(unsigned long nTick)
 {
 	for (auto &it : unitList)
@@ -64,15 +66,10 @@ void UnitMgr::Action(unsigned long nTick)
 		// Do something with each unit
 		it->Action(nTick);
 
-		// TODO:  Check to make sure we haven't spent too much time in this loop.
-		// May not update all units each tick, if we run out of time.
-		// Which is why each unit stores its last-updated-tick value each time it gets an action.
-		// need some mechanism to evaluate which units haven't taken an action recently and do them first.
-		// (Build a list of pointers to least-recently-updated units, and go through them IF the previous tick didn't
-		// manage to upate all units)
+		// TODO:  How do we get the ticksize into each unit?  It's owned by the TickControl object...  Should be a static set
+		// into UnitBase?
+		// TickSize used to determine how far to move each unit.
+		// Set the UnitBase "FrameSize" static from TickControl?  Or from Simulation???
 
-		// TODO:  NO!  The above is wrong.  Never process more than one tick at a time, and always process a whole tick.
-		// The system has to be deterministic between all machines running the exact same simulation.  A tick must be processed as a whole,
-		// in exactly the same way (same order, same random seed, etc) in order to ensure it is identical on each machine in the network.
 	}
 }
