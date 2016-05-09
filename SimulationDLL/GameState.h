@@ -13,6 +13,8 @@ namespace UnitTestProject {
 	class ThreadTest;
 }
 
+// Forward declare UnitMgr
+class UnitMgr;
 
 class GameState
 {

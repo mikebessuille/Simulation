@@ -42,3 +42,8 @@ void Game::Stop()
 		sim.Stop();
 	}
 }
+
+GameState *Game::GetGameState()
+{
+	return &gs;
+}

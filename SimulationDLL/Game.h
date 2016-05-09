@@ -35,5 +35,7 @@ public:
 	bool InitializeGame();
 	void Start();
 	void Stop();
+
+	GameState *GetGameState();
 };
 
