@@ -44,18 +44,20 @@ int main()
 	}
 	cout << endl;
 
+	game.InitializeGame();
+
 	cout << "Simulation Looping: Hit Enter to stop..." << endl;
-	game.sim.Start();
+	game.Start();
 	cin.get(); // Waits for user input (enter).  Then stops the sim.
-	game.sim.Stop();
+	game.Stop();
 
 
 	// Test to see if we can restart the simulation after it's been stopped.
 	cout << "Hit Enter to restart..." << endl;
 	std::cin.get();
-	game.sim.Start();
+	game.Start();
 	cin.get(); // Waits for user input (enter).  Then stops the sim.
-	game.sim.Stop();
+	game.Stop();
 
     return 0;
 }

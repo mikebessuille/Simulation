@@ -11,7 +11,7 @@ bool DLLClass::RunSimulation()
 
 	Game game;
 
-	game.sim.Start();
+	game.Start();
 
 
 	return(true);

@@ -36,6 +36,7 @@ public:
 // Private Methods
 private:	
 	void Loop();
+	void Update(unsigned long nTick);
 	
 	Simulation& operator=(const Simulation&) { return *this; } // Declare a private assignment operator to avoid KW CL.FFM.ASSIGN warning about multiple freeing of memory if an object was copied.
 	Simulation(const Simulation& src) { /* do not create copies */ } // Declared private to avoid KW CL.FFM.COPY

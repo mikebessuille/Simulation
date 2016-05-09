@@ -1,11 +1,11 @@
 #pragma once
-#include "Simulation.h"
-#include "GameState.h"
-#include "Player.h"
+
 #include <list>
+#include "UnitMgr.h"
 
-// Game class to hold the simulation, players, etc.
 
+// The GameState class contains all the data needed to run a simulation, or to render a particular frame.
+// Need to make access to GameState threadsafe so that Render() and Simulation Update() calls don't have concurrency problems.
 
 // Forward declare the unit test class so it can be a friend of this class, despite being in a different namespace
 // and a different project
@@ -14,26 +14,17 @@ namespace UnitTestProject {
 }
 
 
-class Game
+class GameState
 {
 	friend class UnitTestProject::ThreadTest; // so that the tests can call private methods.
 
 // Member Variables
-private:
-	Simulation sim;
-	GameState gs;
-	bool bInitialized = false;
-
 public:
-	std::list<Player> playerList;
+	std::list<UnitMgr *> UMList;
 
 // Class Methods
 public:
-	Game();
-	~Game();
-
-	bool InitializeGame();
-	void Start();
-	void Stop();
+	GameState();
+	~GameState();
 };
 

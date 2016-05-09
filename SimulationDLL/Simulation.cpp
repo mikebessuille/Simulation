@@ -7,6 +7,8 @@
 
 mutex Simulation::simLock;
 
+// Simulation class that owns the game state.  It does NOT have anything to do with Rendering, User Input, or Networking.
+
 // Initialize the simulation.
 Simulation::Simulation( Game *parent )
 {
@@ -49,10 +51,14 @@ Simulation::~Simulation()
 // Starts the simulation loop.  May start the simulation multiple times (after pause)
 void Simulation::Start()
 {
-	cout << "Simulation Start\n";
-	bRunning = true;
-	assert(!pSimThread);
-	pSimThread = new thread(&Simulation::Loop, this);
+	assert(bRunning == false);
+	if (!bRunning)
+	{
+		cout << "Simulation Start\n";
+		bRunning = true;
+		assert(!pSimThread);
+		pSimThread = new thread(&Simulation::Loop, this);
+	}
 }
 
 // Stops the simulation; could just be paused.
@@ -88,10 +94,7 @@ void Simulation::Loop()
 		cout << "Tick: " << nTick << flush;
 
 		// Per-tick work:
-		for (auto player : pGame->playerList)
-		{
-			player.UM.Action( nTick );
-		}
+		Update( nTick );
 				
 		if (pTicker->Late())
 		{
@@ -109,4 +112,14 @@ void Simulation::Loop()
 	}
 
 	cout << endl;
+}
+
+
+// Perform a single update on the gamestate.
+void Simulation::Update( unsigned long nTick )
+{
+	for (auto player : pGame->playerList)
+	{
+		player.UM.Action(nTick);
+	}
 }
