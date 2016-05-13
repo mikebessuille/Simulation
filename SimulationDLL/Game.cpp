@@ -43,7 +43,7 @@ void Game::Stop()
 	}
 }
 
-GameState *Game::GetGameState()
+GameState & Game::GetGameState()
 {
-	return &gs;
+	return gs;  // This returns a reference to the gamestate.
 }

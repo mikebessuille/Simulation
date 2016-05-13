@@ -59,19 +59,19 @@ void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 // between all the machines in the game so that they all run the exact same simulation.
 // Always process an entire tick at once, for all units.  Must be in the exact same order on each machine in the game.
 // Never try to process multiple ticks at once!
-void UnitMgr::Action( GameState *pgs, unsigned long nTick)
+void UnitMgr::Action( GameState &gs, unsigned long nTick)
 {
 	for (auto &it : unitList)
 	{
 		// Do something with each unit
-		it->Action(nTick);
+		it->Action(gs, nTick);
 
 		// TODO:  How do we get the ticksize into each unit?  It's owned by the TickControl object...  Should be a static set
 		// into UnitBase?
 		// TickSize used to determine how far to move each unit.
 		// Set the UnitBase "FrameSize" static from TickControl?  Or from Simulation???   Set it into new GameState??
 
-		// TODO:  How to get the rest of the information we need about the map and other units into thsi method.
+		// TODO:  How to get the rest of the information we need about the map and other units into this method.
 		// Answer:  GameState!   (But it creates a very high degree of coupling between all these classes)...
 
 	}

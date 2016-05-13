@@ -118,9 +118,9 @@ void Simulation::Loop()
 // Perform a single update on the gamestate.
 void Simulation::Update( unsigned long nTick )
 {
-	GameState *pgs = pGame->GetGameState();
+	GameState & gs = pGame->GetGameState();
 	for (auto player : pGame->playerList)
 	{
-		player.UM.Action( pgs, nTick);
+		player.UM.Action( gs, nTick);
 	}
 }

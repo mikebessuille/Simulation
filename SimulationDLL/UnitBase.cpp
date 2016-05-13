@@ -17,7 +17,7 @@ UnitBase::~UnitBase()
 }
 
 
-void UnitBase::Action( unsigned long nTick )
+void UnitBase::Action( GameState &gs, unsigned long nTick )
 {
 	// nLastUpdateTick is not needed, because we must never process more than one tick at a time for each unit,
 	// because that would break exact determinism between different machines in the same game.

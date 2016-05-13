@@ -36,6 +36,6 @@ public:
 	void Start();
 	void Stop();
 
-	GameState *GetGameState();
+	GameState & GetGameState();
 };
 

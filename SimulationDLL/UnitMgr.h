@@ -1,7 +1,7 @@
 #pragma once
 
-#include "UnitBase.h"
 #include "GameState.h"
+#include "UnitBase.h"
 #include <list>
 #include <iostream>
 #include <chrono>
@@ -16,6 +16,7 @@ namespace UnitTestProject {
 }
 
 class GameState;
+class UnitBase;
 
 class UnitMgr
 {
@@ -29,7 +30,7 @@ private:
 public:
 	UnitMgr();
 	~UnitMgr();
-	void Action( GameState *pgs, unsigned long nTick );
+	void Action( GameState &gs, unsigned long nTick );
 	
 private:
 	int NumUnits() { return unitList.size(); }

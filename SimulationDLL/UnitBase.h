@@ -1,11 +1,15 @@
 #pragma once
 
+#include "GameState.h"
+
+class GameState;
+
 class UnitBase
 {
 public:
 	UnitBase();
 	virtual ~UnitBase();
-	void Action( unsigned long nTick );
+	void Action( GameState &gs, unsigned long nTick );
 
 // Member Variables
 private:
