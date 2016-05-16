@@ -1,6 +1,7 @@
 #pragma once
 
 #include <list>
+#include <chrono>
 #include "UnitMgr.h"
 
 
@@ -16,13 +17,16 @@ namespace UnitTestProject {
 // Forward declare UnitMgr
 class UnitMgr;
 
+using namespace std;
+
 class GameState
 {
 	friend class UnitTestProject::ThreadTest; // so that the tests can call private methods.
 
 // Member Variables
 public:
-	std::list<UnitMgr *> UMList;
+	std::list<UnitMgr *> UMList;		// List of UnitMgr's, each with its own list of units (for each player).
+	chrono::milliseconds nTickSize;		// TickSize used to determine how far to move each unit.
 
 // Class Methods
 public:

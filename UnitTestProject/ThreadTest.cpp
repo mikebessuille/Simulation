@@ -42,6 +42,25 @@ namespace UnitTestProject
 			Assert::IsFalse(sim.IsRunning());
 		}
 
+
+		TEST_METHOD(TestSimulationBadStartStop)
+		{
+			Game game;  // Creates its own simulation but we can ignore it here as we're trying to test the Simulation object ONLY
+			Simulation sim(&game);
+
+			Assert::IsFalse(sim.IsRunning());
+			sim.Start();
+			Assert::IsTrue(sim.IsRunning());
+			sim.Start(); // Bad!  But we shouldn't fail...
+			Assert::IsTrue(sim.IsRunning());
+			this_thread::sleep_for(chrono::seconds(1));
+			Assert::IsTrue(sim.IsRunning());
+			sim.Stop();
+			Assert::IsFalse(sim.IsRunning());
+			sim.Stop(); // Bad!  But shouldn't fail
+			Assert::IsFalse(sim.IsRunning());
+		}
+
 		void CreateSomeUsers(Game &g)
 		{
 			g.playerList.push_back(Player("Mike"));
@@ -51,7 +70,7 @@ namespace UnitTestProject
 
 
 		// TODO: Move this to a separate GameTest class
-		// TODO: add some units (like in UnitMgrTest.cpp), as well as some fake players.
+		// TODO: add some units (like in UnitMgrTest.cpp)
 		TEST_METHOD(TestGameCreation)
 		{
 			Game game;

@@ -1,8 +1,6 @@
 #include "UnitBase.h"
 #include <assert.h>
 
-// Initialize class statics
-unsigned long UnitBase::FrameSize = 0;
 
 UnitBase::UnitBase()
 {

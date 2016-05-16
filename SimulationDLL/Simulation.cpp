@@ -3,7 +3,6 @@
 #include "UnitMgr.h"
 #include <thread>
 #include <assert.h>
-#include <string>
 
 mutex Simulation::simLock;
 
@@ -19,7 +18,7 @@ Simulation::Simulation( Game *parent )
 	pGame = parent;
 	assert( pGame );
 
-	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
+	// Put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
 
 	// TODO: need to use simLock mutex to lock access to Simulation data that may be accessed by multiple threads.
 	// Including Ticker?
@@ -52,10 +51,14 @@ Simulation::~Simulation()
 void Simulation::Start()
 {
 	assert(bRunning == false);
-	if (!bRunning)
+	if (!bRunning )
 	{
 		cout << "Simulation Start\n";
 		bRunning = true;
+
+		GameState & gs = pGame->GetGameState();
+		gs.nTickSize = pTicker->GetTickSize();
+
 		assert(!pSimThread);
 		pSimThread = new thread(&Simulation::Loop, this);
 	}
@@ -115,7 +118,7 @@ void Simulation::Loop()
 }
 
 
-// Perform a single update on the gamestate.
+// Perform a single update on the gamestate, across all players and all units.
 void Simulation::Update( unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
