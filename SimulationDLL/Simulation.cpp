@@ -10,13 +10,12 @@ mutex Simulation::simLock;
 // Simulation class that owns the game state.  It does NOT have anything to do with Rendering, User Input, or Networking.
 
 // Initialize the simulation.
-Simulation::Simulation( Game *parent )
+Simulation::Simulation(Game *parent) :
+	bRunning(false),
+	pSimThread(nullptr),
+	pGame(parent)
 {
-	bRunning = false;
-	// pSimThread = new thread();
-	pSimThread = NULL;
 	pTicker = new TickControl;
-	pGame = parent;
 	assert( pGame );
 
 	// TODO: put Simulation initialization code here?  (Load UnitMgr objects, players, ...)

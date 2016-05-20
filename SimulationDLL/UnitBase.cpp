@@ -4,11 +4,11 @@
 // Initialize class statics
 unsigned long UnitBase::FrameSize = 0;
 
-UnitBase::UnitBase()
+UnitBase::UnitBase() : 
+			nLastUpdateTick(0),
+			x(0), y(0),
+			dx(0), dy(0)
 {
-	nLastUpdateTick = 0;
-	x = y = 0;
-	dx = dy = 0;
 }
 
 
