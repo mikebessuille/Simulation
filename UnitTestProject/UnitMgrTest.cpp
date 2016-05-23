@@ -1,16 +1,42 @@
 #include "stdafx.h"
 #include "CppUnitTest.h"
 #include "UnitMgr.h"
-#include "ExampleUnit.h"
+#include "MoveComponent.h"
+#include "UnitBase.h"
+#include "GameState.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
 
 namespace UnitTestProject
-{		
+{
 	TEST_CLASS(UnitMgrTest)
 	{
 	public:
+		// Declare this special test version of the MoveComponent within the UnitMgrTest class...
+		class MoveComponentBasic : public MoveComponent
+		{
+		public:
+			MoveComponentBasic(double dx_, double dy_) : MoveComponent(dx_, dy_)
+			{
+			}
+
+			~MoveComponentBasic()
+			{
+			}
+
+			virtual void Update(GameState &gs, unsigned long nTick)
+			{
+				/*
+				unit->x += unit->dx;
+				unit->y += unit->dy;
+				*/
+
+				// m_parent
+			}
+
+		};
+
 		TEST_METHOD(TestUnitMgrBasics)
 		{
 			UnitMgr UM;
@@ -25,11 +51,8 @@ namespace UnitTestProject
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				ExampleUnit *pUnit = new ExampleUnit();
-				pUnit->x = 0;
-				pUnit->y = i;
-				pUnit->dx = (double)10/(i+1);
-				pUnit->dy = 0;
+				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (i + 1), 0));
+				UnitBase *pUnit = new UnitBase( 0, i, mcptr );
 				UM.AddUnit( pUnit );
 				Assert::AreEqual(UM.NumUnits(), i + 1);
 			}
@@ -73,14 +96,16 @@ namespace UnitTestProject
 		{
 			Logger::WriteMessage("Starting Unit Positions:");
 			OutputLocations(UM);
-			
+
+			GameState gs;
 			
 			for (int nTick = 0; nTick < 10; nTick++)
 			{
 				for (auto &unit : UM.unitList)
 				{
-					unit->x += unit->dx;
-					unit->y += unit->dy;
+					// unit->Update(); // No, don't want to call Update as that would require that we set up
+					// a GameState, etc...
+					unit->Update( gs, nTick );
 				}
 			}
 			
@@ -99,5 +124,5 @@ namespace UnitTestProject
 			DestroyList(UM);
 		}
 
-	};
-}
+	}; // TEST Class "UnitMgrTest"
+} // UnitTestProject namespace

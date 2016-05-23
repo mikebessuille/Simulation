@@ -114,12 +114,12 @@ void Simulation::Loop()
 }
 
 
-// Perform a single update on the gamestate.
+// Perform a single update on the gamestate.  This is one tick, for all units in the game.
 void Simulation::Update( unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
 	for (auto player : pGame->playerList)
 	{
-		player.UM.Action( gs, nTick);
+		player.UM.Update( gs, nTick);
 	}
 }

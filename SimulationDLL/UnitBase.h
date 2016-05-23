@@ -1,15 +1,23 @@
 #pragma once
 
 #include "GameState.h"
+#include <memory>
+#include "MoveComponent.h"
+//#include "AttackComponent.h"
+//#include "HealthComponent.h"
 
 class GameState;
+class MoveComponent;
+
+using namespace std;
 
 class UnitBase
 {
 public:
-	UnitBase();
+	UnitBase(	double x_, double y_,
+				shared_ptr<MoveComponent> mc_ptr );
 	virtual ~UnitBase();
-	void Action( GameState &gs, unsigned long nTick );
+	void Update( GameState &gs, unsigned long nTick );
 
 // Member Variables
 private:
@@ -17,7 +25,14 @@ private:
 
 public:
 	double x, y;	// current location; should change this to some kind of "point" structure/object
-	double dx, dy;	// current velocity
+
+private:
+	// The components that give this unit its real capabilities
+	shared_ptr<MoveComponent> m_pMoveComponent;
+	//AttackComponent *m_pAttackComponent;
+	//DamageComponent *m_pHealthComponent;
+	// ... and other pointers for specializations like Harvest, Build, etc.
+	// Could convert this to std::vector<UnitComponent *> m_components;
 
 	//TODO:  Need destination location (or could be a list of locations to move in succession; could be a list of patrol points)
 	//TODO:  Need a pointer (or identifier) of an enemy target

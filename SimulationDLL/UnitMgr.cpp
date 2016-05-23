@@ -44,6 +44,8 @@ void UnitMgr::DestroyUnit(std::list<UnitBase*>::iterator it)
 
 
 // removes the unit from this list without destroying it (for example, if you're moving this unit to another UnitMgr).
+// This public method shouldn't take a list iterator, as that exposes the UnitMgr's implementation
+// and makes it difficult to change in the future (for example, to store an array of units).
 void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 {
 	UnitBase *pUnit = *it;
@@ -59,12 +61,12 @@ void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 // between all the machines in the game so that they all run the exact same simulation.
 // Always process an entire tick at once, for all units.  Must be in the exact same order on each machine in the game.
 // Never try to process multiple ticks at once!
-void UnitMgr::Action( GameState &gs, unsigned long nTick)
+void UnitMgr::Update( GameState &gs, unsigned long nTick)
 {
 	for (auto &it : unitList)
 	{
 		// Do something with each unit
-		it->Action(gs, nTick);
+		it->Update(gs, nTick);
 
 		// TODO:  How do we get the ticksize into each unit?  It's owned by the TickControl object...  Should be a static set
 		// into UnitBase?
