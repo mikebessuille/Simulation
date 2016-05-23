@@ -11,7 +11,7 @@ public:
 	virtual void Update(GameState &gs, unsigned long nTick);
 
 
-private:
+protected:
 	double dx, dy;	// current velocity
 };
 

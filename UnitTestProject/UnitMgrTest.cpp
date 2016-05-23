@@ -26,13 +26,9 @@ namespace UnitTestProject
 			}
 
 			virtual void Update(GameState &gs, unsigned long nTick)
-			{
-				/*
-				unit->x += unit->dx;
-				unit->y += unit->dy;
-				*/
-
-				// m_parent
+			{	
+				m_parent->x += dx;
+				m_parent->y += dy;
 			}
 
 		};

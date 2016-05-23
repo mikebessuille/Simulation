@@ -15,7 +15,7 @@ public:
 	virtual void Update(GameState &gs, unsigned long nTick) = 0;
 	void Attach(UnitBase *pUnit) { m_parent = pUnit; }
 
-private:
+protected:
 	UnitBase *m_parent;
 };
 
