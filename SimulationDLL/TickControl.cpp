@@ -1,10 +1,12 @@
 #include "TickControl.h"
 
+const chrono::milliseconds TickControl::DefaultSimulationFrame = chrono::milliseconds(200);
+
 // This class controls the simulation frame rate
 TickControl::TickControl()
 {
 	nCurrentTick = 0;
-	nTickSize = chrono::milliseconds( DEFAULT_SIMULATION_FRAME );
+	nTickSize = DefaultSimulationFrame;
 	nCurrentTickTime = chrono::system_clock::now();
 	bRunning = false;
 }

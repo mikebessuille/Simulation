@@ -119,7 +119,7 @@ void Simulation::Loop()
 
 
 // Perform a single update on the gamestate, across all players and all units.
-void Simulation::Update( unsigned long nTick )
+void Simulation::Update( const unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
 	for (auto player : pGame->playerList)

@@ -1,7 +1,7 @@
 #pragma once
 #include <chrono>
 
-#define DEFAULT_SIMULATION_FRAME 200	// ms per tick
+// #define DEFAULT_SIMULATION_FRAME 200	// ms per tick
 
 using namespace std;
 
@@ -26,5 +26,7 @@ private:
 	// chrono::steady_clock::time_point nCurrentTickTime;  // The starting time of the current tick
 	chrono::system_clock::time_point nCurrentTickTime;  // The starting time of the current tick
 	chrono::milliseconds nTickSize;	// The size (in MS) of each tick
+
+	static const chrono::milliseconds DefaultSimulationFrame;
 };
 

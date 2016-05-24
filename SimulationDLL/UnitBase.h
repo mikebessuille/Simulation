@@ -9,7 +9,7 @@ class UnitBase
 public:
 	UnitBase();
 	virtual ~UnitBase();
-	void Action( GameState &gs, unsigned long nTick );
+	void Action( GameState &gs, const unsigned long nTick );
 
 // Member Variables
 private:
@@ -18,6 +18,9 @@ private:
 public:
 	double x, y;	// current location; TODO: should change this to some kind of "point" structure/object
 	double dx, dy;	// current velocity
+	unsigned int id;	// Unique unit id;  This allows units to be destroyed without leaving dangling pointers
+						// (ex, if A targets B but B is subsequently destroyed; yet A still points to B...)
+						// Could instead use smart pointers?
 
 	//TODO:  Need destination location (or could be a list of locations to move in succession; could be a list of patrol points)
 	//TODO:  Need a pointer (or identifier) of an enemy target.  (What if it's target is an area?)  // NOTE! Target may be destroyed (pointer may be invalid?)

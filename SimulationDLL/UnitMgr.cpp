@@ -59,7 +59,7 @@ void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
 // between all the machines in the game so that they all run the exact same simulation.
 // Always process an entire tick at once, for all units.  Must be in the exact same order on each machine in the game.
 // Never try to process multiple ticks at once!
-void UnitMgr::Action( GameState &gs, unsigned long nTick)
+void UnitMgr::Action( GameState &gs, const unsigned long nTick)
 {
 	for (auto &it : unitList)
 	{
