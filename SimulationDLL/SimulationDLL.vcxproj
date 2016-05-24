@@ -19,7 +19,6 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="ExampleUnit.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -30,14 +29,15 @@
     <ClCompile Include="UnitMgr.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="ExampleUnit.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="TickControl.h" />
     <ClInclude Include="UnitBase.h" />
+    <ClInclude Include="UnitComponent.h" />
     <ClInclude Include="UnitMgr.h" />
   </ItemGroup>
   <ItemGroup>

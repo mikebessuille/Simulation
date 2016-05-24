@@ -30,7 +30,7 @@ private:
 public:
 	UnitMgr();
 	~UnitMgr();
-	void Action( GameState &gs, const unsigned long nTick );
+	void Update( GameState &gs, const unsigned long nTick );
 	
 private:
 	int NumUnits() { return unitList.size(); }

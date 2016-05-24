@@ -9,13 +9,12 @@ mutex Simulation::simLock;
 // Simulation class that owns the game state.  It does NOT have anything to do with Rendering, User Input, or Networking.
 
 // Initialize the simulation.
-Simulation::Simulation( Game *parent )
+Simulation::Simulation(Game *parent) :
+	bRunning(false),
+	pSimThread(nullptr),
+	pGame(parent)
 {
-	bRunning = false;
-	// pSimThread = new thread();
-	pSimThread = NULL;
 	pTicker = new TickControl;
-	pGame = parent;
 	assert( pGame );
 
 	// Put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
@@ -118,12 +117,12 @@ void Simulation::Loop()
 }
 
 
-// Perform a single update on the gamestate, across all players and all units.
+// Perform a single update on the gamestate.  This is one tick, for all units in the game.
 void Simulation::Update( const unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
 	for (auto player : pGame->playerList)
 	{
-		player.UM.Action( gs, nTick);
+		player.UM.Update( gs, nTick);
 	}
 }

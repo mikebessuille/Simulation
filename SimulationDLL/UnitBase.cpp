@@ -1,27 +1,41 @@
 #include "UnitBase.h"
+#include "MoveComponent.h"
 #include <assert.h>
+#include <memory>
 
 
-UnitBase::UnitBase()
+using namespace std;
+
+UnitBase::UnitBase( double x_, double y_,
+					shared_ptr<MoveComponent> mc_ptr ) : 
+	nLastUpdateTick(0),
+	x(x_), y(y_),
+	m_pMoveComponent( mc_ptr )
 {
-	nLastUpdateTick = 0;	// TODO: Remove this...
-	x = y = 0;		// TODO: probably should remain part of the base class, since all units will have a location.
-	dx = dy = 0;	// TODO: Move to a "movable" class, since not all units (ex, structures) can move.
+	if (m_pMoveComponent)
+		m_pMoveComponent->Attach(this);	// This is safe within the constructor, because we aren't using it; just
+										// storing it inside the component.
 }
 
 
 UnitBase::~UnitBase()
 {
+	// for now, the unit "owns" the UnitComponent objects... in future, they should be owned by Systems or
+	// UnitComponent Factories...
+	// Using shared_ptr<> so the components will be automatically deleted when there are no more references to them.
 }
 
 
-void UnitBase::Action( GameState &gs, const unsigned long nTick )
+void UnitBase::Update( GameState &gs, const unsigned long nTick )
 {
 	// nLastUpdateTick is not needed, because we must never process more than one tick at a time for each unit,
 	// because that would break exact determinism between different machines in the same game.
 	// For now, use it as error checking to ensure we update every tick.
 	assert(nLastUpdateTick == 0 || nTick == nLastUpdateTick + 1);
 	nLastUpdateTick = nTick;
+
+	if (m_pMoveComponent)
+		m_pMoveComponent->Update(gs, nTick);
 }
 
 
