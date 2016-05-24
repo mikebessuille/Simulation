@@ -74,3 +74,13 @@ void UnitMgr::Update( GameState &gs, const unsigned long nTick)
 		// Set the UnitBase "FrameSize" static from TickControl?  Or from Simulation???   Set it into new GameState??
 	}
 }
+
+
+//TODO:  Is this the best place (for now) to put some static factory methods to create new UnitBase objects?
+// It should create it with the correct Components as well.
+// For example: 
+/*
+shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (i + 1), 1));
+UnitBase *pUnit = new UnitBase( 0, i, mcptr );
+UM.AddUnit( pUnit );
+*/
