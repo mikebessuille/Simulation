@@ -15,7 +15,8 @@ UnitBase::UnitBase( double x_, double y_,
 	m_pMoveComponent( mc_ptr )
 {
 	if (m_pMoveComponent)
-		m_pMoveComponent->Attach(this);
+		m_pMoveComponent->Attach(this);	// This is safe within the constructor, because we aren't using it; just
+										// storing it inside the component.
 }
 
 

@@ -17,7 +17,7 @@ namespace UnitTestProject
 		class MoveComponentBasic : public MoveComponent
 		{
 		public:
-			MoveComponentBasic(double dx_, double dy_) : MoveComponent(dx_, dy_)
+			MoveComponentBasic(double dx_, double dy_) : MoveComponent( 0 ), dx(dx_), dy(dy_)
 			{
 			}
 
@@ -30,6 +30,9 @@ namespace UnitTestProject
 				m_parent->x += dx;
 				m_parent->y += dy;
 			}
+
+		protected:
+			double dx, dy;	// current velocity
 
 		};
 
@@ -47,7 +50,7 @@ namespace UnitTestProject
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (i + 1), 0));
+				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (i + 1), 1));
 				UnitBase *pUnit = new UnitBase( 0, i, mcptr );
 				UM.AddUnit( pUnit );
 				Assert::AreEqual(UM.NumUnits(), i + 1);
@@ -99,8 +102,6 @@ namespace UnitTestProject
 			{
 				for (auto &unit : UM.unitList)
 				{
-					// unit->Update(); // No, don't want to call Update as that would require that we set up
-					// a GameState, etc...
 					unit->Update( gs, nTick );
 				}
 			}

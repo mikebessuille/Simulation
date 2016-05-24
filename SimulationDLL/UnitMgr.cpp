@@ -72,9 +72,5 @@ void UnitMgr::Update( GameState &gs, unsigned long nTick)
 		// into UnitBase?
 		// TickSize used to determine how far to move each unit.
 		// Set the UnitBase "FrameSize" static from TickControl?  Or from Simulation???   Set it into new GameState??
-
-		// TODO:  How to get the rest of the information we need about the map and other units into this method.
-		// Answer:  GameState!   (But it creates a very high degree of coupling between all these classes)...
-
 	}
 }

@@ -34,11 +34,10 @@ private:
 	// ... and other pointers for specializations like Harvest, Build, etc.
 	// Could convert this to std::vector<UnitComponent *> m_components;
 
-	//TODO:  Need destination location (or could be a list of locations to move in succession; could be a list of patrol points)
-	//TODO:  Need a pointer (or identifier) of an enemy target
-	//TODO:	 Current damage amount
 	//TODO:  Pointer to the current map tile
-	//TODO:  Something to identify it's current orders (Move, defend, attack, patrol...)
+	//TODO:  Something to identify it's current orders (Move, attack, patrol, do nothing...)
+	//		 Or is that better just being part of each component?
+	//		 What if different components get out of sync and have different, conflicting orders?
 
 // Statics
 public:
