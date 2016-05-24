@@ -6,15 +6,19 @@
 
 using namespace std;
 
+unsigned int UnitBase::LastId = 0;
+
 UnitBase::UnitBase( double x_, double y_,
 					shared_ptr<MoveComponent> mc_ptr ) : 
-	nLastUpdateTick(0),
 	x(x_), y(y_),
+	nLastUpdateTick(0),
 	m_pMoveComponent( mc_ptr )
 {
 	if (m_pMoveComponent)
 		m_pMoveComponent->Attach(this);	// This is safe within the constructor, because we aren't using it; just
 										// storing it inside the component.
+
+	SetUnitID( id );
 }
 
 
@@ -38,7 +42,12 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 		m_pMoveComponent->Update(gs, nTick);
 }
 
-
+// Static
+void UnitBase::SetUnitID(unsigned int &id_)
+{
+	LastId++;
+	id_ = LastId;
+}
 
 // TODO:  Use Composite design pattern so that the base class is an abstraction can represent a single unit, or a group of units.
 // That way, other operations can treat the class the same whether it's a single tank or a group (army) of tanks.

@@ -49,7 +49,7 @@ Simulation::~Simulation()
 // Starts the simulation loop.  May start the simulation multiple times (after pause)
 void Simulation::Start()
 {
-	assert(bRunning == false);
+	//assert(bRunning == false);
 	if (!bRunning )
 	{
 		cout << "Simulation Start\n";

@@ -11,6 +11,7 @@ class MoveComponent;
 
 using namespace std;
 
+// Constructed mostly from Composition, not Inheritance
 class UnitBase
 {
 public:
@@ -19,17 +20,20 @@ public:
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
 
-// Member Variables
-private:
-	unsigned long nLastUpdateTick;
+// Static Functions
+protected:
+	static void SetUnitID(unsigned int &id_);
+	static unsigned int LastId;
 
+// Member Variables
 public:
 	double x, y;	// current location; should change this to some kind of "point" structure/object
 	unsigned int id;	// Unique unit id;  This allows units to be destroyed without leaving dangling pointers
-				// (ex, if A targets B but B is subsequently destroyed; yet A still points to B...)
-				// Could instead use smart pointers?
+						// (ex, if A targets B but B is subsequently destroyed; yet A still points to B...)
+						// Could instead use smart pointers?
 
-private:
+protected:
+	unsigned long nLastUpdateTick;
 	// The components that give this unit its real capabilities
 	shared_ptr<MoveComponent> m_pMoveComponent;
 	//AttackComponent *m_pAttackComponent;
@@ -41,7 +45,5 @@ private:
 	//TODO:  Something to identify it's current orders (Move, attack, patrol, do nothing...)
 	//		 Or is that better just being part of each component?
 	//		 What if different components get out of sync and have different, conflicting orders?
-
-	// TODO: Unit Class should be constructed mostly from composition rather than inheritance!
 };
 

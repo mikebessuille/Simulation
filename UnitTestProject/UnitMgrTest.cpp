@@ -84,7 +84,7 @@ namespace UnitTestProject
 		{
 			for (auto it : UM.unitList)
 			{
-				std::string message = "X: " + to_string(it->x) + "		Y: " + to_string(it->y);
+				std::string message = "ID: " + to_string(it->id) + "	X: " + to_string(it->x) + "	Y: " + to_string(it->y);
 				const char * c_msg = message.c_str();
 				Logger::WriteMessage(c_msg);
 			}
