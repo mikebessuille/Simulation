@@ -51,7 +51,3 @@ void UnitBase::SetUnitID(unsigned int &id_)
 
 // TODO:  Use Composite design pattern so that the base class is an abstraction can represent a single unit, or a group of units.
 // That way, other operations can treat the class the same whether it's a single tank or a group (army) of tanks.
-
-// TODO:  Define units by composition rather than inheritance.
-
-// TODO:  Make UnitBase virtual...
