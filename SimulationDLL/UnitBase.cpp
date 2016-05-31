@@ -9,14 +9,22 @@ using namespace std;
 unsigned int UnitBase::LastId = 0;
 
 UnitBase::UnitBase( double x_, double y_,
-					shared_ptr<MoveComponent> mc_ptr ) : 
+					shared_ptr<MoveComponent> mc_ptr,
+					shared_ptr<AttackComponent> ac_ptr,
+					shared_ptr<HealthComponent> hc_ptr ) :
 	x(x_), y(y_),
 	nLastUpdateTick(0),
-	m_pMoveComponent( mc_ptr )
+	m_pMoveComponent( mc_ptr ),
+	m_pAttackComponent( ac_ptr ),
+	m_pHealthComponent( hc_ptr )
 {
+	// This is safe within the constructor, because we aren't using these pointers, just storing them inside the component.
 	if (m_pMoveComponent)
-		m_pMoveComponent->Attach(this);	// This is safe within the constructor, because we aren't using it; just
-										// storing it inside the component.
+		m_pMoveComponent->Attach(this);	
+	if (m_pAttackComponent)
+		m_pAttackComponent->Attach(this);
+	if (m_pHealthComponent)
+		m_pHealthComponent->Attach(this);
 
 	SetUnitID( id );
 }
@@ -40,6 +48,10 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 
 	if (m_pMoveComponent)
 		m_pMoveComponent->Update(gs, nTick);
+	if (m_pAttackComponent)
+		m_pAttackComponent->Update(gs, nTick);
+	if (m_pHealthComponent)
+		m_pHealthComponent->Update(gs, nTick);
 }
 
 // Static

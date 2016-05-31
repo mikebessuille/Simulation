@@ -3,11 +3,13 @@
 #include "GameState.h"
 #include <memory>
 #include "MoveComponent.h"
-//#include "AttackComponent.h"
-//#include "HealthComponent.h"
+#include "AttackComponent.h"
+#include "HealthComponent.h"
 
 class GameState;
 class MoveComponent;
+class AttackComponent;
+class HealthComponent;
 
 using namespace std;
 
@@ -16,7 +18,9 @@ class UnitBase
 {
 public:
 	UnitBase(	double x_, double y_,
-				shared_ptr<MoveComponent> mc_ptr );
+				shared_ptr<MoveComponent> mc_ptr,
+				shared_ptr<AttackComponent> ac_ptr,
+				shared_ptr<HealthComponent> hc_ptr );
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
 
@@ -36,8 +40,8 @@ protected:
 	unsigned long nLastUpdateTick;
 	// The components that give this unit its real capabilities
 	shared_ptr<MoveComponent> m_pMoveComponent;
-	//AttackComponent *m_pAttackComponent;
-	//DamageComponent *m_pHealthComponent;
+	shared_ptr<AttackComponent>  m_pAttackComponent;
+	shared_ptr<HealthComponent>  m_pHealthComponent;
 	// ... and other pointers for specializations like Harvest, Build, etc.
 	// Could convert this to std::vector<UnitComponent *> m_components;
 
