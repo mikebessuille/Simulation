@@ -2,6 +2,9 @@
 #include "UnitComponent.h"
 #include "GameState.h"
 
+class UnitComponent;
+class GameState;
+
 // Interface for attack components.  Must implement this interface for each method of attack.
 class AttackComponent :  public UnitComponent
 {

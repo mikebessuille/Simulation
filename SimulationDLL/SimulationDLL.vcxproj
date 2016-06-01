@@ -21,6 +21,7 @@
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="HealthComponentBasic.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HealthComponent.h" />
+    <ClInclude Include="HealthComponentBasic.h" />
     <ClInclude Include="MoveComponent.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="SimDLL.h" />

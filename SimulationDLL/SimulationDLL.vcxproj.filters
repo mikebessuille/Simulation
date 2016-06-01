@@ -42,6 +42,9 @@
     <ClCompile Include="GameState.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="HealthComponentBasic.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">
@@ -78,6 +81,9 @@
       <Filter>Source Files\Units</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponent.h">
+      <Filter>Source Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthComponentBasic.h">
       <Filter>Source Files\Units</Filter>
     </ClInclude>
   </ItemGroup>

@@ -2,6 +2,9 @@
 #include "UnitComponent.h"
 #include "GameState.h"
 
+class UnitComponent;
+class GameState;
+
 // Interface for movement components.  Ground, Air, Water all implement this interface.
 class MoveComponent :  public UnitComponent
 {
