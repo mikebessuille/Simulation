@@ -2,10 +2,7 @@
 
 #include "GameState.h"
 #include <memory>
-#include "UnitComponent.h" // need to include this before other components
-#include "MoveComponent.h"
-#include "AttackComponent.h"
-#include "HealthComponent.h"
+#include "UnitComponent.h" // need to include this before including other components
 
 class GameState;
 class MoveComponent;

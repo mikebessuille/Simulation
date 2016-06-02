@@ -1,6 +1,5 @@
 #pragma once
 #include "UnitComponent.h"
-#include "GameState.h"
 
 class UnitComponent;
 class GameState;

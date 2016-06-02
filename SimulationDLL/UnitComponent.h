@@ -1,8 +1,5 @@
 #pragma once
 
-#include "GameState.h"
-#include "UnitBase.h"
-
 class GameState;
 class UnitBase;
 

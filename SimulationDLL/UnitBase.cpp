@@ -1,8 +1,11 @@
 #include "UnitBase.h"
-#include "MoveComponent.h"
 #include <assert.h>
 #include <memory>
 
+// Moved the following includes to the CPP instead of the header file, to avoid circular includes.
+#include "MoveComponent.h"
+#include "AttackComponent.h"
+#include "HealthComponent.h"
 
 using namespace std;
 

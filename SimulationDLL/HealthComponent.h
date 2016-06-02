@@ -1,6 +1,8 @@
 #pragma once
 #include "UnitComponent.h"
-#include "GameState.h"
+
+class UnitComponent;
+class GameState;
 
 // Interface for health components (components of units that can take damage).  Must implement this interface for each different way that a unit
 // can take damage.

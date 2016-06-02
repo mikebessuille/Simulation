@@ -1,6 +1,8 @@
 #pragma once
 #include "HealthComponent.h"
-#include "GameState.h"
+// #include "GameState.h"   // No; do NOT include Gamestate or we get a circular include problem
+
+class GameState;
 
 class HealthComponentBasic :
 	public HealthComponent
