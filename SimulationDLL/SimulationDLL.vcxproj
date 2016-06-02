@@ -19,7 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AttackComponentBasic.cpp" />
+    <ClCompile Include="GroundAttackComponentBasic.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameState.cpp" />
     <ClCompile Include="HealthComponentBasic.cpp" />
@@ -32,7 +32,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AttackComponent.h" />
-    <ClInclude Include="AttackComponentBasic.h" />
+    <ClInclude Include="GroundAttackComponentBasic.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
     <ClInclude Include="HealthComponent.h" />
