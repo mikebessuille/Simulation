@@ -16,7 +16,8 @@ HealthComponentBasic::~HealthComponentBasic()
 
 void HealthComponentBasic::Update(GameState &gs, unsigned long nTick)
 {
-
+	// Not sure there is value in an Update method for the Health component?
+	// Maybe to check if the unit has been destroyed, and remove it from the list?
 }
 
 // returns true if unit is still alive, false if it's destroyed

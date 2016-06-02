@@ -45,6 +45,9 @@
     <ClCompile Include="HealthComponentBasic.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="AttackComponentBasic.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">
@@ -84,6 +87,12 @@
       <Filter>Source Files\Units</Filter>
     </ClInclude>
     <ClInclude Include="HealthComponentBasic.h">
+      <Filter>Source Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="AttackComponentBasic.h">
+      <Filter>Source Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="IUnitFactory.h">
       <Filter>Source Files\Units</Filter>
     </ClInclude>
   </ItemGroup>
