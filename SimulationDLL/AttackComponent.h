@@ -1,21 +1,21 @@
 #pragma once
 #include "UnitComponent.h"
+// #include "Target.h"
 
 class UnitComponent;
 class GameState;
+class UnitBase;
 
 // Interface for attack components.  Must implement this interface for each method of attack.
 class AttackComponent :  public UnitComponent
 {
 public:
-	AttackComponent(unsigned int maxDamage, double maxRange, unsigned int cooldown) :
-		m_Damage(maxDamage),
-		m_Range(maxRange),
-		m_CoolDown(cooldown),
-		m_LastTickFired(0)
-		{}
+	AttackComponent(unsigned int maxDamage, double maxRange, unsigned int cooldown);
 	virtual ~AttackComponent() {}
-	virtual void Update(GameState &gs, unsigned long nTick) = 0; // keep this here to make this an interface class
+	virtual void Update(GameState &gs, unsigned long nTick); // Virtual, but if derived class overrides it, the derived class is responsible for all its work...
+	virtual bool ReadyToFire( unsigned long nTick );	// Returns true if the unit's weapon is ready to fire
+	virtual UnitBase * GetTarget( GameState &gs );  // Returns a valid target in range, or nullptr if no target is in range
+	virtual void Attack(UnitBase *pTarget, unsigned long nTick ); // performs the attack against the target.  Decides whether it hits the target and how much damage it does.
 
 protected:
 	unsigned int m_Damage;	// max damage
