@@ -16,6 +16,8 @@ public:
 	virtual void Update(GameState &gs, unsigned long nTick) = 0; // keep this here to make this an interface class
 	virtual bool TakeDamage(unsigned int damage) = 0; // returns true if unit is still alive, false if it's destroyed
 	virtual void Heal(unsigned int health) = 0;
+	bool IsAlive() { return(m_CurrentHealth > 0); }
+	unsigned int CurrentHealth() { return(m_CurrentHealth); }
 
 protected:
 	unsigned int m_MaxHealth;	// full health

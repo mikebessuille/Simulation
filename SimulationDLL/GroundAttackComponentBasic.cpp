@@ -1,4 +1,5 @@
 #include "GroundAttackComponentBasic.h"
+#include "UnitBase.h"
 
 
 
@@ -16,3 +17,11 @@ GroundAttackComponentBasic::~GroundAttackComponentBasic()
 
 
 // If it attacks, this basic component always hits, and always does the same amount of damage.
+
+
+// Returns true if the target can be attacked by this unit
+bool GroundAttackComponentBasic::IsValidTargetType(UnitBase *pTarget)
+{
+	// TODO:  return true only if the target is a ground unit (or an air unit that is on the ground...)
+	return(true);
+}

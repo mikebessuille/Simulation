@@ -23,7 +23,7 @@ class GameState
 {
 	friend class UnitTestProject::ThreadTest; // so that the tests can call private methods.
 
-// Member Variables
+// Member Variables... really, these are public???
 public:
 	std::list<UnitMgr *> UMList;		// List of UnitMgr's, each with its own list of units (for each player).
 	chrono::milliseconds nTickSize;		// TickSize used to determine how far to move each unit.

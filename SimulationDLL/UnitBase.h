@@ -22,6 +22,12 @@ public:
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
 
+// Getters and Setters
+	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }
+	shared_ptr<AttackComponent> GetAttackComponent() { return (m_pAttackComponent); }
+	shared_ptr<HealthComponent> GetHealthComponent() { return (m_pHealthComponent); }
+
+
 // Static Functions
 protected:
 	static void SetUnitID(unsigned int &id_);
