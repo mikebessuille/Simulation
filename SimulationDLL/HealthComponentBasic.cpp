@@ -23,11 +23,17 @@ void HealthComponentBasic::Update(GameState &gs, unsigned long nTick)
 // returns true if unit is still alive, false if it's destroyed
 bool HealthComponentBasic::TakeDamage(unsigned int damage)
 {
-	m_CurrentHealth = max((unsigned int)0, m_CurrentHealth - damage);
-	if (m_CurrentHealth == 0)
-		return false;
+	// Careful to avoid overflow of the unsigned int...
+	if (damage >= m_CurrentHealth)
+	{
+		m_CurrentHealth = 0;
+		return(false);
+	}
 	else
-		return true;
+	{
+		m_CurrentHealth -= damage;
+		return(true);
+	}
 }
 
 void HealthComponentBasic::Heal(unsigned int health)

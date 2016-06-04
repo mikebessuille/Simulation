@@ -23,18 +23,44 @@ namespace UnitTestProject
 		}
 
 
-		void PopulateUnitsPlayer1(UnitMgr &UM )
+		void PopulateUnits(UnitMgr &UM1, UnitMgr &UM2)
 		{
-			// Create some units
-			UM.AddUnit( ConstructUnit( 0, 0, 5, 10.0, 2, 12 ) );
+			// Create some units for Player 1
+			UnitBase *P1[5];
+			P1[0] = ConstructUnit(0, 0, 5, 10.0, 2, 12);
+			P1[1] = ConstructUnit(0, 1, 5, 10.0, 2, 12);
+			P1[2] = ConstructUnit(1, 1, 5, 10.0, 2, 12);
+			P1[3] = ConstructUnit(1, 2, 5, 10.0, 2, 12);
+			P1[4] = ConstructUnit(2, 1, 5, 10.0, 2, 12);
+
+			for (int i = 0; i < 5; ++i)
+			{
+				UM1.AddUnit(P1[i]);
+			}
+
+			// Create some units for Player 2
+			UnitBase *P2[5];
+			P2[0] = ConstructUnit(5, 5, 5, 10.0, 2, 12);
+			P2[1] = ConstructUnit(5, 4, 5, 10.0, 2, 12);
+			P2[2] = ConstructUnit(4, 5, 5, 10.0, 2, 12);
+			P2[3] = ConstructUnit(4, 4, 5, 10.0, 2, 12);
+			P2[4] = ConstructUnit(4, 3, 5, 10.0, 2, 12);
+
+			for (int i = 0; i < 5; ++i)
+			{
+				UM2.AddUnit(P2[i]);
+			}
 
 			// Then assign them targets, so that they shoot at each other.
-			// pUnit->GetAttackComponent()->AssignTarget();
-		}
+			P1[0]->GetAttackComponent()->AssignTarget(P2[0]);
+			P1[1]->GetAttackComponent()->AssignTarget(P2[1]);
+			P1[2]->GetAttackComponent()->AssignTarget(P2[1]);
+			P1[3]->GetAttackComponent()->AssignTarget(P2[4]);
 
-		void PopulateUnitsPlayer2(UnitMgr &UM)
-		{
-
+			P2[0]->GetAttackComponent()->AssignTarget(P1[3]);
+			P2[1]->GetAttackComponent()->AssignTarget(P1[4]);
+			P2[2]->GetAttackComponent()->AssignTarget(P1[2]);
+			P2[3]->GetAttackComponent()->AssignTarget(P1[3]);
 		}
 
 
@@ -82,8 +108,7 @@ namespace UnitTestProject
 			UnitMgr UM_Player1;
 			UnitMgr UM_Player2;
 
-			PopulateUnitsPlayer1(UM_Player1);
-			PopulateUnitsPlayer2(UM_Player2);
+			PopulateUnits(UM_Player1, UM_Player2);
 
 			GameState gs;
 

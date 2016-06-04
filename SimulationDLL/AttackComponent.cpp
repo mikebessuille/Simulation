@@ -110,7 +110,7 @@ bool AttackComponent::IsInRange(UnitBase *pTarget)
 	{
 		double d; // snort...
 		d = Distance(m_parent->x, m_parent->y, pTarget->x, pTarget->y);
-		if( m_Range <= d )
+		if( d <= m_Range )
 			return(true);
 	}
 	return(false);
