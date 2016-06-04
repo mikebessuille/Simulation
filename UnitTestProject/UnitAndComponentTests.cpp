@@ -14,6 +14,7 @@ namespace UnitTestProject
 {
 	TEST_CLASS(UnitAndComponentTest)
 	{
+		// This test method acts like a factory
 		UnitBase * ConstructUnit(double x, double y, unsigned int damage, double range, unsigned int cooldown, unsigned int health )
 		{
 			shared_ptr<GroundAttackComponentBasic> acptr(new GroundAttackComponentBasic( damage, range, cooldown ));
@@ -40,16 +41,19 @@ namespace UnitTestProject
 		// Output the unit information to the test console
 		void OutputUnitInfo( GameState &gs )
 		{
-			// TODO: Do this for each UM (one for each player)
-			/*
-			for (auto it : UM.unitList)
+			// Do this for each UM (one for each player)
+			for (std::list<UnitMgr *>::iterator it = gs.UMList.begin(); it != gs.UMList.end(); ++it)
 			{
-				std::string message = "ID: " + to_string(it->id) + "	X: " + to_string(it->x) + "	Y: " + to_string(it->y) +
-					" Health: " + to_string(it->GetHealthComponent()->CurrentHealth());
-				const char * c_msg = message.c_str();
-				Logger::WriteMessage(c_msg);
+				for (auto &unit : (*it)->unitList)
+				{
+					std::string message = "ID: " + to_string(unit->id) + 
+						"	X: " + to_string(unit->x) + 
+						"	Y: " + to_string(unit->y) +
+						" Health: " + to_string(unit->GetHealthComponent()->CurrentHealth());
+					const char * c_msg = message.c_str();
+					Logger::WriteMessage(c_msg);
+				}
 			}
-			*/
 		}
 
 
@@ -57,19 +61,20 @@ namespace UnitTestProject
 		{
 			Logger::WriteMessage("Starting Unit Info:");
 			OutputUnitInfo(gs);
-
-			/*
-			// TODO: go through each UM for each player...
+			
 			for (int nTick = 0; nTick < 10; nTick++)
 			{
-				for (auto &unit : UM.unitList)
+				// Go through each UM for each player...
+				for (std::list<UnitMgr *>::iterator it = gs.UMList.begin(); it != gs.UMList.end(); ++it)
 				{
-					unit->Update(gs, nTick);
+					for (auto &unit : (*it)->unitList)
+					{
+						unit->Update(gs, nTick); // This should perform attacks between enemy units in range
+					}
 				}
-				Logger::WriteMessage("Unit Info after Tick: " + nTick );
+				Logger::WriteMessage("Unit Info after Tick: " + nTick);
 				OutputUnitInfo(gs);
-			}			
-			*/
+			}
 		}
 
 		TEST_METHOD(TestUnitCreation)
