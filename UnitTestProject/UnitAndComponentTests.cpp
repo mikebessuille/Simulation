@@ -23,10 +23,11 @@ namespace UnitTestProject
 		}
 
 
-		void PopulateUnits(UnitMgr &UM1, UnitMgr &UM2)
+		void PopulateUnits1(UnitMgr &UM1, UnitMgr &UM2)
 		{
 			// Create some units for Player 1
 			UnitBase *P1[5];
+			// x, y, damage, range, cooldown, health
 			P1[0] = ConstructUnit(0, 0, 5, 10.0, 2, 12);
 			P1[1] = ConstructUnit(0, 1, 5, 10.0, 2, 12);
 			P1[2] = ConstructUnit(1, 1, 5, 10.0, 2, 12);
@@ -98,7 +99,9 @@ namespace UnitTestProject
 						unit->Update(gs, nTick); // This should perform attacks between enemy units in range
 					}
 				}
-				Logger::WriteMessage("Unit Info after Tick: " + nTick);
+				std::string message = "Unit Info after Tick: " + nTick;
+				const char * c_msg = message.c_str();
+				Logger::WriteMessage(c_msg);
 				OutputUnitInfo(gs);
 			}
 		}
@@ -108,7 +111,7 @@ namespace UnitTestProject
 			UnitMgr UM_Player1;
 			UnitMgr UM_Player2;
 
-			PopulateUnits(UM_Player1, UM_Player2);
+			PopulateUnits1(UM_Player1, UM_Player2);
 
 			GameState gs;
 
@@ -116,6 +119,63 @@ namespace UnitTestProject
 			gs.UMList.push_back(&UM_Player2);
 
 			DoSomethingWithUnits( gs );
+		}
+
+
+		void PopulateUnitsRangeAttack(UnitMgr &UM1, UnitMgr &UM2)
+		{
+			// Create some units for Player 1
+			UnitBase *P1[2];
+			// x, y, damage, range, cooldown, health
+			P1[0] = ConstructUnit(0, 0, 5, 16, 2, 12);
+			P1[1] = ConstructUnit(0, 1, 5, 10, 2, 8);
+
+			for (int i = 0; i < 2; ++i)
+			{
+				UM1.AddUnit(P1[i]);
+			}
+
+			// Create some units for Player 2
+			UnitBase *P2[2];
+			P2[0] = ConstructUnit(10, 10, 5, 10.0, 2, 17);
+			P2[1] = ConstructUnit(20, 3, 1, 23, 0, 12);
+
+			for (int i = 0; i < 2; ++i)
+			{
+				UM2.AddUnit(P2[i]);
+			}
+
+			// Then assign them targets, so that they shoot at each other.
+			P1[0]->GetAttackComponent()->AssignTarget(P2[0]); // should be in range
+			P1[1]->GetAttackComponent()->AssignTarget(P2[1]); // not in range
+
+			P2[0]->GetAttackComponent()->AssignTarget(P1[0]); // not in range
+			P2[1]->GetAttackComponent()->AssignTarget(P1[1]); // in range
+		} 
+
+		TEST_METHOD(TestUnitRangeAttack)
+		{
+			UnitMgr UM_Player1;
+			UnitMgr UM_Player2;
+
+			PopulateUnitsRangeAttack(UM_Player1, UM_Player2);
+
+			GameState gs;
+
+			gs.UMList.push_back(&UM_Player1);
+			gs.UMList.push_back(&UM_Player2);
+
+			DoSomethingWithUnits(gs);
+
+			std::list<UnitBase *>::iterator unit = UM_Player1.unitList.begin();
+			Assert::IsTrue((*unit)->GetHealthComponent()->IsAlive());
+			++unit;
+			Assert::IsFalse((*unit)->GetHealthComponent()->IsAlive());
+
+			unit = UM_Player2.unitList.begin();
+			Assert::IsFalse((*unit)->GetHealthComponent()->IsAlive());
+			++unit;
+			Assert::IsTrue((*unit)->GetHealthComponent()->IsAlive());
 		}
 
 	}; // TEST Class "UnitAndComponentTest"
