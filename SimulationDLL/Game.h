@@ -20,9 +20,10 @@ class Game
 
 // Member Variables
 private:
+	bool bInitialized = false; // must be declared and initiatlized before sim, or we get UNINIT.CTOR in game.cpp
+							   // because game constructor inits sim, whose constructor takes this pointer, which hasn't been fully initialized...
 	Simulation sim;
 	GameState gs;
-	bool bInitialized = false;
 
 public:
 	std::list<Player> playerList;

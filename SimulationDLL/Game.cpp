@@ -28,7 +28,7 @@ bool Game::InitializeGame()
 
 void Game::Start()
 {
-	assert(bInitialized);
+	// assert(bInitialized); // causes INVARIANT_CONDITION.UNREACH on next line
 	if (bInitialized == true )
 	{
 		sim.Start();
@@ -37,10 +37,10 @@ void Game::Start()
 
 void Game::Stop()
 {
-	if (bInitialized)
-	{
+	//if (bInitialized)
+	//{
 		sim.Stop();
-	}
+	//}
 }
 
 GameState & Game::GetGameState()

@@ -13,7 +13,6 @@ bool DLLClass::RunSimulation()
 
 	game.Start();
 
-
 	return(true);
 }
 
