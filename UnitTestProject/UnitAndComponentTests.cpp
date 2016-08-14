@@ -154,17 +154,23 @@ namespace UnitTestProject
 		} 
 
 		// utility function...
-		void CheckIfUnitIsAlive(std::list<UnitBase *>::iterator it, std::list<UnitBase *>::iterator end )
+		bool CheckIfUnitIsAlive(std::list<UnitBase *>::iterator it, std::list<UnitBase *>::iterator end )
 		{
 			if (it != end)
 			{
 				if (*it)
-					Assert::IsTrue((*it)->GetHealthComponent()->IsAlive());
+					return( (*it)->GetHealthComponent()->IsAlive() );
 				else
+				{
 					Assert::Fail();
+					return false;
+				}
 			}
 			else
+			{
 				Assert::Fail();  // Not expecting end of list.
+				return false;
+			}
 		}
 
 		TEST_METHOD(TestUnitRangeAttack)
@@ -183,15 +189,15 @@ namespace UnitTestProject
 
 			std::list<UnitBase *>::iterator it = UM_Player1.unitList.begin();
 			std::list<UnitBase *>::iterator end = UM_Player1.unitList.end();
-			CheckIfUnitIsAlive(it, end );
+			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 			if( it != end ) ++it;
-			CheckIfUnitIsAlive(it, end );
+			Assert::IsTrue(!CheckIfUnitIsAlive(it, end )); //P1[1] should be dead
 
 			it = UM_Player2.unitList.begin();
 			end = UM_Player2.unitList.end();
-			CheckIfUnitIsAlive(it, end );
+			Assert::IsTrue(!CheckIfUnitIsAlive(it, end)); // P2[0] should be dead
 			if (it != end) ++it;
-			CheckIfUnitIsAlive(it, end );
+			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 		}
 
 	}; // TEST Class "UnitAndComponentTest"
