@@ -60,7 +60,7 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 // Static
 void UnitBase::SetUnitID(unsigned int &id_)
 {
-	LastId++;
+	LastId++; // TODO: This shouldn't be part of the UnitBase class, but should be part of a Factory class.
 	id_ = LastId;
 }
 
