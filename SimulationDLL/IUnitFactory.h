@@ -24,6 +24,7 @@ public:
 // Those factories may inherit from each other; ex, T2 factory can extend T1 Factory.
 // T2 factory may provide a set of special units it can create, but if asked to create a T1 unit, it will
 // just call T1 Factory's CreateUnit() method.
+// Want this to be extensible through plugins...
 
 /* 
 list<pair<string, string>> languages = {

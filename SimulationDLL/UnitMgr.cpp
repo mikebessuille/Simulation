@@ -40,6 +40,8 @@ void UnitMgr::DestroyUnit(std::list<UnitBase*>::iterator it)
 		delete pUnit;
 	}
 	// TODO:  else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
+	// Having to use iterators and lists is probably not very efficient.  We probably want a way to directly access
+	// units, like a big array where the index is just the Unit ID (or ID of that component).
 }
 
 
