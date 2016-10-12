@@ -4,7 +4,8 @@
 #include <list>
 
 using namespace std;
-using UnitType = const unsigned int;
+//using UnitType = const unsigned int;
+enum class UnitType : unsigned int { TANK, FIGHTER, TRANSPORT, MOBILE_AA };
 
 struct UnitTypeFull
 {
@@ -12,17 +13,13 @@ struct UnitTypeFull
 	UnitType type;
 };
 
+// TODO: Turn this into a map, instead of using the struct?
 static list<UnitTypeFull> supportedUnits = {
-	{ "Tank", 0 },
-	{ "Mobile AA", 1 },
-	{ "Transport Plane", 2 },
-	{ "Fighter", 3 },
+	{ "Tank", UnitType::TANK },
+	{ "Mobile AA", UnitType::MOBILE_AA },
+	{ "Transport Plane", UnitType::TRANSPORT },
+	{ "Fighter", UnitType::FIGHTER },
 };
 
-
-// TODO: remove this... just testing enums
-enum class UnitType2 { TANK, FIGHTER, TRANSPORT };
-
-UnitType2 myType = UnitType2::FIGHTER;
 
 // TODO: How to make an extensible list of constant ID's and their string names, which is easy to populate in a static list?

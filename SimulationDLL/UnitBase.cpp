@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// TODO: this global should be moved into whatever factory class is responsible for creating units.
 unsigned int UnitBase::LastId = 0;
 
 UnitBase::UnitBase( double x_, double y_,

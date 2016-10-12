@@ -8,6 +8,6 @@ class Tech1Factory :
 public:
 	Tech1Factory();
 	virtual ~Tech1Factory();
-	virtual UnitBase * CreateUnit(UnitType nType);
+	virtual UnitBase * CreateUnit(UnitType nType, double x, double y);
 };
 
