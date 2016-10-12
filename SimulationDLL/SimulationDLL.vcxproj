@@ -28,6 +28,7 @@
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Target.cpp" />
+    <ClCompile Include="Tech1Factory.cpp" />
     <ClCompile Include="TickControl.cpp" />
     <ClCompile Include="UnitBase.cpp" />
     <ClCompile Include="UnitMgr.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="GroundAttackComponentBasic.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameState.h" />
+    <ClInclude Include="UnitTypes.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HealthComponentBasic.h" />
     <ClInclude Include="IUnitFactory.h" />
@@ -45,6 +47,7 @@
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
     <ClInclude Include="Target.h" />
+    <ClInclude Include="Tech1Factory.h" />
     <ClInclude Include="TickControl.h" />
     <ClInclude Include="UnitBase.h" />
     <ClInclude Include="UnitComponent.h" />

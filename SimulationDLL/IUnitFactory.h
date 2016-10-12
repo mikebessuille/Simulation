@@ -1,17 +1,15 @@
 #pragma once
-
+#include "UnitTypes.h"
 
 class UnitComponent;
 class UnitBase;
-
-using UnitType = const unsigned int;
 
 // Interface for Unit Factories
 class IUnitFactory
 {
 public:
 	IUnitFactory() {}
-	virtual ~UnitFactory() {}
+	virtual ~IUnitFactory() {}
 	virtual UnitBase * CreateUnit( UnitType nType ) = 0; // keep this here to make this an interface class
 };
 
@@ -25,10 +23,4 @@ public:
 // T2 factory may provide a set of special units it can create, but if asked to create a T1 unit, it will
 // just call T1 Factory's CreateUnit() method.
 // Want this to be extensible through plugins...
-
-/* 
-list<pair<string, string>> languages = {
-	{ "Nygaard","Simula" },{ "Richards","BCPL" },{ "Ritchie","C" }
-};
-
-*/
+// Would love it to be fully extensible where unit definitions are in XML rather than hardcoded in code.
