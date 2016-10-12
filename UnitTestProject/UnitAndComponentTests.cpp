@@ -191,11 +191,11 @@ namespace UnitTestProject
 			std::list<UnitBase *>::iterator end = UM_Player1.unitList.end();
 			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 			if( it != end ) ++it;
-			Assert::IsTrue(!CheckIfUnitIsAlive(it, end )); //P1[1] should be dead
+			Assert::IsFalse(CheckIfUnitIsAlive(it, end )); //P1[1] should be dead
 
 			it = UM_Player2.unitList.begin();
 			end = UM_Player2.unitList.end();
-			Assert::IsTrue(!CheckIfUnitIsAlive(it, end)); // P2[0] should be dead
+			Assert::IsFalse(CheckIfUnitIsAlive(it, end)); // P2[0] should be dead
 			if (it != end) ++it;
 			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 		}
