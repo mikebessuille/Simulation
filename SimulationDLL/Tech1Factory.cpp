@@ -2,6 +2,7 @@
 #include "GroundAttackComponentBasic.h"
 #include "HealthComponentBasic.h"
 #include "MoveComponentGroundBasic.h"
+#include "MoveComponentAirBasic.h"
 #include "UnitBase.h"
 #include <memory>
 
@@ -23,6 +24,26 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 	UnitBase *pUnit = nullptr;
 	if (nType == UnitType::FIGHTER)
 	{
+		const unsigned int damage(2);
+		const double range(12.0);
+		const unsigned int cooldown(2); // Fires once per 2 ticks?  (or is it 3?)
+		shared_ptr<GroundAttackComponentBasic> acptr(new GroundAttackComponentBasic(damage, range, cooldown));
+
+		const unsigned int health(10);
+		shared_ptr<HealthComponentBasic> hcptr(new HealthComponentBasic(health));
+
+		const double maxSpeed(10.0);
+	// TODO: REMove this; create a new method on the movecomponent to set the speed.
+	// Future movecomponents won't have speed set at creation; they will have a
+	// target location, and will adjust speed accordingly.
+		const double dx(0.0);
+		const double dy(0.0);
+		shared_ptr<MoveComponentAirBasic> mcptr(new MoveComponentAirBasic(maxSpeed, dx, dy));
+
+		pUnit = new UnitBase(x, y, mcptr, acptr, hcptr);
+	}
+	else if (nType == UnitType::TANK)
+	{
 		const unsigned int damage(3);
 		const double range(10.0);
 		const unsigned int cooldown(1);
@@ -38,17 +59,5 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 
 		pUnit = new UnitBase(x, y, mcptr, acptr, hcptr);
 	}
-	else if (nType == UnitType::TANK)
-	{
-
-	}
 	return pUnit;
-
-	/*  FROM TEST CLASSES
-	UnitBase * ConstructUnit(double x, double y, unsigned int damage, double range, unsigned int cooldown, unsigned int health)
-	{
-		
-	}
-	*/
-
 }

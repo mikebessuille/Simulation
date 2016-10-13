@@ -200,5 +200,7 @@ namespace UnitTestProject
 			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 		}
 
+		// TODO:  Create unit test for new Tech1Factory class
+
 	}; // TEST Class "UnitAndComponentTest"
 } // UnitTestProject namespace
