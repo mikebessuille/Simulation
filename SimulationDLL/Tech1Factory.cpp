@@ -1,6 +1,7 @@
 #include "Tech1Factory.h"
 #include "GroundAttackComponentBasic.h"
 #include "HealthComponentBasic.h"
+#include "MoveComponentGroundBasic.h"
 #include "UnitBase.h"
 #include <memory>
 
@@ -22,14 +23,20 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 	UnitBase *pUnit = nullptr;
 	if (nType == UnitType::FIGHTER)
 	{
-		const unsigned int damage = 3;
-		const double range = 10.0;
-		const unsigned int cooldown = 1;
-		const unsigned int health = 20;
+		const unsigned int damage(3);
+		const double range(10.0);
+		const unsigned int cooldown(1);
 		shared_ptr<GroundAttackComponentBasic> acptr(new GroundAttackComponentBasic(damage, range, cooldown));
+
+		const unsigned int health(20);
 		shared_ptr<HealthComponentBasic> hcptr(new HealthComponentBasic(health));
-		// TODO:  Create a movecomponent class, and instantiate it here.
-		pUnit = new UnitBase(x, y, nullptr, acptr, hcptr);
+
+		const double maxSpeed(5.0);
+		const double dx(2.0);
+		const double dy(2.0);
+		shared_ptr<MoveComponentGroundBasic> mcptr(new MoveComponentGroundBasic(maxSpeed, dx, dy));
+
+		pUnit = new UnitBase(x, y, mcptr, acptr, hcptr);
 	}
 	else if (nType == UnitType::TANK)
 	{

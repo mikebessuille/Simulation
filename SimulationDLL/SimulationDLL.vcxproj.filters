@@ -57,6 +57,9 @@
     <ClCompile Include="Tech1Factory.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="MoveComponentGroundBasic.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">
@@ -111,6 +114,9 @@
       <Filter>Source Files\Units</Filter>
     </ClInclude>
     <ClInclude Include="UnitTypes.h">
+      <Filter>Source Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveComponentGroundBasic.h">
       <Filter>Source Files\Units</Filter>
     </ClInclude>
   </ItemGroup>

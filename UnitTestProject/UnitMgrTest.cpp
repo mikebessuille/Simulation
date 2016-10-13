@@ -14,12 +14,12 @@ namespace UnitTestProject
 	{
 	public:
 		// Declare this special test version of the MoveComponent within the UnitMgrTest class...
-		class MoveComponentBasic : public MoveComponent
+		class MoveComponentBasicTest : public MoveComponent
 		{
 		public:
-			MoveComponentBasic(double dx_, double dy_) : MoveComponent( 0 ), dx(dx_), dy(dy_) {}
+			MoveComponentBasicTest(double dx_, double dy_) : MoveComponent( 0 ), dx(dx_), dy(dy_) {}
 
-			~MoveComponentBasic() {}
+			~MoveComponentBasicTest() {}
 
 			virtual void Update(GameState &gs, unsigned long nTick)
 			{	
@@ -46,7 +46,7 @@ namespace UnitTestProject
 		{
 			for (int i = 0; i < 10; i++)
 			{
-				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (double)(i + 1), 1));
+				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasicTest> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasicTest((double)10 / (double)(i + 1), 1));
 				UnitBase *pUnit = new UnitBase( 0, i, mcptr, nullptr, nullptr );
 				UM.AddUnit( pUnit );
 				Assert::AreEqual(UM.NumUnits(), i + 1);
