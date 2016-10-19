@@ -27,11 +27,14 @@ void CPP11Features::run()
 
 void CPP11Features::UsingAuto()
 {
+	cout << "Auto" << endl;
 
 }
 
 void CPP11Features::UsingInitialization()
 {
+	cout << "Initialization" << endl;
+
 	// simple types
 	int x(3);
 	int y = 4;
@@ -44,6 +47,8 @@ void CPP11Features::UsingInitialization()
 
 void CPP11Features::UsingAlias()
 {
+	cout << "Alias" << endl;
+
 	// OLD:
 	// typedef unordered_map<string, string> StringMap;
 	
@@ -59,15 +64,18 @@ void CPP11Features::UsingAlias()
 
 void CPP11Features::UsingNullptr()
 {
+	cout << "Nullptr" << endl;
 
 }
 
 void CPP11Features::UsingEnums()
 {
+	cout << "Enums" << endl;
 
 }
 
 void CPP11Features::UsingPointerTypes()
 {
+	cout << "Smart Pointers" << endl;
 
 }
