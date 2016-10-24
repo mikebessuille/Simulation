@@ -13,5 +13,9 @@ private:
 	void UsingNullptr();
 	void UsingEnums();
 	void UsingPointerTypes();
+
+	// For nullptr example
+	void foo(int);
+	void foo(void*);
 };
 
