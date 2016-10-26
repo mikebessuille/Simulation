@@ -51,7 +51,7 @@ void CPP11Features::UsingAuto()
 // Tests initialization of a more complex object in a list
 void TestObjectInitialization()
 {
-	class Widget
+	class Widget // A local class which is defined only in the scope of this function.
 	{
 	public:
 		Widget(int x, int y) : m_x(x), m_y(y) {};
