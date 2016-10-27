@@ -1,7 +1,6 @@
 #include "CPP11SpecialFunctions.h"
 
 
-
 CPP11SpecialFunctions::CPP11SpecialFunctions()
 {
 }
@@ -9,6 +8,12 @@ CPP11SpecialFunctions::CPP11SpecialFunctions()
 
 void CPP11SpecialFunctions::run()
 {
+	cout << "Special Functions: run()" << endl;
+	ResourceHandler resA;
+	ResourceHandler resB;
+	ResourceHandler resC(resA); // Copy Constructor
+	ResourceHandler resD;
+	resD = resB; // Copy assignment operator
 
 }
 
