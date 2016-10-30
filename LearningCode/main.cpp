@@ -24,6 +24,9 @@ int main()
 	CPP11Features cpp11;
 	cpp11.run();
 
+	CPP11SpecialFunctions cpp11SF;
+	cpp11SF.run();
+
 	WaitForChar("Learning Code Project Complete.  Hit any key to end.");	
 	this_thread::sleep_for(chrono::seconds(3));
 	return(true);

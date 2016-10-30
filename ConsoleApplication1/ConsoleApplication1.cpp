@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-	cout << "Day 1,Breakfast: I had cereal wich made me sick. Then the doorbell rang." << endl;
+	cout << "Day 1, Breakfast: I had cereal which made me sick. Then the doorbell rang." << endl;
     return 0;
 }
 

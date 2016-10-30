@@ -1,4 +1,5 @@
 #include <memory>
+#include <iostream>
 
 using namespace std;
 
@@ -22,6 +23,9 @@ public:
 
 struct Resource
 {
+public:
+	Resource() { cout << "Resource Constructed." << endl; };
+	~Resource() { cout << "Resource Destroyed." << endl; };
 public:
 	int x;
 	int y;
