@@ -1,6 +1,8 @@
 #include "stdafx.h" // must be the first line, when using pre-compiled headers
 #include <SFML/Graphics.hpp>
+
 #include "main.h"
+#include "ShapeList.h"
 
 // using namespace sf;
 
@@ -10,25 +12,25 @@ int main()
 	return(mainSFML());
 }
 
+
 int mainSFML()
 {
-	sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
-	sf::CircleShape shape(100.f);
-	shape.setFillColor(sf::Color::Green);
+	shared_ptr<sf::RenderWindow> pwindow(new sf::RenderWindow(sf::VideoMode(200, 200), "SFML Charlie"));
+	ShapeList shapes;
 
-	while (window.isOpen())
+	while (pwindow->isOpen())
 	{
 		sf::Event event;
-		while (window.pollEvent(event))
+		while (pwindow->pollEvent(event))
 		{
 			if (event.type == sf::Event::Closed)
-				window.close();
+				pwindow->close();
 		}
 
-		window.clear();
-		window.draw(shape);
-		window.display();
+		shapes.updatePositions(pwindow);
+		shapes.render( pwindow );
 	}
 
 	return 0;
 }
+
