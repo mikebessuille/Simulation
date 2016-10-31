@@ -7,13 +7,13 @@ ShapeList::ShapeList()
 	sf::CircleShape * ps(new sf::CircleShape(100.f));
 	ps->setFillColor(sf::Color::Magenta);
 	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.02f, 0.02f)));
-	m_shapes.push_back(pUnit);
+	AddUnit(pUnit);
 
 	ps = new sf::CircleShape(30.f);
 	ps->setFillColor(sf::Color(250, 50, 50));
 	ps->setPosition(50.f, 30.f);
 	pUnit = make_shared<Unit>(ps, sf::Vector2f(-0.01f, 0.04f));
-	m_shapes.push_back(pUnit);
+	AddUnit(pUnit);
 }
 
 
@@ -54,4 +54,9 @@ void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
 	for (auto it : m_shapes )
 		pwindow->draw( *(*it).getShape() );
 	pwindow->display();
+}
+
+void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
+{
+	m_shapes.push_back(pUnit);
 }

@@ -11,6 +11,7 @@ public:
 	virtual ~ShapeList();
 	void updatePositions(shared_ptr<sf::RenderWindow>);
 	void render(shared_ptr<sf::RenderWindow>);
+	void AddUnit(shared_ptr<Unit>);
 
 private:
 	std::vector<shared_ptr<Unit>> m_shapes;
