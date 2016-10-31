@@ -49,24 +49,28 @@ int mainSFML()
 
 // Currently relies on a global; this should become part of some Mouse Handler class
 sf::Vector2i startPos;
-bool bMouseDown{ false };
+bool bLeftMouseDown{ false };
 
 void mouseHandler(sf::Event event, ShapeList &shapes)
 {
 	if (event.type == sf::Event::MouseButtonPressed)
 	{
-		if (event.mouseButton.button == sf::Mouse::Right)
+		if (event.mouseButton.button == sf::Mouse::Left)
 		{
-			bMouseDown = true;
+			bLeftMouseDown = true;
 			startPos.x = event.mouseButton.x;
 			startPos.y = event.mouseButton.y;
 		}
-	}
-	else if (event.type == sf::Event::MouseButtonReleased && bMouseDown )
-	{
-		if (event.mouseButton.button == sf::Mouse::Right)
+		else if (event.mouseButton.button == sf::Mouse::Right)
 		{
-			bMouseDown = false;
+			// On Right-Click remove any Units that are under this mouse position.
+		}
+	}
+	else if (event.type == sf::Event::MouseButtonReleased && bLeftMouseDown )
+	{
+		if (event.mouseButton.button == sf::Mouse::Left)
+		{
+			bLeftMouseDown = false;
 			// Create a new shape at the start location, whose velocity depends on the distance the mouse moved.
 			sf::CircleShape * ps(new sf::CircleShape(40.f));
 			ps->setFillColor(sf::Color::Blue);
