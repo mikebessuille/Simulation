@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include "Unit.h"
 
 class ShapeList
 {
@@ -12,7 +13,7 @@ public:
 	void render(shared_ptr<sf::RenderWindow>);
 
 private:
-	std::vector<shared_ptr<sf::Shape>> m_shapes;
-	sf::Vector2f speed{ (float)0.01, (float)0.01 };
+	std::vector<shared_ptr<Unit>> m_shapes;
+	
 };
 
