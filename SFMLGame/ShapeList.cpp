@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ShapeList.h"
 
+using namespace std;
 
 ShapeList::ShapeList()
 {
@@ -51,12 +52,39 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin )
 void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
 {
 	pwindow->clear();
-	for (auto it : m_shapes )
-		pwindow->draw( *(*it).getShape() );
+	for (auto it : m_shapes)
+	{
+		pwindow->draw(*(*it).getShape());
+	}
 	pwindow->display();
 }
 
 void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
 {
 	m_shapes.push_back(pUnit);
+}
+
+
+// Remove all units which intersect the specified point
+bool ShapeList::removeUnitsAt(sf::Vector2f pos)
+{
+	bool bWasDeleted{ false };
+	for(auto it = m_shapes.begin(); it != m_shapes.end(); /* do not increment in the loop */ )
+	{
+		sf::Shape * ps = (*it)->getShape();
+		sf::FloatRect bbox = ps->getGlobalBounds();
+		if (bbox.contains(pos))
+		{
+			// If shape intersects the point, remove the shape.
+			it = m_shapes.erase(it);
+			bWasDeleted = true;
+		}
+		else
+		{
+			// increment iterator only if we didn't remove this element
+			++it;
+		}
+	}
+	
+	return( bWasDeleted );
 }

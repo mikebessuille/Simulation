@@ -12,6 +12,7 @@ public:
 	void updatePositions(shared_ptr<sf::RenderWindow>);
 	void render(shared_ptr<sf::RenderWindow>);
 	void AddUnit(shared_ptr<Unit>);
+	bool removeUnitsAt(sf::Vector2f);
 
 private:
 	std::vector<shared_ptr<Unit>> m_shapes;

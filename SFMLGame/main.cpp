@@ -27,7 +27,7 @@ int mainSFML()
 			if (event.type == sf::Event::Resized)
 			{
 				// update the view to the new size
-				pwindow->setView(sf::View(sf::FloatRect(0, 0, event.size.width, event.size.height)));
+				pwindow->setView(sf::View(sf::FloatRect(0, 0, (float)event.size.width, (float)event.size.height)));
 			}
 			else if ( event.type == sf::Event::MouseButtonPressed || 
 					  event.type == sf::Event::MouseButtonReleased ||
@@ -39,6 +39,8 @@ int mainSFML()
 				pwindow->close();
 		}
 
+		// Redraw the screen.  note:  this will happen as often as the CPU is able to do it.
+		// Should probably introduce ticks here so that we don't use 100% CPU
 		shapes.updatePositions(pwindow);
 		shapes.render( pwindow );
 	}
@@ -64,6 +66,8 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 		else if (event.mouseButton.button == sf::Mouse::Right)
 		{
 			// On Right-Click remove any Units that are under this mouse position.
+			sf::Vector2f pos((float)event.mouseButton.x, (float)event.mouseButton.y);
+			shapes.removeUnitsAt(pos);
 		}
 	}
 	else if (event.type == sf::Event::MouseButtonReleased && bLeftMouseDown )
@@ -74,7 +78,7 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 			// Create a new shape at the start location, whose velocity depends on the distance the mouse moved.
 			sf::CircleShape * ps(new sf::CircleShape(40.f));
 			ps->setFillColor(sf::Color::Blue);
-			ps->setPosition( event.mouseButton.x, event.mouseButton.y );
+			ps->setPosition( (float)event.mouseButton.x, (float)event.mouseButton.y );
 			sf::Vector2f vel( (float)( event.mouseButton.x - startPos.x ) / 100.f,
 							  (float)( event.mouseButton.y - startPos.y) / 100.f );
 			shared_ptr<Unit> pUnit(new Unit(ps, vel ));
@@ -83,3 +87,13 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 	}
 }
 
+// TODO: Create a new "Player" object that the player can move around using the keys.  Don't rely on events for key handling;
+// poll the keys in the main loop, so that it doesn't stutter (events are less frequent).
+// Sample code:
+/*
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+{
+	// left key is pressed: move our character
+	character.move(1, 0);
+}
+*/

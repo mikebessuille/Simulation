@@ -5,6 +5,11 @@
 
 #pragma once
 
+// Must include a SFML header file right at the start of stdafx:
+// See http://en.sfml-dev.org/forums/index.php?topic=10216.0
+#include <SFML/Graphics.hpp>
+
+
 #include "targetver.h"
 
 #define WIN32_LEAN_AND_MEAN             // Exclude rarely-used stuff from Windows headers
