@@ -15,7 +15,7 @@ int main()
 
 int mainSFML()
 {
-	shared_ptr<sf::RenderWindow> pwindow(new sf::RenderWindow(sf::VideoMode(200, 200), "SFML Charlie"));
+	shared_ptr<sf::RenderWindow> pwindow(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Charlie")); // width, height
 	ShapeList shapes;
 
 	while (pwindow->isOpen())

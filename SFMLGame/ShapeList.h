@@ -13,6 +13,6 @@ public:
 
 private:
 	std::vector<shared_ptr<sf::Shape>> m_shapes;
-	sf::Vector2f speed{ (float)0.02, (float)0.02 };
+	sf::Vector2f speed{ (float)0.01, (float)0.01 };
 };
 

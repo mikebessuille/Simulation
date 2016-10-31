@@ -7,6 +7,11 @@ ShapeList::ShapeList()
 	shared_ptr<sf::CircleShape> pshape(new sf::CircleShape(100.f));
 	pshape->setFillColor(sf::Color::Magenta);
 	m_shapes.push_back(pshape);
+
+	pshape = make_shared<sf::CircleShape>(30.f);
+	pshape->setFillColor(sf::Color(250, 50, 50));
+	pshape->setPosition(50.f, 30.f);
+	m_shapes.push_back(pshape);
 }
 
 
