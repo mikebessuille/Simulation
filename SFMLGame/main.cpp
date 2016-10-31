@@ -3,6 +3,7 @@
 
 #include "main.h"
 #include "ShapeList.h"
+#include "PlayerUnit.h"
 
 // using namespace sf;
 
@@ -18,6 +19,7 @@ int mainSFML()
 {
 	shared_ptr<sf::RenderWindow> pwindow(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Charlie")); // width, height
 	ShapeList shapes;
+	PlayerUnit player;
 
 	while (pwindow->isOpen())
 	{
@@ -42,7 +44,13 @@ int mainSFML()
 		// Redraw the screen.  note:  this will happen as often as the CPU is able to do it.
 		// Should probably introduce ticks here so that we don't use 100% CPU
 		shapes.updatePositions(pwindow);
+		player.move(pwindow);
+
+		pwindow->clear();
 		shapes.render( pwindow );
+		player.render( pwindow );
+		pwindow->display();
+
 	}
 
 	return 0;
@@ -86,14 +94,3 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 		}
 	}
 }
-
-// TODO: Create a new "Player" object that the player can move around using the keys.  Don't rely on events for key handling;
-// poll the keys in the main loop, so that it doesn't stutter (events are less frequent).
-// Sample code:
-/*
-if (sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-{
-	// left key is pressed: move our character
-	character.move(1, 0);
-}
-*/

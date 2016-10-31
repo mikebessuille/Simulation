@@ -51,12 +51,10 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin )
 
 void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
 {
-	pwindow->clear();
 	for (auto it : m_shapes)
 	{
 		pwindow->draw(*(*it).getShape());
 	}
-	pwindow->display();
 }
 
 void ShapeList::AddUnit(shared_ptr<Unit>pUnit)

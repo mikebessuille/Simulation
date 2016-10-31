@@ -161,6 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="main.h" />
+    <ClInclude Include="PlayerUnit.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="SFMLGame.h" />
     <ClInclude Include="ShapeList.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="Unit.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="PlayerUnit.cpp" />
     <ClCompile Include="SFMLGame.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="ShapeList.cpp" />
