@@ -17,9 +17,9 @@ void mouseHandler(sf::Event event, ShapeList &shapes);
 
 int mainSFML()
 {
-	sf::Clock clock;
-	sf::Time elapsed{ sf::milliseconds(1000) };
-	const sf::Time tick{ sf::milliseconds(20) };  // 20ms = 50 frames per second
+	sf::Clock clock; // starts the clock.
+	sf::Time elapsed{ sf::milliseconds(0) };
+	const sf::Time tick{ sf::milliseconds(10) };  // 10ms = 100 frames per second
 	shared_ptr<sf::RenderWindow> pwindow(new sf::RenderWindow(sf::VideoMode(800, 600), "SFML Charlie")); // width, height
 	ShapeList shapes;
 	PlayerUnit player;
@@ -44,9 +44,11 @@ int mainSFML()
 				pwindow->close();
 		}
 
+		elapsed = clock.getElapsedTime(); // since the clock was last restarted
 		if (elapsed > tick) // So that we don't use 100% CPU and redraw the screen too often.
 		{
-			// THIS IS TOTALLY WRONG...   elapsed = clock.restart();
+			clock.restart();
+			elapsed = sf::milliseconds(0);
 
 			// Redraw the screen.  
 			shapes.updatePositions(pwindow);
