@@ -5,7 +5,7 @@ using namespace std;
 
 ShapeList::ShapeList()
 {
-	sf::CircleShape * ps(new sf::CircleShape(100.f));
+	sf::CircleShape * ps = new sf::CircleShape(100.f);
 	ps->setFillColor(sf::Color::Magenta);
 	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));
 	AddUnit(pUnit);
@@ -23,27 +23,46 @@ ShapeList::~ShapeList()
 }
 
 
-void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin )
+void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFactor )
 {
-	sf::Vector2u wsize = pwin->getSize();
-	sf::Shape * ps;
-
-	for (auto it : m_shapes)
+	for (auto it : m_units)
 	{
-		ps = (*it).getShape();
-		(*it).move();
-
-		// If shape has moved outside the bounds of the view, reset it's position or velocity
-		sf::Vector2f pos = ps->getPosition();
-		sf::Vector2f vel = (*it).getVelocity();
-		if (pos.x > wsize.x || pos.x < 0 || pos.y > wsize.y || pos.y < 0)
+		sf::Shape * ps = (*it).getShape();
+		if (ps)
 		{
-			// ps->setPosition(0, 0);
-			if (pos.x > wsize.x || pos.x < 0)
-				vel.x = -vel.x;
-			if (pos.y > wsize.y || pos.y < 0)
-				vel.y = -vel.y;
-			(*it).setVelocity(vel);
+			(*it).move( speedFactor ); // move the unit
+
+			// If shape has moved outside the bounds of the view, reset its velocity
+			sf::FloatRect sz = ps->getGlobalBounds();
+			sf::Vector2u wsize = pwin->getSize();
+			if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
+			{
+				sf::Vector2f vel = (*it).getVelocity();
+				/*
+				// No because this doesn't take into account shapes which start with bounding boxes somewhat outside the view.
+				if ((sz.left + sz.width) > wsize.x || sz.left < 0)
+				{
+					vel.x = -vel.x; 
+				}
+				if((sz.top + sz.height) > wsize.y || sz.top < 0 )
+					vel.y = -vel.y;
+				*/
+				if (((sz.left + sz.width) > wsize.x) && vel.x > 0.f)
+					vel.x = -vel.x;
+				else if (sz.left < 0 && vel.x < 0.f)
+					vel.x = -vel.x;
+
+				if ((sz.top + sz.height) > wsize.y && vel.y > 0.f )
+					vel.y = -vel.y;
+				else if (sz.top < 0 && vel.y < 0.f )
+					vel.y = -vel.y;
+
+				(*it).setVelocity(vel);
+			}
+		}
+		else
+		{
+			// ERROR!  One of the units has no shape!!!
 		}
 	}
 }
@@ -51,7 +70,7 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin )
 
 void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
 {
-	for (auto it : m_shapes)
+	for (auto it : m_units)
 	{
 		pwindow->draw(*(*it).getShape());
 	}
@@ -59,7 +78,7 @@ void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
 
 void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
 {
-	m_shapes.push_back(pUnit);
+	m_units.push_back(pUnit);
 }
 
 
@@ -67,14 +86,14 @@ void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
 bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 {
 	bool bWasDeleted{ false };
-	for(auto it = m_shapes.begin(); it != m_shapes.end(); /* do not increment in the loop */ )
+	for(auto it = m_units.begin(); it != m_units.end(); /* do not increment in the loop */ )
 	{
 		sf::Shape * ps = (*it)->getShape();
 		sf::FloatRect bbox = ps->getGlobalBounds();
 		if (bbox.contains(pos))
 		{
 			// If shape intersects the point, remove the shape.
-			it = m_shapes.erase(it);
+			it = m_units.erase(it);
 			bWasDeleted = true;
 		}
 		else

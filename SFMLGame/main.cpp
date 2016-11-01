@@ -46,14 +46,16 @@ int mainSFML()
 
 		elapsed = clock.getElapsedTime(); // since the clock was last restarted
 		if (elapsed > tick) // So that we don't use 100% CPU and redraw the screen too often.
-		{
+		{	
+			// Update position of all units
+			const float speedFactor = (float) (elapsed / tick);
+			shapes.updatePositions(pwindow, speedFactor );
+			player.move(pwindow, speedFactor );
+
 			clock.restart();
 			elapsed = sf::milliseconds(0);
 
 			// Redraw the screen.  
-			shapes.updatePositions(pwindow);
-			player.move(pwindow);
-
 			pwindow->clear();
 			shapes.render(pwindow);
 			player.render(pwindow);

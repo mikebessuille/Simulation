@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "PlayerUnit.h"
 
+const float PlayerUnit::baseSpeed{ 0.5f };
 
 PlayerUnit::PlayerUnit()
 {
@@ -22,9 +23,9 @@ void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
 
 
 // Don't rely on events for key handling; poll the keys in the main loop, so that it doesn't stutter (events are less frequent).
-void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin )
+void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor )
 {
-	float speed = 0.5;
+	float speed = baseSpeed * speedFactor;
 	sf::Vector2f vel{ 0.f, 0.f };
 	//sf::Vector2f pos = ps->getPosition();
 	sf::FloatRect sz = ps->getGlobalBounds();
