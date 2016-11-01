@@ -26,7 +26,8 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin )
 {
 	float speed = 0.5;
 	sf::Vector2f vel{ 0.f, 0.f };
-	sf::Vector2f pos = ps->getPosition();
+	//sf::Vector2f pos = ps->getPosition();
+	sf::FloatRect sz = ps->getGlobalBounds();
 	sf::Vector2u wsize = pwin->getSize();
 
 	// TODO: subtract size of shape from wsize below
@@ -37,19 +38,19 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin )
 		speed *= 2.0f;
 	}
 
-	if (( sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ) && pos.y > 0 )
+	if (( sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up) ) && sz.top > 0 )
 	{
 		vel.y -= speed; // UP
 	}
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) && pos.y < wsize.y )
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) && (sz.top + sz.height) < wsize.y )
 	{
 		vel.y += speed; // Down
 	}
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left )) && pos.x > 0)
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::A)|| sf::Keyboard::isKeyPressed(sf::Keyboard::Left )) && sz.left > 0)
 	{
 		vel.x -= speed; // Left
 	}
-	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right )) && pos.x < wsize.x )
+	if ((sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right )) && (sz.left + sz.width) < wsize.x )
 	{
 		vel.x += speed; // Right
 	}
