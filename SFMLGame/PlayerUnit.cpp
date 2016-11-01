@@ -30,8 +30,6 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin )
 	sf::FloatRect sz = ps->getGlobalBounds();
 	sf::Vector2u wsize = pwin->getSize();
 
-	// TODO: subtract size of shape from wsize below
-
 	if ( sf::Keyboard::isKeyPressed(sf::Keyboard::LShift))
 	{
 		// Shift key is pressed; go twice as fast.
@@ -56,5 +54,4 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin )
 	}
 
 	ps->move( vel );
-
 }
