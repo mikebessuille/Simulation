@@ -47,14 +47,14 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 				if((sz.top + sz.height) > wsize.y || sz.top < 0 )
 					vel.y = -vel.y;
 				*/
-				if (((sz.left + sz.width) > wsize.x) && vel.x > 0.f)
+				if (((sz.left + sz.width) >= wsize.x) && vel.x > 0.f)
 					vel.x = -vel.x;
-				else if (sz.left < 0 && vel.x < 0.f)
+				else if (sz.left <= 0 && vel.x < 0.f)
 					vel.x = -vel.x;
 
-				if ((sz.top + sz.height) > wsize.y && vel.y > 0.f )
+				if ((sz.top + sz.height) >= wsize.y && vel.y > 0.f )
 					vel.y = -vel.y;
-				else if (sz.top < 0 && vel.y < 0.f )
+				else if (sz.top <= 0 && vel.y < 0.f )
 					vel.y = -vel.y;
 
 				(*it).setVelocity(vel);
