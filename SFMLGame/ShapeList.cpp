@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "ShapeList.h"
+#include "PlayerUnit.h"
 
 using namespace std;
 
@@ -7,12 +8,14 @@ ShapeList::ShapeList()
 {
 	sf::CircleShape * ps = new sf::CircleShape(100.f);
 	ps->setFillColor(sf::Color::Magenta);
+	ps->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
 	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));
 	AddUnit(pUnit);
 
 	ps = new sf::CircleShape(30.f);
 	ps->setFillColor(sf::Color(250, 50, 50));
 	ps->setPosition(50.f, 30.f);
+	ps->setOrigin(30.f, 30.f); // The center of the object rather than the top-left.
 	pUnit = make_shared<Unit>(ps, sf::Vector2f(-0.6f, 0.3f));
 	AddUnit(pUnit);
 }
@@ -104,4 +107,15 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 	}
 	
 	return( bWasDeleted );
+}
+
+
+// Collision-detection between player and other objects, based on (center + radius) rather than bounding box! 
+// All shapes are circles, and all should have their origin set to their center (so getPos() returns the center, not the top-left).
+// Avoid O(N^2) collision detection (no need to detect collisions between all objects and each other; just need to
+// detect collisions between the player(s) and all other objects, which is O(N) ).
+void ShapeList::HandleCollisions( PlayerUnit &player )
+{
+
+
 }

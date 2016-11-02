@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Unit.h"
+#include "PlayerUnit.h"
 
 class ShapeList
 {
@@ -13,6 +14,7 @@ public:
 	void render(shared_ptr<sf::RenderWindow>);
 	void AddUnit(shared_ptr<Unit>);
 	bool removeUnitsAt(sf::Vector2f);
+	void HandleCollisions(PlayerUnit &player);
 
 private:
 	std::vector<shared_ptr<Unit>> m_units;

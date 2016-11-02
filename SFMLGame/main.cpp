@@ -14,6 +14,7 @@ int main()
 }
 
 void mouseHandler(sf::Event event, ShapeList &shapes);
+void HandleCollisions(ShapeList &shapes, PlayerUnit &player);
 
 int mainSFML()
 {
@@ -51,6 +52,7 @@ int mainSFML()
 			const float speedFactor = (float) (elapsed / tick);
 			shapes.updatePositions(pwindow, speedFactor );
 			player.move(pwindow, speedFactor );
+			shapes.HandleCollisions(player);
 
 			clock.restart();
 			elapsed = sf::milliseconds(0);
