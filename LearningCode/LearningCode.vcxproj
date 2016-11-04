@@ -113,10 +113,12 @@
     <ClCompile Include="CPP11Features.cpp" />
     <ClCompile Include="CPP11SpecialFunctions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PimplPattern.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPP11Features.h" />
     <ClInclude Include="CPP11SpecialFunctions.h" />
+    <ClInclude Include="PimplPattern.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

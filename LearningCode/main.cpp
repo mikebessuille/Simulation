@@ -4,6 +4,7 @@
 
 #include "CPP11Features.h"
 #include "CPP11SpecialFunctions.h"
+#include "PimplPattern.h"
 
 using namespace std;
 
@@ -26,6 +27,9 @@ int main()
 
 	CPP11SpecialFunctions cpp11SF;
 	cpp11SF.run();
+
+	PimplPattern pimp;
+	pimp.run();
 
 	WaitForChar("Learning Code Project Complete.  Hit any key to end.");	
 	this_thread::sleep_for(chrono::seconds(3));
