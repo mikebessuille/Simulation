@@ -174,5 +174,5 @@ void CPP11Features::UsingPointerTypes()
 	// which would mess up the shared_ptr because its reference count will not be zero and it will point to deleted memory!
 	Widget * rawPtr = new Widget(3);
 	shared_ptr<Widget> p3(rawPtr);
-	delete rawPtr;  // If we did this, when p3 goes out of scope it will delete the same memory twice...  BAD...
+	// delete rawPtr;  // If we did this, when p3 goes out of scope it will delete the same memory twice...  BAD...
 }
