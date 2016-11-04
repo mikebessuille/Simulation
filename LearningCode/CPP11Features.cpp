@@ -5,6 +5,8 @@
 #include <memory>
 #include <cassert>
 
+#include "Widget.h"
+
 using namespace std;
 
 CPP11Features::CPP11Features()
@@ -164,4 +166,13 @@ void CPP11Features::UsingPointerTypes()
 {
 	cout << "Smart Pointers ******************** " << endl;
 
+	// Different ways of constructing a shared pointer:
+	shared_ptr<Widget> p1(new Widget(3));
+	auto p2 = make_shared<Widget>(3);
+
+	// This isn't as good as passing new directly to the shared_ptr ctor, because people may use (or delete!) the raw pointer,
+	// which would mess up the shared_ptr because its reference count will not be zero and it will point to deleted memory!
+	Widget * rawPtr = new Widget(3);
+	shared_ptr<Widget> p3(rawPtr);
+	delete rawPtr;  // If we did this, when p3 goes out of scope it will delete the same memory twice...  BAD...
 }

@@ -117,6 +117,7 @@
   <ItemGroup>
     <ClInclude Include="CPP11Features.h" />
     <ClInclude Include="CPP11SpecialFunctions.h" />
+    <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

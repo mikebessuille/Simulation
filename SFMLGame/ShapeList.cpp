@@ -6,10 +6,18 @@ using namespace std;
 
 ShapeList::ShapeList()
 {
+	/*
+	// This would be somewhat better because it's more efficient (Unit and shared_ptr control block are allocated as one memory block)
+	// and it doesn't risk problems with the raw pointer.
+	auto pUnit = make_shared<Unit>(new sf::CircleShape(100.f), sf::Vector2f(0.2f, 0.2f));
+	(*pUnit).getShape()->setFillColor(sf::Color::Magenta);
+	(*pUnit).getShape()->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
+	*/
+	
 	sf::CircleShape * ps = new sf::CircleShape(100.f);
 	ps->setFillColor(sf::Color::Magenta);
 	ps->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
-	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));
+	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));	
 	AddUnit(pUnit);
 
 	ps = new sf::CircleShape(30.f);
