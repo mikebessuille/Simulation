@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "PlayerUnit.h"
+#include "VectorUtils.h"
 
 
 PlayerUnit::PlayerUnit()
@@ -19,33 +20,6 @@ void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
 {
 	if( ps != nullptr )
 		pwin->draw( *ps );
-}
-
-
-// Utility functions... put these in a new header file or class? (pass by reference or we'll end up changing a copy!)
-static float VectorLength(sf::Vector2f &vec)
-{
-	// Take care of case where length is 0; don't want to normalize it to be huge!
-	if (vec.x == 0.f)
-		return(vec.y); // this also covers the case where they're both 0
-	if (vec.y == 0.f)
-		return(vec.x);
-	return(sqrt((vec.x * vec.x) + (vec.y * vec.y)));
-}
-
-static void VectorNormalize(sf::Vector2f &vec)
-{
-	float magnitude = VectorLength(vec);
-	if (magnitude > 0.f)
-		vec /= magnitude;
-	if (vec.x > 1.f)
-		vec.x = 1.f;
-	else if (vec.x < -1.f)
-		vec.x = -1.f;
-	if (vec.y > 1.f)
-		vec.y = 1.f;
-	else if (vec.y < -1.f)
-		vec.y = -1.f;
 }
 
 

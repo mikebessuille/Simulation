@@ -14,7 +14,6 @@ int main()
 }
 
 void mouseHandler(sf::Event event, ShapeList &shapes);
-void HandleCollisions(ShapeList &shapes, PlayerUnit &player);
 
 int mainSFML()
 {

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "ShapeList.h"
 #include "PlayerUnit.h"
+#include "VectorUtils.h"
 
 using namespace std;
 
@@ -43,33 +44,33 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 		{
 			(*it).move( speedFactor ); // move the unit
 
-			// If shape has moved outside the bounds of the view, reset its velocity
-			sf::FloatRect sz = ps->getGlobalBounds();
-			sf::Vector2u wsize = pwin->getSize();
-			if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
-			{
-				sf::Vector2f vel = (*it).getVelocity();
-				/*
-				// No because this doesn't take into account shapes which start with bounding boxes somewhat outside the view.
-				if ((sz.left + sz.width) > wsize.x || sz.left < 0)
-				{
-					vel.x = -vel.x; 
-				}
-				if((sz.top + sz.height) > wsize.y || sz.top < 0 )
-					vel.y = -vel.y;
-				*/
-				if (((sz.left + sz.width) >= wsize.x) && vel.x > 0.f)
-					vel.x = -vel.x;
-				else if (sz.left <= 0 && vel.x < 0.f)
-					vel.x = -vel.x;
+// If shape has moved outside the bounds of the view, reset its velocity
+sf::FloatRect sz = ps->getGlobalBounds();
+sf::Vector2u wsize = pwin->getSize();
+if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
+{
+	sf::Vector2f vel = (*it).getVelocity();
+	/*
+	// No because this doesn't take into account shapes which start with bounding boxes somewhat outside the view.
+	if ((sz.left + sz.width) > wsize.x || sz.left < 0)
+	{
+		vel.x = -vel.x;
+	}
+	if((sz.top + sz.height) > wsize.y || sz.top < 0 )
+		vel.y = -vel.y;
+	*/
+	if (((sz.left + sz.width) >= wsize.x) && vel.x > 0.f)
+		vel.x = -vel.x;
+	else if (sz.left <= 0 && vel.x < 0.f)
+		vel.x = -vel.x;
 
-				if ((sz.top + sz.height) >= wsize.y && vel.y > 0.f )
-					vel.y = -vel.y;
-				else if (sz.top <= 0 && vel.y < 0.f )
-					vel.y = -vel.y;
+	if ((sz.top + sz.height) >= wsize.y && vel.y > 0.f)
+		vel.y = -vel.y;
+	else if (sz.top <= 0 && vel.y < 0.f)
+		vel.y = -vel.y;
 
-				(*it).setVelocity(vel);
-			}
+	(*it).setVelocity(vel);
+}
 		}
 		else
 		{
@@ -79,7 +80,7 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 }
 
 
-void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow )
+void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow)
 {
 	for (auto it : m_units)
 	{
@@ -97,7 +98,7 @@ void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
 bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 {
 	bool bWasDeleted{ false };
-	for(auto it = m_units.begin(); it != m_units.end(); /* do not increment in the loop */ )
+	for (auto it = m_units.begin(); it != m_units.end(); /* do not increment in the loop */)
 	{
 		sf::Shape * ps = (*it)->getShape();
 		sf::FloatRect bbox = ps->getGlobalBounds();
@@ -113,8 +114,8 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 			++it;
 		}
 	}
-	
-	return( bWasDeleted );
+
+	return(bWasDeleted);
 }
 
 
@@ -122,8 +123,24 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 // All shapes are circles, and all should have their origin set to their center (so getPos() returns the center, not the top-left).
 // Avoid O(N^2) collision detection (no need to detect collisions between all objects and each other; just need to
 // detect collisions between the player(s) and all other objects, which is O(N) ).
-void ShapeList::HandleCollisions( PlayerUnit &player )
+void ShapeList::HandleCollisions(PlayerUnit &player)
 {
+	sf::Vector2f PlayerPos = player.getPos();
+	float PlayerSize = player.getRadius();
 
+	for (auto it = begin(m_units); it != end(m_units); ) // Omits the incrememt from here.
+	{
+		sf::Vector2f UnitPos = (*it)->getShape()->getPosition();
+		float UnitSize = (*it)->getShape()->getGlobalBounds().width; // Assumes it's a circle...
 
+		if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
+		{
+			// Collision!
+			it = m_units.erase(it); // returns next element
+		}
+		else
+		{
+			++it; // Wasn't done in the for loop
+		}
+	}
 }

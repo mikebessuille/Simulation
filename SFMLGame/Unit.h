@@ -18,7 +18,7 @@ public:
 	sf::Vector2f getVelocity() { return velocity; }
 
 private:
-	// Make these private, simply because KW doesn't properly detect the C++11 "delete" functionality and will assume the default
+	// Make these (copy ctor, assignment operator) private, simply because KW doesn't properly detect the C++11 "delete" functionality and will assume the default
 	// copy constructor & assignment operators were created, which leads KW to believe there are memory problems.
 	// Unit& operator=(Unit rhs); // Disallow assignment operator, to prevent leaking of pshape
 	// Unit(const Unit& other); // Disallow copy constructor, to prevent leaking of pshape
