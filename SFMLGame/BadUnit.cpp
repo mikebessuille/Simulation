@@ -35,6 +35,7 @@ bool BadUnit::HandleCollision(PlayerUnit & player)
 	else
 	{
 		// TODO: damage the player
+		player.damage(60);
 	}
 	return(false);
 }

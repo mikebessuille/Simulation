@@ -24,7 +24,7 @@ int mainSFML()
 	ShapeList shapes;
 	PlayerUnit player;
 
-	while (pwindow->isOpen())
+	while (pwindow->isOpen() && player.isAlive())
 	{
 		sf::Event event;
 		while (pwindow->pollEvent(event))

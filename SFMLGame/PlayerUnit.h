@@ -15,6 +15,9 @@ public:
 	sf::Vector2f getPos() { if (ps) return((*ps).getPosition()); else return(sf::Vector2f(0, 0)); }
 	float getRadius() { if (bShield) return(radius + shieldSize); else return(radius); }
 	bool isShield() { return(bShield); }
+	bool damage(const unsigned int dmg);
+	void gainHealth(const unsigned int health);
+	bool isAlive() { return(health > 0); };
 
 protected:
 	void update();
@@ -25,5 +28,6 @@ private:
 	const float baseSpeed{ 0.8f };
 	bool bShield{ false };
 	float shieldSize{ 5.f }; // Shield size can change over time?
+	unsigned int health{ 100 };
 };
 

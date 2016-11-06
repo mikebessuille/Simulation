@@ -96,6 +96,21 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 }
 
 
+// Damages the player; returns true if the player loses all his health.
+bool PlayerUnit::damage(const unsigned int dmg)
+{
+	if (dmg > health)
+	{
+		health = 0;
+	}
+	health -= dmg; 
+	return( isAlive() );
+}
+
+void PlayerUnit::gainHealth(const unsigned int health)
+{
+}
+
 // Update other attributes like Shield
 void PlayerUnit::update()
 {
