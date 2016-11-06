@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "BadUnit.h"
+#include <SFML\Graphics.hpp>
+#include "VectorUtils.h"
 
 
 const float BadUnit::default_size{ 25.f };
@@ -20,6 +22,20 @@ BadUnit::BadUnit(sf::Vector2f pos, sf::Vector2f vel) : Unit( pos, vel )
 // Returns true if the current unit should be destroyed.
 bool BadUnit::HandleCollision(PlayerUnit & player)
 {
-	return true;
+	if (player.isShield())
+	{
+		// bounce off the player
+		sf::Vector2f pu = pshape->getPosition();
+		sf::Vector2f pp = player.getPos();
+		float speed = VectorLength( getVelocity() );
+		sf::Vector2f vel = pu - pp;
+		VectorNormalize( vel );
+		setVelocity( vel * speed );
+	}
+	else
+	{
+		// TODO: damage the player
+	}
+	return(false);
 }
 

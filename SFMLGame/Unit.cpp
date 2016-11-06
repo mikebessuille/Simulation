@@ -51,5 +51,15 @@ void Unit::move( const float speedFactor )
 // Returns true if the current unit should be destroyed.
 bool Unit::HandleCollision(PlayerUnit & player)
 {
-	return false;
+	if (player.isShield())
+	{
+		// do nothing
+	}
+	else
+	{
+		// Player eats the unit and gains points.
+		// TODO: Gain points!
+		return(true);
+	}
+	return(false);
 }

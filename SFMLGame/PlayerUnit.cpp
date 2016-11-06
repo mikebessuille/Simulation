@@ -90,6 +90,34 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 	// Normalize vel so you don't move twice as fast when moving diagonally.
 	VectorNormalize(vel);
 	ps->move(vel * speed);
+
+	// Update other player attributes like shield
+	update();
+}
+
+
+// Update other attributes like Shield
+void PlayerUnit::update()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		// Space bar is pressed; shield is on
+		if( bShield == false )
+		{
+			bShield = true;
+			ps->setOutlineThickness( shieldSize );
+			ps->setOutlineColor(sf::Color(220, 220, 220));
+		}
+	}
+	else
+	{
+		if (bShield == true)
+		{
+			// reset shield to false
+			bShield = false;
+			ps->setOutlineThickness(0.f);
+		}
+	}
 }
 
 
