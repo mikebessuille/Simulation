@@ -24,7 +24,7 @@ int mainSFML()
 	ShapeList shapes;
 	PlayerUnit player;
 
-	while (pwindow->isOpen() && player.isAlive())
+	while (pwindow->isOpen())
 	{
 		sf::Event event;
 		while (pwindow->pollEvent(event))
@@ -44,25 +44,28 @@ int mainSFML()
 				pwindow->close();
 		}
 
+		
 		elapsed = clock.getElapsedTime(); // since the clock was last restarted
 		if (elapsed > tick) // So that we don't use 100% CPU and redraw the screen too often.
-		{	
-			// Update position of all units
-			const float speedFactor = (float) (elapsed / tick);
-			shapes.updatePositions(pwindow, speedFactor );
-			player.move(pwindow, speedFactor );
-			shapes.HandleCollisions(player);
-
-			clock.restart();
-			elapsed = sf::milliseconds(0);
+		{
+			if (player.isAlive())
+			{
+				// Update position of all units
+				const float speedFactor = (float)(elapsed / tick);
+				shapes.updatePositions(pwindow, speedFactor);
+				player.move(pwindow, speedFactor);
+				shapes.HandleCollisions(player);
+			}
 
 			// Redraw the screen.  
 			pwindow->clear();
 			shapes.render(pwindow);
 			player.render(pwindow);
 			pwindow->display();
-		}
 
+			clock.restart();
+			elapsed = sf::milliseconds(0);
+		}
 	}
 
 	return 0;

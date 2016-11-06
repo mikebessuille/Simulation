@@ -5,6 +5,7 @@
 
 const float Unit::default_size{ 30.f };
 const sf::Color Unit::default_colour(0, 0, 250); // Blue
+const unsigned int Unit::default_points{ 5 }; // How much health each unit gives the player
 
 Unit::Unit( sf::Shape* ps, sf::Vector2f vel ) : pshape(ps), velocity( vel )
 {
@@ -58,7 +59,7 @@ bool Unit::HandleCollision(PlayerUnit & player)
 	else
 	{
 		// Player eats the unit and gains points.
-		// TODO: Gain points!
+		player.gainHealth(default_points);
 		return(true);
 	}
 	return(false);

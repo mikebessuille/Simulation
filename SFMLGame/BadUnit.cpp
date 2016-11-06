@@ -6,6 +6,7 @@
 
 const float BadUnit::default_size{ 25.f };
 const sf::Color BadUnit::default_colour(255, 0, 0); // Red
+const unsigned int BadUnit::default_damage{ 20 };
 
 BadUnit::BadUnit(sf::Vector2f pos, sf::Vector2f vel) : Unit( pos, vel )
 {
@@ -34,8 +35,9 @@ bool BadUnit::HandleCollision(PlayerUnit & player)
 	}
 	else
 	{
-		// TODO: damage the player
-		player.damage(60);
+		// damage the player
+		player.damage( default_damage );
+		return(true);
 	}
 	return(false);
 }

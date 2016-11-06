@@ -20,6 +20,14 @@ void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
 {
 	if( ps != nullptr )
 		pwin->draw( *ps );
+
+	renderStats( pwin );
+}
+
+
+void PlayerUnit::renderStats( shared_ptr<sf::RenderWindow> pwin )
+{
+
 }
 
 
@@ -99,16 +107,22 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 // Damages the player; returns true if the player loses all his health.
 bool PlayerUnit::damage(const unsigned int dmg)
 {
+	badCollisions++;
 	if (dmg > health)
 	{
 		health = 0;
 	}
-	health -= dmg; 
+	else
+	{
+		health -= dmg;
+	}
 	return( isAlive() );
 }
 
-void PlayerUnit::gainHealth(const unsigned int health)
+void PlayerUnit::gainHealth(const unsigned int points)
 {
+	eaten++;
+	health += points;
 }
 
 // Update other attributes like Shield

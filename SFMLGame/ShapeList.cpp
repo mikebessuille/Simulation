@@ -29,6 +29,10 @@ ShapeList::ShapeList()
 	AddUnit(pu);
 	pu = make_shared<BadUnit>(sf::Vector2f(350.f, 40.f), sf::Vector2f(-0.6f, 0.6f));
 	AddUnit(pu);
+	pu = make_shared<BadUnit>(sf::Vector2f(300.f, 50.f), sf::Vector2f(0.3f, -0.5f));
+	AddUnit(pu);
+	pu = make_shared<BadUnit>(sf::Vector2f(100.f, 400.f), sf::Vector2f(-0.5f, 0.3f));
+	AddUnit(pu);
 	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f));
 	AddUnit(pu);
 	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f));

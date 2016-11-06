@@ -17,5 +17,6 @@ public:
 private:
 	static const float default_size;
 	static const sf::Color default_colour;
+	static const unsigned int default_damage;
 };
 
