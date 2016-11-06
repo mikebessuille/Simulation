@@ -99,6 +99,7 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 			sf::CircleShape * ps(new sf::CircleShape(40.f));
 			ps->setFillColor(sf::Color::Blue);
 			ps->setPosition( (float)event.mouseButton.x, (float)event.mouseButton.y );
+			ps->setOrigin(40.f, 40.f); // The center of the object rather than the top-left.
 			sf::Vector2f vel( (float)( event.mouseButton.x - startPos.x ) / 100.f,
 							  (float)( event.mouseButton.y - startPos.y) / 100.f );
 			shared_ptr<Unit> pUnit(new Unit(ps, vel ));

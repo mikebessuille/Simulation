@@ -131,7 +131,7 @@ void ShapeList::HandleCollisions(PlayerUnit &player)
 	for (auto it = begin(m_units); it != end(m_units); ) // Omits the incrememt from here.
 	{
 		sf::Vector2f UnitPos = (*it)->getShape()->getPosition();
-		float UnitSize = (*it)->getShape()->getGlobalBounds().width; // Assumes it's a circle...
+		float UnitSize = (*it)->getShape()->getGlobalBounds().width / 2; // Assumes it's a circle...
 
 		if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
 		{
