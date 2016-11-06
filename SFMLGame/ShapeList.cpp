@@ -7,26 +7,31 @@ using namespace std;
 
 ShapeList::ShapeList()
 {
-	/*
 	// This would be somewhat better because it's more efficient (Unit and shared_ptr control block are allocated as one memory block)
 	// and it doesn't risk problems with the raw pointer.
-	auto pUnit = make_shared<Unit>(new sf::CircleShape(100.f), sf::Vector2f(0.2f, 0.2f));
-	(*pUnit).getShape()->setFillColor(sf::Color::Magenta);
-	(*pUnit).getShape()->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
-	*/
-	
+	auto pu1 = make_shared<Unit>(new sf::CircleShape(100.f), sf::Vector2f(0.2f, 0.2f));
+	(*pu1).getShape()->setFillColor(sf::Color::Magenta);
+	(*pu1).getShape()->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
+	AddUnit(pu1);
+
+	/*  Not as good because unit and shared_ptr control block are allocated separately, and it risks having a raw pointer around.
 	sf::CircleShape * ps = new sf::CircleShape(100.f);
 	ps->setFillColor(sf::Color::Magenta);
 	ps->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
 	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));	
-	AddUnit(pUnit);
+	*/
 
-	ps = new sf::CircleShape(30.f);
-	ps->setFillColor(sf::Color(250, 50, 50));
-	ps->setPosition(50.f, 30.f);
-	ps->setOrigin(30.f, 30.f); // The center of the object rather than the top-left.
-	pUnit = make_shared<Unit>(ps, sf::Vector2f(-0.6f, 0.3f));
-	AddUnit(pUnit);
+	auto pu2 = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f));
+	AddUnit(pu2);
+
+	shared_ptr<Unit> pu = make_shared<BadUnit>(sf::Vector2f(100.f, 50.f), sf::Vector2f(0.5f, 0.7f));
+	AddUnit(pu);
+	pu = make_shared<BadUnit>(sf::Vector2f(200.f, 250.f), sf::Vector2f(-0.2f, -0.3f));
+	AddUnit(pu);
+	pu = make_shared<BadUnit>(sf::Vector2f(30.f, 300.f), sf::Vector2f(0.2f, -0.6f));
+	AddUnit(pu);
+	pu = make_shared<BadUnit>(sf::Vector2f(350.f, 40.f), sf::Vector2f(-0.6f, 0.6f));
+	AddUnit(pu);
 }
 
 
@@ -44,33 +49,33 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 		{
 			(*it).move( speedFactor ); // move the unit
 
-// If shape has moved outside the bounds of the view, reset its velocity
-sf::FloatRect sz = ps->getGlobalBounds();
-sf::Vector2u wsize = pwin->getSize();
-if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
-{
-	sf::Vector2f vel = (*it).getVelocity();
-	/*
-	// No because this doesn't take into account shapes which start with bounding boxes somewhat outside the view.
-	if ((sz.left + sz.width) > wsize.x || sz.left < 0)
-	{
-		vel.x = -vel.x;
-	}
-	if((sz.top + sz.height) > wsize.y || sz.top < 0 )
-		vel.y = -vel.y;
-	*/
-	if (((sz.left + sz.width) >= wsize.x) && vel.x > 0.f)
-		vel.x = -vel.x;
-	else if (sz.left <= 0 && vel.x < 0.f)
-		vel.x = -vel.x;
+			// If shape has moved outside the bounds of the view, reset its velocity
+			sf::FloatRect sz = ps->getGlobalBounds();
+			sf::Vector2u wsize = pwin->getSize();
+			if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
+			{
+				sf::Vector2f vel = (*it).getVelocity();
+				/*
+				// No because this doesn't take into account shapes which start with bounding boxes somewhat outside the view.
+				if ((sz.left + sz.width) > wsize.x || sz.left < 0)
+				{
+					vel.x = -vel.x;
+				}
+				if((sz.top + sz.height) > wsize.y || sz.top < 0 )
+					vel.y = -vel.y;
+				*/
+				if (((sz.left + sz.width) >= wsize.x) && vel.x > 0.f)
+					vel.x = -vel.x;
+				else if (sz.left <= 0 && vel.x < 0.f)
+					vel.x = -vel.x;
 
-	if ((sz.top + sz.height) >= wsize.y && vel.y > 0.f)
-		vel.y = -vel.y;
-	else if (sz.top <= 0 && vel.y < 0.f)
-		vel.y = -vel.y;
+				if ((sz.top + sz.height) >= wsize.y && vel.y > 0.f)
+					vel.y = -vel.y;
+				else if (sz.top <= 0 && vel.y < 0.f)
+					vel.y = -vel.y;
 
-	(*it).setVelocity(vel);
-}
+				(*it).setVelocity(vel);
+			}
 		}
 		else
 		{
@@ -136,7 +141,13 @@ void ShapeList::HandleCollisions(PlayerUnit &player)
 		if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
 		{
 			// Collision!
-			it = m_units.erase(it); // returns next element
+			if ((*it)->HandleCollision(player))
+			{
+				// if HandleCollision returns true, destroy that unit
+				it = m_units.erase(it); // returns next element
+			}
+			else
+				++it; // didn't destroy unit
 		}
 		else
 		{

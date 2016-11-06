@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <memory>
 #include "Unit.h"
+#include "BadUnit.h"
 #include "PlayerUnit.h"
 
 class ShapeList

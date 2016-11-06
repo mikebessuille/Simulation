@@ -45,6 +45,9 @@
     <ClInclude Include="VectorUtils.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="BadUnit.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -66,6 +69,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="VectorUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="BadUnit.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

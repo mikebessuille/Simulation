@@ -160,6 +160,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BadUnit.h" />
     <ClInclude Include="main.h" />
     <ClInclude Include="PlayerUnit.h" />
     <ClInclude Include="Resource.h" />
@@ -171,6 +172,7 @@
     <ClInclude Include="VectorUtils.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BadUnit.cpp" />
     <ClCompile Include="PlayerUnit.cpp" />
     <ClCompile Include="SFMLGame.cpp" />
     <ClCompile Include="main.cpp" />
