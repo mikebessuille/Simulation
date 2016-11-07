@@ -57,7 +57,7 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 			// If shape has moved outside the bounds of the view, reset its velocity
 			sf::FloatRect sz = ps->getGlobalBounds();
 			sf::Vector2u wsize = pwin->getSize();
-			if ((sz.left + sz.width) > wsize.x || sz.left < 0 || (sz.top + sz.height) > wsize.y || sz.top < 0)
+			if ((sz.left + sz.width) > wsize.x || sz.left < 0.f || (sz.top + sz.height) > wsize.y || sz.top < 0.f)
 			{
 				sf::Vector2f vel = (*it).getVelocity();
 				/*
@@ -141,7 +141,7 @@ void ShapeList::HandleCollisions(PlayerUnit &player)
 	for (auto it = begin(m_units); it != end(m_units); ) // Omits the incrememt from here.
 	{
 		sf::Vector2f UnitPos = (*it)->getShape()->getPosition();
-		float UnitSize = (*it)->getShape()->getGlobalBounds().width / 2; // Assumes it's a circle...
+		float UnitSize = (float)((*it)->getShape()->getGlobalBounds().width / 2); // Assumes it's a circle...
 
 		if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
 		{

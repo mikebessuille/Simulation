@@ -99,7 +99,7 @@ void mouseHandler(sf::Event event, ShapeList &shapes)
 		{
 			bLeftMouseDown = false;
 			// Create a new shape at the start location, whose velocity depends on the distance the mouse moved.
-			sf::CircleShape * ps(new sf::CircleShape(40.f));
+			sf::CircleShape * ps = new sf::CircleShape(40.f);
 			ps->setFillColor(sf::Color::Blue);
 			ps->setPosition( (float)event.mouseButton.x, (float)event.mouseButton.y );
 			ps->setOrigin(40.f, 40.f); // The center of the object rather than the top-left.
