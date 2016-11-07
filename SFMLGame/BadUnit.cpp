@@ -42,7 +42,7 @@ bool BadUnit::HandleCollision(PlayerUnit & player)
 		float ap = VectorDotProduct(vp, vc);
 		setVelocity(vu + ((ap - au)*vc));
 		// We need to double the change in velocity of the unit, because the collision doesn't
-		// impart any change in velocity in the player.
+		// impart any change in velocity to the player.
 		// setVelocity(vu + (2.f * ( ap-au ) * vc));  // This is too fast!
 		setVelocity(vu + (1.5f * ( ap-au ) * vc)); // Still not great; sometimes the units seem to "stick" to the player for a couple seconds.
 	}
