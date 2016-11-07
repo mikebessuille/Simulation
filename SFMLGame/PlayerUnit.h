@@ -32,5 +32,9 @@ private:
 	unsigned int health{ 100 };
 	unsigned int eaten{ 0 };
 	unsigned int badCollisions{ 0 };
+
+	// This font doesn't really belong here...
+	sf::Font font;
+	sf::Text text;
 };
 
