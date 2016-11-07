@@ -114,11 +114,13 @@
     <ClCompile Include="CPP11SpecialFunctions.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PimplPattern.cpp" />
+    <ClCompile Include="CPP11Threads.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPP11Features.h" />
     <ClInclude Include="CPP11SpecialFunctions.h" />
     <ClInclude Include="PimplPattern.h" />
+    <ClInclude Include="CPP11Threads.h" />
     <ClInclude Include="Widget.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
