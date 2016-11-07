@@ -122,7 +122,8 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 
 	// Normalize vel so you don't move twice as fast when moving diagonally.
 	VectorNormalize(vel);
-	ps->move(vel * speed);
+	velCurrent = vel * speed;
+	ps->move(velCurrent);
 
 	// Update other player attributes like shield
 	update();

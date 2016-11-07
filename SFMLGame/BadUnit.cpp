@@ -25,13 +25,26 @@ bool BadUnit::HandleCollision(PlayerUnit & player)
 {
 	if (player.isShield())
 	{
-		// bounce off the player
+		// bounce off the player; keep the same speed, just change direction
 		sf::Vector2f pu = pshape->getPosition();
 		sf::Vector2f pp = player.getPos();
-		float speed = VectorLength( getVelocity() );
-		sf::Vector2f vel = pu - pp;
-		VectorNormalize( vel );
-		setVelocity( vel * speed );
+		sf::Vector2f vu = getVelocity();
+		float speed = VectorLength( vu ); // speed before the collision
+		sf::Vector2f vc = pu - pp; // collision vector
+		VectorNormalize(vc);
+
+		/* OLD; worked, but not great collision
+		setVelocity( vc * speed );
+		*/
+
+  		sf::Vector2f vp = player.getVelocity(); // get Player's most recent velocity
+		float au = VectorDotProduct(vu, vc);
+		float ap = VectorDotProduct(vp, vc);
+		setVelocity(vu + ((ap - au)*vc));
+		// We need to double the change in velocity of the unit, because the collision doesn't
+		// impart any change in velocity in the player.
+		// setVelocity(vu + (2.f * ( ap-au ) * vc));  // This is too fast!
+		setVelocity(vu + (1.5f * ( ap-au ) * vc)); // Still not great; sometimes the units seem to "stick" to the player for a couple seconds.
 	}
 	else
 	{
