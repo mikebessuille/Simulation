@@ -3,15 +3,6 @@
 
 using namespace std;
 
-CPP11Threads::CPP11Threads()
-{
-}
-
-
-CPP11Threads::~CPP11Threads()
-{
-}
-
 
 void CPP11Threads::DataModifier(int * a, int size)
 {
@@ -50,7 +41,7 @@ void CPP11Threads::DataValidator(int * a, int size)
 
 bool CPP11Threads::run()
 {
-	int myArray[10]; // TODO: Move this to a member variable of the class?  Change it to a container of some kind?
+	int myArray[10];
 
 	cout << "CPP11Threads: run()" << endl;
 

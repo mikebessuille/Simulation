@@ -6,6 +6,7 @@
 #include "CPP11SpecialFunctions.h"
 #include "PimplPattern.h"
 #include "CPP11Threads.h"
+#include "ProducerConsumer.h"
 
 using namespace std;
 
@@ -37,6 +38,10 @@ int main()
 	WaitForChar("Hit any key to start Thread Test");
 	CPP11Threads cpp11Threads;
 	cpp11Threads.run();
+
+	WaitForChar("Hit any key to start Producer Consumer test (then any key to stop)");
+	ProducerConsumer pc;
+	pc.run();
 
 	WaitForChar("Learning Code Project Complete.  Hit any key to end.");	
 	this_thread::sleep_for(chrono::seconds(3));

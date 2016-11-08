@@ -9,8 +9,8 @@ using namespace std;
 class CPP11Threads
 {
 public:
-	CPP11Threads();
-	~CPP11Threads();
+	CPP11Threads() = default;
+	~CPP11Threads() = default;
 	bool run();
 	void DataModifier(int * a, int size);
 	void DataValidator(int * a, int size);
