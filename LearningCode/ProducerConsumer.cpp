@@ -33,10 +33,12 @@ void ProducerConsumer::run()
 	Producer Prod1, Prod2;
 	Consumer Con1, Con2, Con3, Con4;
 
-	// Create multiple consumer threads and a single producer thread.
+	// Todo:  have these classes somehow register with the MessageHandler so we can avoid all this setup.
+
+	// Create multiple producer threads
 	thread t_p1(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod1, _1) );
 	thread t_p2(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod2, _1));
-
+	// Multiple consumer threads
 	thread t_c1(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con1, _1));
 	thread t_c2(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con2, _1));
 	thread t_c3(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con3, _1));
