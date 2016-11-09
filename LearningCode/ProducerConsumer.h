@@ -55,6 +55,8 @@ private:
 	atomic<unsigned int> currentID = 0; // atomic as there may be several producers.
 	//vector<ProducerPair> producers; // Not sure why but this doesn't work with nested "using" definitions
 	//vector<ConsumerPair> consumers;
+	// TODO: not sure that I can store a reference to a function in side a container (pair, or vector)
+	// Check out reference_wrapper??  Or store a copy of the function? (does that make a copy of the object instance?)
 	vector<pair<ProducerFunction &, unique_ptr<thread>>> producers;
 	vector<pair<ConsumerFunction &, unique_ptr<thread>>> consumers;
 };
