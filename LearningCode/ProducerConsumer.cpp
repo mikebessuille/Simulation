@@ -17,14 +17,11 @@ using namespace std::chrono;
 using std::placeholders::_1;
 
 // This file implements a simple producer/consumer thread model.  The ProducerConsumer class just gets everything set up and started.
-// The actual classes that do the work are called Producer and Consumer, and they start their work threads as soon as they are constructed.
-ProducerConsumer::ProducerConsumer()
-{
-}
+// The actual class that does most of the work is MessageHandler, which contains a list of all producers and consumers and
+// owns the threads that execute loops to create or handle messages.
+// The Producer and Consumer classes provide methods to create or handle a single message at a time, and are decoupled
+// from the management of threads and from the management of the queue.
 
-ProducerConsumer::~ProducerConsumer()
-{
-}
 
 void ProducerConsumer::run()
 {
@@ -33,29 +30,24 @@ void ProducerConsumer::run()
 	Producer Prod1, Prod2;
 	Consumer Con1, Con2, Con3, Con4;
 
-	// Todo:  have these classes somehow register with the MessageHandler so we can avoid all this setup.
+	// These objects register with the MessageHandler.
+	msg->RegisterProducer(std::bind(&Producer::CreateMessage, Prod1, _1));
+	msg->RegisterProducer(std::bind(&Producer::CreateMessage, Prod2, _1));
 
-	// Create multiple producer threads
-	thread t_p1(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod1, _1) );
-	thread t_p2(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod2, _1));
-	// Multiple consumer threads
-	thread t_c1(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con1, _1));
-	thread t_c2(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con2, _1));
-	thread t_c3(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con3, _1));
-	thread t_c4(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con4, _1));
+	msg->RegisterHandler(std::bind(&Consumer::HandleMessage, Con1, _1));
+	msg->RegisterHandler(std::bind(&Consumer::HandleMessage, Con2, _1));
+	msg->RegisterHandler(std::bind(&Consumer::HandleMessage, Con3, _1));
+	msg->RegisterHandler(std::bind(&Consumer::HandleMessage, Con4, _1));
+
+	// TODO:  how to handle if these objects (Prod1, Con1, etc) go out of scope and are deleted; but their handlers
+	// are still in the MessageHandler list and still executing....
+	// http://stackoverflow.com/questions/8711391/should-i-copy-an-stdfunction-or-can-i-always-take-a-reference-to-it
 
 	// Run threads until a key is hit.
+	msg->Run();
 	while (_kbhit() == 0) {}
 	char ch = _getch(); // Clears the buffer... otherwise the next call to _kbhit() will immediately return true.
 	msg->Stop();
-
-	// Clean up, stop the threads (waits for the thread to finish and then kills it)
-	t_p1.join();
-	t_p2.join();
-	t_c1.join();
-	t_c2.join();
-	t_c3.join();
-	t_c4.join();
 }
 
 
@@ -70,8 +62,7 @@ int random(int max, unsigned int seed)
 }
 
 
-// void MessageHandler::ProduceMessages( std::function<bool(shared_ptr<MessageHandler>, unsigned int)> func )
-void MessageHandler::ProduceMessages( std::function<bool(Message &)> creator )
+void MessageHandler::ProduceMessages( const ProducerFunction & creator )
 {
 	// shared_ptr<MessageHandler> pMsg = shared_from_this();
 	while (bRunning)
@@ -99,7 +90,7 @@ void MessageHandler::ProduceMessages( std::function<bool(Message &)> creator )
 	}
 }
 
-void MessageHandler::HandleMessages(std::function<bool(Message&)> handler )
+void MessageHandler::HandleMessages( const ConsumerFunction & handler )
 {
 	thread::id name = this_thread::get_id();
 
@@ -132,6 +123,74 @@ void MessageHandler::HandleMessages(std::function<bool(Message&)> handler )
 			lock_guard<mutex> c_lock(cout_mtx);
 			cout << "Thread: " << name << "    Nothing to process..." << endl;
 		}
+	}
+}
+
+
+void MessageHandler::RegisterProducer( const std::function<bool(Message&)> & creator )
+{
+	// ProducerPair p = make_pair(creator, nullptr );
+	// ProducerPair p = make_pair(creator, unique_ptr<thread>(nullptr) ); 
+	// ProducerPair p = make_pair(ref(creator), nullptr ); // 
+	pair<std::function<bool(Message&)> &, unique_ptr<thread>> p = make_pair(creator, unique_ptr<thread>(nullptr));
+	if (bRunning)
+	{
+		// Start this particular thread.
+	}
+	producers.push_back(p);
+}
+
+
+void MessageHandler::RegisterHandler( const ConsumerFunction & handler )
+{
+	ConsumerPair p = make_pair(handler, nullptr);
+	if (bRunning)
+	{
+		// Start this particular thread.
+	}
+	consumers.push_back(p);
+}
+
+
+void MessageHandler::Run()
+{
+	if( !bRunning )
+	{
+		bRunning = true;
+
+		// Start all the threads.
+		/*
+		// Create multiple producer threads
+		thread t_p1(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod1, _1));
+		thread t_p2(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod2, _1));
+		// Multiple consumer threads
+		thread t_c1(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con1, _1));
+		thread t_c2(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con2, _1));
+		thread t_c3(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con3, _1));
+		thread t_c4(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con4, _1));
+		*/
+	}
+}
+
+
+void MessageHandler::Stop()
+{
+	if (bRunning)
+	{
+		bRunning = false;
+		
+		// Stop all the threads.
+
+		// TODO: Move this to MessageHandler::Stop() method
+		// Clean up, stop the threads (waits for the thread to finish and then kills it)
+		/*
+		t_p1.join();
+		t_p2.join();
+		t_c1.join();
+		t_c2.join();
+		t_c3.join();
+		t_c4.join();
+		*/
 	}
 }
 
