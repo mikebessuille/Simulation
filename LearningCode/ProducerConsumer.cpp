@@ -129,15 +129,17 @@ void MessageHandler::HandleMessages( const ConsumerFunction & handler )
 }
 
 
-void MessageHandler::RegisterProducer( const std::function<bool(Message&)> & creator )
+void MessageHandler::RegisterProducer( const ProducerFunction & creator )
 {
-	// ProducerPair p = make_pair(creator, nullptr );
-	// ProducerPair p = make_pair(creator, unique_ptr<thread>(nullptr) ); 
-	// ProducerPair p = make_pair(ref(creator), nullptr ); // 
-	pair<std::function<bool(Message&)> &, unique_ptr<thread>> p = make_pair(creator, unique_ptr<thread>(nullptr));
+	// a reference to a bound object that binds the function and its original Producer object is passed into RegisterProducer.
+	// I'm making a copy of that bound object to store in the pair, and in the producers vector.  Otherwise that bound object would
+	// cease to exist when this method finishes.
+	// This should not create a copy of the original Producer object.
+	pair<ProducerFunction, shared_ptr<thread> > p = make_pair(creator, shared_ptr<thread>(nullptr));
 	if (bRunning)
 	{
 		// Start this particular thread.
+		p.second = make_shared<thread>(&MessageHandler::ProduceMessages, this, p.first );
 	}
 	producers.push_back(p);
 }
@@ -145,10 +147,13 @@ void MessageHandler::RegisterProducer( const std::function<bool(Message&)> & cre
 
 void MessageHandler::RegisterHandler( const ConsumerFunction & handler )
 {
-	ConsumerPair p = make_pair(handler, nullptr);
+	// ConsumerPair p = make_pair(handler, shared_ptr<thread>(nullptr));
+	pair<ConsumerFunction, shared_ptr<thread> > p = make_pair(handler, shared_ptr<thread>(nullptr));
+
 	if (bRunning)
 	{
 		// Start this particular thread.
+		p.second = make_shared<thread>(&MessageHandler::HandleMessages, this, p.first);
 	}
 	consumers.push_back(p);
 }
@@ -159,18 +164,22 @@ void MessageHandler::Run()
 	if( !bRunning )
 	{
 		bRunning = true;
-
 		// Start all the threads.
-		/*
-		// Create multiple producer threads
-		thread t_p1(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod1, _1));
-		thread t_p2(&MessageHandler::ProduceMessages, msg.get(), std::bind(&Producer::CreateMessage, Prod2, _1));
-		// Multiple consumer threads
-		thread t_c1(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con1, _1));
-		thread t_c2(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con2, _1));
-		thread t_c3(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con3, _1));
-		thread t_c4(&MessageHandler::HandleMessages, msg.get(), std::bind(&Consumer::HandleMessage, Con4, _1));
-		*/
+		// need to make sure this is a reference to a producer pair object, so it doesn't make a copy of the object and of its members.
+		for (auto &&prod : producers )
+		{
+			if ( prod.second == nullptr)
+			{
+				prod.second = make_shared<thread>(&MessageHandler::ProduceMessages, this, prod.first);
+			}
+		}
+		for (auto &&con : consumers )
+		{
+			if (con.second == nullptr)
+			{
+				con.second = make_shared<thread>(&MessageHandler::HandleMessages, this, con.first);
+			}
+		}
 	}
 }
 
@@ -182,17 +191,20 @@ void MessageHandler::Stop()
 		bRunning = false;
 		
 		// Stop all the threads.
-
-		// TODO: Move this to MessageHandler::Stop() method
-		// Clean up, stop the threads (waits for the thread to finish and then kills it)
-		/*
-		t_p1.join();
-		t_p2.join();
-		t_c1.join();
-		t_c2.join();
-		t_c3.join();
-		t_c4.join();
-		*/
+		for (auto &&prod : producers)
+		{
+			if (prod.second )
+			{
+				prod.second->join();
+			}
+		}
+		for (auto &&con : consumers )
+		{
+			if (con.second)
+			{
+				con.second->join();
+			}
+		}
 	}
 }
 

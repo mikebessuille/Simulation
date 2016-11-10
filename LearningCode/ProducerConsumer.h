@@ -32,8 +32,8 @@ struct Message
 using ProducerFunction = std::function<bool(Message&)>;
 using ConsumerFunction = std::function<bool(Message&)>;
 
-using ProducerPair = pair<ProducerFunction &, unique_ptr<thread>>;
-using ConsumerPair = pair<ConsumerFunction &, unique_ptr<thread>>;
+using ProducerPair = pair<ProducerFunction, unique_ptr<thread> >;
+using ConsumerPair = pair<ConsumerFunction, unique_ptr<thread> >;
 
 class MessageHandler // : std::enable_shared_from_this< MessageHandler >
 {
@@ -43,7 +43,7 @@ public:
 	virtual void ProduceMessages( const ProducerFunction &creator );
 	virtual void HandleMessages( const ConsumerFunction &handler );
 
-	void RegisterProducer( const std::function<bool(Message&)> &creator );
+	void RegisterProducer( const ProducerFunction &creator );
 	void RegisterHandler( const ConsumerFunction &handler );
 	void Run();
 	void Stop();
@@ -57,8 +57,8 @@ private:
 	//vector<ConsumerPair> consumers;
 	// TODO: not sure that I can store a reference to a function in side a container (pair, or vector)
 	// Check out reference_wrapper??  Or store a copy of the function? (does that make a copy of the object instance?)
-	vector<pair<ProducerFunction &, unique_ptr<thread>>> producers;
-	vector<pair<ConsumerFunction &, unique_ptr<thread>>> consumers;
+	vector<pair<ProducerFunction, shared_ptr<thread> > > producers;
+	vector<pair<ConsumerFunction, shared_ptr<thread> > > consumers;
 };
 
 // Producer and Consumer classes are coupled to the Messsage structure, but they are NOT coupled to
