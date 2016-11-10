@@ -42,6 +42,8 @@ void ProducerConsumer::run()
 	// TODO:  how to handle if these objects (Prod1, Con1, etc) go out of scope and are deleted; but their handlers
 	// are still in the MessageHandler list and still executing....
 	// http://stackoverflow.com/questions/8711391/should-i-copy-an-stdfunction-or-can-i-always-take-a-reference-to-it
+	// I would love for the Producer and Consumer classes to contain some kind of object that auto-registers itself,
+	// and which auto-deregisters itself when it is destroyed.
 
 	// Run threads until a key is hit.
 	msg->Run();
