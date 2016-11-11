@@ -10,6 +10,7 @@
 #include "ProducerConsumer.h"
 #include <conio.h>
 #include <memory>
+#include <random>
 
 
 using namespace std;
@@ -54,13 +55,12 @@ void ProducerConsumer::run()
 
 
 // Utility function to return int between [0, max]
-int random(int max, unsigned int seed)
+int random(int max)
 {
-	// TODO: Use threadsafe random methods in CPP11 <random> ???
-
-	std::srand(seed); // use current time as seed for random generator
-	float val = static_cast<float> (std::rand()) * static_cast<float>(max) / static_cast<float> (RAND_MAX);
-	return(static_cast<int>(val));
+	std::random_device rd;
+	std::mt19937 mt(rd());  // use random_device to seed the random generator from the operating system
+	std::uniform_real_distribution<double> dist(0.0, max); // create a uniform distribution function with that range.
+	return( static_cast<int>(dist(mt)));
 }
 
 
@@ -97,8 +97,7 @@ void MessageHandler::HandleMessages( const ConsumerFunction & handler )
 	thread::id name = this_thread::get_id();
 
 	// for testing, each consumer thread gets a random wait factor, to cause the threads to be out-of-order in the case of starvation
-	unsigned int seed = std::hash<std::thread::id>()(name); // use the thread id as the seed to the random number generator
-	int dur = random(200, seed);  // between 0 and 200ms
+	int dur = random(200);  // between 0 and 200ms
 
 	while (bRunning)
 	{
