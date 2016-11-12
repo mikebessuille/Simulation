@@ -1,5 +1,7 @@
 #include "stdafx.h"
 #include "ShapeList.h"
+#include "BadUnit.h"
+#include "SuperBad.h"
 #include "PlayerUnit.h"
 #include "VectorUtils.h"
 
@@ -36,6 +38,10 @@ ShapeList::ShapeList()
 	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f));
 	AddUnit(pu);
 	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f));
+	AddUnit(pu);
+	pu = make_shared<SuperBad>(sf::Vector2f(600.f, 500.f), sf::Vector2f(-0.4f, 0.1f));
+	AddUnit(pu);
+	pu = make_shared<SuperBad>(sf::Vector2f(400.f, 600.f), sf::Vector2f(-0.6f, -0.7f));
 	AddUnit(pu);
 }
 

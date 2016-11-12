@@ -23,6 +23,7 @@ public:
 	void setVelocity(const sf::Vector2f vel) { velocity = vel; }
 	sf::Vector2f getVelocity() { return velocity; }
 	virtual bool HandleCollision(PlayerUnit &player);
+	virtual void Bounce(PlayerUnit &player);
 
 private:
 	// Make these (copy ctor, assignment operator) private, simply because KW doesn't properly detect the C++11 "delete" functionality and will assume the default
