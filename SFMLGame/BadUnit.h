@@ -5,7 +5,7 @@ class BadUnit :
 {
 public:
 	BadUnit(sf::Shape* ps, sf::Vector2f vel) = delete;
-	BadUnit(sf::Vector2f pos, sf::Vector2f vel);
+	BadUnit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef);
 	virtual ~BadUnit() = default;
 
 	// These don't work because the base constructor will always call the base implementation of these functions
@@ -14,9 +14,10 @@ public:
 
 	virtual bool HandleCollision(PlayerUnit & player);
 
+	// Static functions:
+	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the BadUnit:: copy of defaults.
+
 private:
-	static const float default_size;
-	static const sf::Color default_colour;
-	static const unsigned int default_damage;
+	static UnitDefaults const defaults;
 };
 

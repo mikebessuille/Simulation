@@ -4,11 +4,21 @@
 #include <memory>
 #include "PlayerUnit.h"
 
+// Keep this outside the class, so that the ShapeList class (factory) can refer to it.
+struct UnitDefaults
+{
+	const float default_size;
+	const sf::Color default_colour;
+	const unsigned int default_points;
+	const unsigned int default_damage;
+};
+
 class Unit
 {
 public:
-	Unit(sf::Shape* ps, sf::Vector2f vel); // TODO: Deprecate this ctor!
-	Unit(sf::Vector2f pos, sf::Vector2f vel);
+	Unit() = delete;
+	Unit(sf::Shape* ps, sf::Vector2f vel);
+	Unit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef );
 	virtual ~Unit();
 	// These don't work with KW yet...
 	Unit& operator=(Unit rhs) = delete; // Disallow assignment operator, to prevent leaking of pshape
@@ -25,18 +35,21 @@ public:
 	virtual bool HandleCollision(PlayerUnit &player);
 	virtual void Bounce(PlayerUnit &player);
 
+	// Static functions:
+	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the Unit:: copy of defaults.
+
 private:
 	// Make these (copy ctor, assignment operator) private, simply because KW doesn't properly detect the C++11 "delete" functionality and will assume the default
 	// copy constructor & assignment operators were created, which leads KW to believe there are memory problems.
 	// Unit& operator=(Unit rhs); // Disallow assignment operator, to prevent leaking of pshape
 	// Unit(const Unit& other); // Disallow copy constructor, to prevent leaking of pshape
-	
-	static const float default_size;
-	static const sf::Color default_colour;
-	static const unsigned int default_points;
+
+private:
+	static UnitDefaults const defaults; // Must be public so that the factory can reference it
 
 protected:
 	sf::Shape * pshape{ nullptr };
 	sf::Vector2f velocity{ (float)0.0, (float)0.0 };
+	const UnitDefaults * pdefaults;
 };
 

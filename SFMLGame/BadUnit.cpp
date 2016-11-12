@@ -4,19 +4,19 @@
 #include "VectorUtils.h"
 
 
-const float BadUnit::default_size{ 25.f };
-const sf::Color BadUnit::default_colour(255, 0, 0); // Red
-const unsigned int BadUnit::default_damage{ 20 };
 
-BadUnit::BadUnit(sf::Vector2f pos, sf::Vector2f vel) : Unit( pos, vel )
+const UnitDefaults const BadUnit::defaults{	25.f, // default_size
+											{ 255, 0, 0 }, // Red 
+											0, // default_points
+											25 // default_damage
+										};
+
+
+BadUnit::BadUnit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef ) : Unit( pos, vel, pdef )
 {
-	// Base ctor is called first, so shape is already created.
-	if (pshape)
-	{
-		// these use statics defined in this derived class
-		pshape->setFillColor(default_colour);
-		pshape->setOrigin(default_size, default_size); // The center of the object rather than the top-left.
-	}
+	// Base ctor is called first, so shape is already created.  The factory is responsible for passing in the
+	// pointer to the correct defaults structure (for this derived class) so that the base class ctor can correctly
+	// construct the derived class using the derived's defaults.
 }
 
 
@@ -30,7 +30,7 @@ bool BadUnit::HandleCollision(PlayerUnit & player)
 	else
 	{
 		// damage the player
-		player.damage( default_damage );
+		player.damage( pdefaults->default_damage );
 		return(true);
 	}
 	return(false);

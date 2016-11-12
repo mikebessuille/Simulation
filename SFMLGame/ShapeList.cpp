@@ -23,25 +23,25 @@ ShapeList::ShapeList()
 	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));	
 	*/
 
-	shared_ptr<Unit> pu = make_shared<BadUnit>(sf::Vector2f(100.f, 50.f), sf::Vector2f(0.5f, 0.7f));
+	shared_ptr<Unit> pu = make_shared<BadUnit>(sf::Vector2f(100.f, 50.f), sf::Vector2f(0.5f, 0.7f), BadUnit::GetDefaults() );
 	AddUnit(pu);
-	pu = make_shared<BadUnit>(sf::Vector2f(200.f, 250.f), sf::Vector2f(-0.2f, -0.3f));
+	pu = make_shared<BadUnit>(sf::Vector2f(200.f, 250.f), sf::Vector2f(-0.2f, -0.3f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<BadUnit>(sf::Vector2f(30.f, 300.f), sf::Vector2f(0.2f, -0.6f));
+	pu = make_shared<BadUnit>(sf::Vector2f(30.f, 300.f), sf::Vector2f(0.2f, -0.6f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<BadUnit>(sf::Vector2f(350.f, 40.f), sf::Vector2f(-0.6f, 0.6f));
+	pu = make_shared<BadUnit>(sf::Vector2f(350.f, 40.f), sf::Vector2f(-0.6f, 0.6f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<BadUnit>(sf::Vector2f(300.f, 50.f), sf::Vector2f(0.3f, -0.5f));
+	pu = make_shared<BadUnit>(sf::Vector2f(300.f, 50.f), sf::Vector2f(0.3f, -0.5f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<BadUnit>(sf::Vector2f(100.f, 400.f), sf::Vector2f(-0.5f, 0.3f));
+	pu = make_shared<BadUnit>(sf::Vector2f(100.f, 400.f), sf::Vector2f(-0.5f, 0.3f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f));
+	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f), nullptr );
 	AddUnit(pu);
-	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f));
+	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f), nullptr );
 	AddUnit(pu);
-	pu = make_shared<SuperBad>(sf::Vector2f(600.f, 500.f), sf::Vector2f(-0.4f, 0.1f));
+	pu = make_shared<SuperBad>(sf::Vector2f(600.f, 500.f), sf::Vector2f(-0.4f, 0.1f), SuperBad::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<SuperBad>(sf::Vector2f(400.f, 600.f), sf::Vector2f(-0.6f, -0.7f));
+	pu = make_shared<SuperBad>(sf::Vector2f(400.f, 600.f), sf::Vector2f(-0.6f, -0.7f), SuperBad::GetDefaults());
 	AddUnit(pu);
 }
 

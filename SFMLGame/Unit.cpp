@@ -3,28 +3,32 @@
 #include "PlayerUnit.h"
 #include "VectorUtils.h"
 
+// size, colour, points
+const UnitDefaults const Unit::defaults{	30.f, // default_size
+											{0, 0, 250}, // blue 
+											5, // default_points 
+											0 // default_damage
+										};
 
-const float Unit::default_size{ 30.f };
-const sf::Color Unit::default_colour(0, 0, 250); // Blue
-const unsigned int Unit::default_points{ 5 }; // How much health each unit gives the player
-
-Unit::Unit( sf::Shape* ps, sf::Vector2f vel ) : pshape(ps), velocity( vel )
+// Constructor for generic shapes that are already pre-created.
+Unit::Unit( sf::Shape* ps, sf::Vector2f vel ) : pshape(ps), velocity( vel ), pdefaults( &Unit::defaults )
 {
 }
 
 
-Unit::Unit(sf::Vector2f pos, sf::Vector2f vel) : velocity( vel )
+// This constructor knows how to create subclass objects using the derived defaults, even though this base
+// class constructor happens first. That's because the factory passes in the pointer to the default structure.
+// Otherwise, each derived constructor would have to duplicate the basic construction of the object, because
+// this base constructor would have no access to the derived defaults.
+Unit::Unit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef ) : velocity( vel ), pdefaults( pdef )
 {
-	// TODO: This doesn't work, because the derived class has not yet been constructed, so
-	// the virtual functions def_size() and def_colour() always call the base implementation.
+	if (pdef == nullptr)
+		pdefaults = &Unit::defaults;
 
-	//float sz = def_size();
-	pshape = new sf::CircleShape( default_size );
-	//pshape->setFillColor( def_colour());
-	pshape->setFillColor(default_colour);
+	pshape = new sf::CircleShape( pdefaults->default_size );
+	pshape->setFillColor(pdefaults->default_colour);
 	pshape->setPosition(pos);
-	//pshape->setOrigin(sz, sz); // The center of the object rather than the top-left.
-	pshape->setOrigin(default_size, default_size); // The center of the object rather than the top-left.
+	pshape->setOrigin( pdefaults->default_size, pdefaults->default_size); // The center of the object rather than the top-left.
 }
 
 
@@ -60,7 +64,7 @@ bool Unit::HandleCollision(PlayerUnit & player)
 	else
 	{
 		// Player eats the unit and gains points.
-		player.gainHealth(default_points);
+		player.gainHealth( pdefaults->default_points );
 		return(true);
 	}
 	return(false);
