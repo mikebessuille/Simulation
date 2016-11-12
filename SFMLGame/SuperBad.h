@@ -10,7 +10,7 @@ public:
 	// virtual bool SuperBad::HandleCollision(PlayerUnit & player);
 
 	// Static functions:
-	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the SuperBad:: copy of defaults.
+	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the SuperBad:: version of defaults.
 
 private:
 	static UnitDefaults const defaults;

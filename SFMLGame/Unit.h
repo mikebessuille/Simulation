@@ -36,7 +36,7 @@ public:
 	virtual void Bounce(PlayerUnit &player);
 
 	// Static functions:
-	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the Unit:: copy of defaults.
+	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the Unit:: version of defaults.
 
 private:
 	// Make these (copy ctor, assignment operator) private, simply because KW doesn't properly detect the C++11 "delete" functionality and will assume the default

@@ -17,9 +17,10 @@ Unit::Unit( sf::Shape* ps, sf::Vector2f vel ) : pshape(ps), velocity( vel ), pde
 
 
 // This constructor knows how to create subclass objects using the derived defaults, even though this base
-// class constructor happens first. That's because the factory passes in the pointer to the default structure.
+// class constructor happens first. That's because the factory passes in the pointer to the "defaults" structure,
+// which contains the default parameters for constructing the derived unit.
 // Otherwise, each derived constructor would have to duplicate the basic construction of the object, because
-// this base constructor would have no access to the derived defaults.
+// this base constructor would have no access to the derived defaults, and the base ctor happens first.
 Unit::Unit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef ) : velocity( vel ), pdefaults( pdef )
 {
 	if (pdef == nullptr)

@@ -3,7 +3,7 @@
 
 
 const UnitDefaults const SuperBad::defaults{	15.f, // default_size
-												{ 150, 200, 20 }, // Yellow? 
+												{ 250, 250, 0 }, // Yellow
 												0, // default_points
 												35 // default_damage
 											};

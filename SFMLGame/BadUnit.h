@@ -15,7 +15,7 @@ public:
 	virtual bool HandleCollision(PlayerUnit & player);
 
 	// Static functions:
-	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the BadUnit:: copy of defaults.
+	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the BadUnit:: version of defaults.
 
 private:
 	static UnitDefaults const defaults;

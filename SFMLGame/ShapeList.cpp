@@ -9,6 +9,17 @@ using namespace std;
 
 ShapeList::ShapeList()
 {
+	CreateInitialUnits();
+}
+
+
+ShapeList::~ShapeList()
+{
+}
+
+
+void ShapeList::CreateInitialUnits()
+{
 	// This would be somewhat better because it's more efficient (Unit and shared_ptr control block are allocated as one memory block)
 	// and it doesn't risk problems with the raw pointer.
 	auto pu1 = make_shared<Unit>(new sf::CircleShape(100.f), sf::Vector2f(0.2f, 0.2f));
@@ -20,10 +31,10 @@ ShapeList::ShapeList()
 	sf::CircleShape * ps = new sf::CircleShape(100.f);
 	ps->setFillColor(sf::Color::Magenta);
 	ps->setOrigin(100.f, 100.f); // The center of the object rather than the top-left.
-	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));	
+	shared_ptr<Unit> pUnit(new Unit(ps, sf::Vector2f(0.2f, 0.2f)));
 	*/
 
-	shared_ptr<Unit> pu = make_shared<BadUnit>(sf::Vector2f(100.f, 50.f), sf::Vector2f(0.5f, 0.7f), BadUnit::GetDefaults() );
+	shared_ptr<Unit> pu = make_shared<BadUnit>(sf::Vector2f(100.f, 50.f), sf::Vector2f(0.5f, 0.7f), BadUnit::GetDefaults());
 	AddUnit(pu);
 	pu = make_shared<BadUnit>(sf::Vector2f(200.f, 250.f), sf::Vector2f(-0.2f, -0.3f), BadUnit::GetDefaults());
 	AddUnit(pu);
@@ -35,9 +46,9 @@ ShapeList::ShapeList()
 	AddUnit(pu);
 	pu = make_shared<BadUnit>(sf::Vector2f(100.f, 400.f), sf::Vector2f(-0.5f, 0.3f), BadUnit::GetDefaults());
 	AddUnit(pu);
-	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f), nullptr );
+	pu = make_shared<Unit>(sf::Vector2f(180.f, 20.f), sf::Vector2f(0.2f, 0.2f), nullptr);
 	AddUnit(pu);
-	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f), nullptr );
+	pu = make_shared<Unit>(sf::Vector2f(50.f, 30.f), sf::Vector2f(-0.6f, 0.3f), nullptr);
 	AddUnit(pu);
 	pu = make_shared<SuperBad>(sf::Vector2f(600.f, 500.f), sf::Vector2f(-0.4f, 0.1f), SuperBad::GetDefaults());
 	AddUnit(pu);
@@ -46,8 +57,10 @@ ShapeList::ShapeList()
 }
 
 
-ShapeList::~ShapeList()
+// Called on each move... May create new random units
+void ShapeList::SpawnUnits()
 {
+
 }
 
 

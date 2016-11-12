@@ -15,6 +15,8 @@ int main()
 
 void mouseHandler(sf::Event event, ShapeList &shapes);
 
+
+// This is the main game loop
 int mainSFML()
 {
 	sf::Clock clock; // starts the clock.
@@ -50,11 +52,11 @@ int mainSFML()
 		{
 			if (player.isAlive())
 			{
-				// Update position of all units
 				const float speedFactor = (float)(elapsed / tick);
-				shapes.updatePositions(pwindow, speedFactor);
-				player.move(pwindow, speedFactor);
-				shapes.HandleCollisions(player);
+				shapes.updatePositions(pwindow, speedFactor); // Update position of all units
+				player.move(pwindow, speedFactor); // Move the player
+				shapes.HandleCollisions(player); // Deal with collisions between player and units
+				shapes.SpawnUnits();  // Spawn new units gradually...
 			}
 
 			// Redraw the screen.  
