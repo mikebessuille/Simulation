@@ -11,7 +11,7 @@ class ShapeList
 public:
 	ShapeList();
 	virtual ~ShapeList();
-	void SpawnUnits();
+	void SpawnUnits( shared_ptr<sf::RenderWindow> pwin );
 	void updatePositions(shared_ptr<sf::RenderWindow>, float speedFactor );
 	void render(shared_ptr<sf::RenderWindow>);
 	void AddUnit(shared_ptr<Unit>);
@@ -20,7 +20,7 @@ public:
 
 private:
 	void CreateInitialUnits();
-	void SpawnUnit();
+	void SpawnUnit( shared_ptr<sf::RenderWindow> pwin );
 
 private:
 	std::vector<shared_ptr<Unit>> m_units;

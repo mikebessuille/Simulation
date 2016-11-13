@@ -56,7 +56,7 @@ int mainSFML()
 				shapes.updatePositions(pwindow, speedFactor); // Update position of all units
 				player.move(pwindow, speedFactor); // Move the player
 				shapes.HandleCollisions(player); // Deal with collisions between player and units
-				shapes.SpawnUnits();  // Spawn new units gradually...
+				shapes.SpawnUnits( pwindow );  // Spawn new units gradually...
 			}
 
 			// Redraw the screen.  

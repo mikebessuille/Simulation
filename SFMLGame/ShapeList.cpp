@@ -63,32 +63,41 @@ void ShapeList::CreateInitialUnits()
 // This would eventually be some function of the length of time the player has been alive, the number of points they've
 // accumulated, etc.
 // This will be called approximately 100 times per second.
-void ShapeList::SpawnUnits()
+void ShapeList::SpawnUnits( shared_ptr<sf::RenderWindow> pwin )
 {
 	sf::Time timeSinceLastSpawn = spawnClock.getElapsedTime(); // since the clock was last restarted
-	const sf::Time spawnRate{ sf::seconds(2) };
-	const sf::Time spawnRateMax{ sf::seconds(8) };
+	const sf::Time spawnTime{ sf::seconds(1) };
+	const sf::Time spawnTimeMax{ sf::seconds(4) };
 
 	// TODO: Update this to not use magic numbers, etc...
-	if (m_units.size() < 10 && timeSinceLastSpawn > spawnRate)
+	if (m_units.size() < 10 && timeSinceLastSpawn > spawnTime)
 	{
-		SpawnUnit();
+		SpawnUnit( pwin );
 	}
-	else if (timeSinceLastSpawn > spawnRateMax)
+	else if (timeSinceLastSpawn > spawnTimeMax)
 	{
 		// always spawn another ball at least this often.
-		SpawnUnit();
+		SpawnUnit( pwin );
 	}
 }
 
 
-void ShapeList::SpawnUnit()
+void ShapeList::SpawnUnit( shared_ptr<sf::RenderWindow> pwin )
 {
 	// TODO: consider storing this uniform dist function inside the object?
 	std::uniform_real_distribution<double> distribution(0.0, 100.f); // create a uniform distribution function with that range.
 	unsigned int percent = static_cast<int>(distribution(randomGenerator));
-	sf::Vector2f pos(100.f, 100.f); // TODO: Randomize position
-	sf::Vector2f vel(0.5f, 0.5f); // TODO: Randomize velocity
+
+	// Random position.  Eventually: make them only spawn somewhere along the border.
+	sf::Vector2u wsize = pwin->getSize();
+	sf::Vector2f pos(( distribution(randomGenerator) * (float)wsize.x ) / 100.f, 
+					 ( distribution(randomGenerator) * (float)wsize.y) / 100.f);
+
+	// Random Velocity
+	std::uniform_real_distribution<double> velocityDistribution(-1.0f, 1.0f);
+	sf::Vector2f vel(velocityDistribution(randomGenerator), velocityDistribution(randomGenerator));
+
+	// Random type of unit
 	shared_ptr<Unit> pu{ nullptr };
 	if( percent < 75)
 	{
