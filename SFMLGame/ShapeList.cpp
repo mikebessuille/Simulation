@@ -168,6 +168,8 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 			// ERROR!  One of the units has no shape!!!
 		}
 	}
+
+	// TODO:  Go through the m_deleted list and remove / destroy any units which have finished their deletion cycle.
 }
 
 
@@ -177,6 +179,8 @@ void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow)
 	{
 		pwindow->draw(*(*it).getShape());
 	}
+
+	// TODO:  Go through m_deleted and render any destruction animations
 }
 
 void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
@@ -230,6 +234,9 @@ void ShapeList::HandleCollisions(PlayerUnit &player)
 			if ((*it)->HandleCollision(player))
 			{
 				// if HandleCollision returns true, destroy that unit
+				// Add it to the deleted list first, so its delete animation can run
+				m_deleted.push_back(*it);
+				// Then remove it from the units list:
 				it = m_units.erase(it); // returns next element
 			}
 			else

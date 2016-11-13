@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <memory>
+#include <list>
 #include <random>
 #include "Unit.h"
 #include "PlayerUnit.h"
@@ -23,7 +24,8 @@ private:
 	void SpawnUnit( shared_ptr<sf::RenderWindow> pwin );
 
 private:
-	std::vector<shared_ptr<Unit>> m_units;
+	std::list<shared_ptr<Unit> > m_units; // Use list instead of vector, for fast removal of elements in the middle
+	std::list<shared_ptr<Unit> > m_deleted; // List of units which have been deleted and the deletion animations are running.
 	sf::Clock spawnClock; // starts the clock.
 	std::random_device rd;
 	std::mt19937 randomGenerator;

@@ -35,6 +35,8 @@ void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
 }
 
 
+// TODO: Move this to a separate class which has a reference to the player and to the ShapeList
+// TODO: Also, show Shapelist stats for the size of m_deleted list.
 void PlayerUnit::renderStats( shared_ptr<sf::RenderWindow> pwin )
 {
 	// Should I use a single text object for all the lines? Or one for each line?
