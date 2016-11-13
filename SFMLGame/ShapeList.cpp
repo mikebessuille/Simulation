@@ -1,4 +1,5 @@
 #include "stdafx.h"
+#include <random>
 #include "ShapeList.h"
 #include "BadUnit.h"
 #include "SuperBad.h"
@@ -9,6 +10,7 @@ using namespace std;
 
 ShapeList::ShapeList()
 {
+	randomGenerator.seed(rd()); // use random_device to seed the random generator from the operating system 
 	CreateInitialUnits();
 }
 
@@ -58,9 +60,60 @@ void ShapeList::CreateInitialUnits()
 
 
 // Called on each move... May create new random units
+// This would eventually be some function of the length of time the player has been alive, the number of points they've
+// accumulated, etc.
+// This will be called approximately 100 times per second.
 void ShapeList::SpawnUnits()
 {
+	sf::Time timeSinceLastSpawn = spawnClock.getElapsedTime(); // since the clock was last restarted
+	const sf::Time spawnRate{ sf::seconds(2) };
+	const sf::Time spawnRateMax{ sf::seconds(8) };
 
+	// TODO: Update this to not use magic numbers, etc...
+	if (m_units.size() < 10 && timeSinceLastSpawn > spawnRate)
+	{
+		SpawnUnit();
+	}
+	else if (timeSinceLastSpawn > spawnRateMax)
+	{
+		// always spawn another ball at least this often.
+		SpawnUnit();
+	}
+}
+
+
+void ShapeList::SpawnUnit()
+{
+	// TODO: consider storing this uniform dist function inside the object?
+	std::uniform_real_distribution<double> distribution(0.0, 100.f); // create a uniform distribution function with that range.
+	unsigned int percent = static_cast<int>(distribution(randomGenerator));
+	sf::Vector2f pos(100.f, 100.f); // TODO: Randomize position
+	sf::Vector2f vel(0.5f, 0.5f); // TODO: Randomize velocity
+	shared_ptr<Unit> pu{ nullptr };
+	if( percent < 75)
+	{
+		// spawn a unit to be eaten
+		pu = make_shared<Unit>(pos, vel, Unit::GetDefaults());
+	}
+	else if (percent < 90)
+	{
+		// spawn a BadUnit
+		pu = make_shared<Unit>(pos, vel, BadUnit::GetDefaults());
+	}
+	else if (percent < 95)
+	{
+		// Spawn a SuperBad
+		pu = make_shared<Unit>(pos, vel, Unit::GetDefaults());
+	}
+	else
+	{
+		// something else...
+	}
+	if( pu != nullptr )
+	{
+		AddUnit(pu);
+		spawnClock.restart();
+	}
 }
 
 
