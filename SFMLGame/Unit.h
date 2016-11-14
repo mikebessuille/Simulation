@@ -11,6 +11,7 @@ struct UnitDefaults
 	const sf::Color default_colour;
 	const unsigned int default_points;
 	const unsigned int default_damage;
+	const unsigned int maxDestroyFrames;
 };
 
 class Unit
@@ -28,12 +29,13 @@ public:
 	//virtual const float def_size() const { return default_size; }; /* returns Unit::default_size */
 	//virtual sf::Color def_colour() const { return default_colour; }; /* returns Unit::default_colour */
 
-	sf::Shape * getShape();
+	sf::Shape * getShape() { return(pshape); };
 	void move( const float speedFactor );
 	void setVelocity(const sf::Vector2f vel) { velocity = vel; }
 	sf::Vector2f getVelocity() { return velocity; }
 	virtual bool HandleCollision(PlayerUnit &player);
-	virtual void Bounce(PlayerUnit &player);
+	void RenderDestroy( shared_ptr<sf::RenderWindow> pwindow ); // non-virtual
+	virtual bool FinishedDestroying() { return(destroyFrames >= pdefaults->maxDestroyFrames); };
 
 	// Static functions:
 	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the Unit:: version of defaults.
@@ -43,13 +45,19 @@ private:
 	// copy constructor & assignment operators were created, which leads KW to believe there are memory problems.
 	// Unit& operator=(Unit rhs); // Disallow assignment operator, to prevent leaking of pshape
 	// Unit(const Unit& other); // Disallow copy constructor, to prevent leaking of pshape
+protected:
+	virtual void RenderDestroyAnimation();
+	unsigned int GetDestroyFrameCount() { return(destroyFrames); };
+	virtual void Bounce(PlayerUnit &player);
 
 private:
-	static UnitDefaults const defaults; // Must be public so that the factory can reference it
+	static const UnitDefaults defaults; // Must be public so that the factory can reference it
 
 protected:
 	sf::Shape * pshape{ nullptr };
 	sf::Vector2f velocity{ (float)0.0, (float)0.0 };
 	const UnitDefaults * pdefaults;
+private:
+	unsigned int destroyFrames{ 0 };
 };
 

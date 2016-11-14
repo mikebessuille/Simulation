@@ -4,11 +4,12 @@
 #include "VectorUtils.h"
 
 // size, colour, points
-const UnitDefaults const Unit::defaults{	30.f, // default_size
-											{0, 0, 250}, // blue 
-											5, // default_points 
-											0 // default_damage
-										};
+const UnitDefaults Unit::defaults{	30.f, // default_size
+									{0, 0, 250}, // blue 
+									5, // default_points 
+									0, // default_damage
+									25 // maxDestroyFrames
+								};
 
 // Constructor for generic shapes that are already pre-created.
 Unit::Unit( sf::Shape* ps, sf::Vector2f vel ) : pshape(ps), velocity( vel ), pdefaults( &Unit::defaults )
@@ -41,10 +42,6 @@ Unit::~Unit()
 	delete pshape; // This is null-safe; no need to check if it's non-null before deleting.
 }
 
-sf::Shape * Unit::getShape()
-{
-	return pshape;
-}
 
 void Unit::move( const float speedFactor )
 {
@@ -78,7 +75,7 @@ void Unit::Bounce(PlayerUnit & player)
 	sf::Vector2f pu = pshape->getPosition();
 	sf::Vector2f pp = player.getPos();
 	sf::Vector2f vu = getVelocity();
-	float speed = VectorLength(vu); // speed before the collision
+	// float speed = VectorLength(vu); // speed before the collision
 	sf::Vector2f vc = pu - pp; // collision vector
 	VectorNormalize(vc);
 
@@ -94,4 +91,28 @@ void Unit::Bounce(PlayerUnit & player)
 	// impart any change in velocity to the player.
 	// setVelocity(vu + (2.f * ( ap-au ) * vc));  // This is too fast!
 	setVelocity(vu + (1.5f * (ap - au) * vc)); // Still not great; sometimes the units seem to "stick" to the player for a couple seconds.
+}
+
+
+// Animation on the destruction of a unit.  This method is non-virtual.
+void Unit::RenderDestroy(shared_ptr<sf::RenderWindow> pwindow)
+{
+	if (destroyFrames < pdefaults->maxDestroyFrames)
+	{
+		RenderDestroyAnimation();
+		pwindow->draw( *pshape );
+		destroyFrames++;
+	}
+}
+
+
+// Virtual; derived classes can override this with their appropriate different animation if they wish.
+void Unit::RenderDestroyAnimation()
+{
+	sf::Color colour = pshape->getFillColor();
+	if (colour.r < 255) colour.r += 3;
+	if (colour.g < 255) colour.g += 3;
+	if (colour.b < 255) colour.b += 3;
+	pshape->setFillColor(colour);
+	pshape->scale(sf::Vector2f(0.95f, 0.95f));
 }

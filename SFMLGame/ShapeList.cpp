@@ -169,18 +169,40 @@ void ShapeList::updatePositions(shared_ptr<sf::RenderWindow> pwin, float speedFa
 		}
 	}
 
-	// TODO:  Go through the m_deleted list and remove / destroy any units which have finished their deletion cycle.
+	CleanDeletedList();
+}
+
+
+// Goes through the list of deleted elements, and removes the ones whose destroy animations have completed.
+void ShapeList::CleanDeletedList()
+{
+	for (auto it = begin(m_deleted); it != end(m_deleted); ) // Omits the incrememt from here.
+	{
+		if ((*it)->FinishedDestroying())
+		{
+			it = m_deleted.erase(it); // returns next element
+		}
+		else
+		{
+			++it; // Wasn't done in the for loop
+		}
+	}
 }
 
 
 void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow)
 {
-	for (auto it : m_units)
+	for (auto unit : m_units)
 	{
-		pwindow->draw(*(*it).getShape());
+		// TODO: Should convert this to a Render() call in the unit itself, passing the pwindow.
+		pwindow->draw( * ((*unit).getShape()) );
 	}
 
-	// TODO:  Go through m_deleted and render any destruction animations
+
+	for (auto unit : m_deleted)
+	{
+		(*unit).RenderDestroy(pwindow);
+	}
 }
 
 void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
@@ -200,6 +222,7 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 		if (bbox.contains(pos))
 		{
 			// If shape intersects the point, remove the shape.
+			// TODO: consider adding it to the deleted list so its destroy animation renders?
 			it = m_units.erase(it);
 			bWasDeleted = true;
 		}

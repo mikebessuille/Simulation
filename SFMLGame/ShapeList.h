@@ -22,6 +22,7 @@ public:
 private:
 	void CreateInitialUnits();
 	void SpawnUnit( shared_ptr<sf::RenderWindow> pwin );
+	void CleanDeletedList();
 
 private:
 	std::list<shared_ptr<Unit> > m_units; // Use list instead of vector, for fast removal of elements in the middle

@@ -5,11 +5,12 @@
 
 
 
-const UnitDefaults const BadUnit::defaults{	25.f, // default_size
-											{ 255, 0, 0 }, // Red 
-											0, // default_points
-											25 // default_damage
-										};
+const UnitDefaults BadUnit::defaults{	25.f, // default_size
+										{ 255, 0, 0 }, // Red 
+										0, // default_points
+										25, // default_damage
+										25 // maxDestroyFrames
+									};
 
 
 BadUnit::BadUnit(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef ) : Unit( pos, vel, pdef )

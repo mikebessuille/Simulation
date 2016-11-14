@@ -12,6 +12,9 @@ public:
 	// Static functions:
 	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the SuperBad:: version of defaults.
 
+protected:
+	virtual void RenderDestroyAnimation();
+
 private:
 	static UnitDefaults const defaults;
 };
