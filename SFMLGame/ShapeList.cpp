@@ -66,11 +66,12 @@ void ShapeList::CreateInitialUnits()
 void ShapeList::SpawnUnits( shared_ptr<sf::RenderWindow> pwin )
 {
 	sf::Time timeSinceLastSpawn = spawnClock.getElapsedTime(); // since the clock was last restarted
+	// move some of these magic numbers to the class?
 	const sf::Time spawnTime{ sf::seconds(1) };
 	const sf::Time spawnTimeMax{ sf::seconds(4) };
+	const unsigned int minUnits{ 10 };
 
-	// TODO: Update this to not use magic numbers, etc...
-	if (m_units.size() < 10 && timeSinceLastSpawn > spawnTime)
+	if (m_units.size() < minUnits && timeSinceLastSpawn > spawnTime)
 	{
 		SpawnUnit( pwin );
 	}
@@ -84,7 +85,7 @@ void ShapeList::SpawnUnits( shared_ptr<sf::RenderWindow> pwin )
 
 void ShapeList::SpawnUnit( shared_ptr<sf::RenderWindow> pwin )
 {
-	// TODO: consider storing this uniform dist function inside the object?
+	// consider storing this uniform dist function inside the object?
 	std::uniform_real_distribution<double> distribution(0.0, 100.f); // create a uniform distribution function with that range.
 	unsigned int percent = static_cast<int>(distribution(randomGenerator));
 
@@ -194,8 +195,7 @@ void ShapeList::render(shared_ptr<sf::RenderWindow> pwindow)
 {
 	for (auto unit : m_units)
 	{
-		// TODO: Should convert this to a Render() call in the unit itself, passing the pwindow.
-		pwindow->draw( * ((*unit).getShape()) );
+		(*unit).Render(pwindow);
 	}
 
 
@@ -211,7 +211,7 @@ void ShapeList::AddUnit(shared_ptr<Unit>pUnit)
 }
 
 
-// Remove all units which intersect the specified point
+// Remove all units which intersect the specified point;  this is called from the mouse-handler (Right-click)
 bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 {
 	bool bWasDeleted{ false };
@@ -222,7 +222,8 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 		if (bbox.contains(pos))
 		{
 			// If shape intersects the point, remove the shape.
-			// TODO: consider adding it to the deleted list so its destroy animation renders?
+			// add to the deleted list first, so its destroy animation renders
+			m_deleted.push_back(*it);
 			it = m_units.erase(it);
 			bWasDeleted = true;
 		}

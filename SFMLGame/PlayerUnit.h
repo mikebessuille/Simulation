@@ -17,12 +17,13 @@ public:
 	sf::Vector2f getVelocity() { return(velCurrent); };
 	bool isShield() { return(bShield); }
 	bool damage(const unsigned int dmg);
+	const unsigned int getHealth() { return(health); };
+	const unsigned int getEaten() { return(eaten); };
 	void gainHealth(const unsigned int points);
 	bool isAlive() { return(health > 0); };
 
 protected:
 	void update();
-	void renderStats( shared_ptr<sf::RenderWindow> pwin );
 
 private:
 	shared_ptr<sf::Shape>ps{ nullptr };
@@ -34,9 +35,5 @@ private:
 	unsigned int health{ 100 };
 	unsigned int eaten{ 0 };
 	unsigned int badCollisions{ 0 };
-
-	// This font doesn't really belong here...
-	sf::Font font;
-	sf::Text text;
 };
 

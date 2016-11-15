@@ -34,6 +34,7 @@ public:
 	void setVelocity(const sf::Vector2f vel) { velocity = vel; }
 	sf::Vector2f getVelocity() { return velocity; }
 	virtual bool HandleCollision(PlayerUnit &player);
+	void Render(shared_ptr<sf::RenderWindow> pwindow); // non-virtual
 	void RenderDestroy( shared_ptr<sf::RenderWindow> pwindow ); // non-virtual
 	virtual bool FinishedDestroying() { return(destroyFrames >= pdefaults->maxDestroyFrames); };
 
@@ -46,6 +47,7 @@ private:
 	// Unit& operator=(Unit rhs); // Disallow assignment operator, to prevent leaking of pshape
 	// Unit(const Unit& other); // Disallow copy constructor, to prevent leaking of pshape
 protected:
+	virtual void RenderAnimation();
 	virtual void RenderDestroyAnimation();
 	unsigned int GetDestroyFrameCount() { return(destroyFrames); };
 	virtual void Bounce(PlayerUnit &player);

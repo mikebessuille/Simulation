@@ -116,3 +116,16 @@ void Unit::RenderDestroyAnimation()
 	pshape->setFillColor(colour);
 	pshape->scale(sf::Vector2f(0.95f, 0.95f));
 }
+
+// Rendering the unit; This method is non-virtual.
+void Unit::Render(shared_ptr<sf::RenderWindow> pwindow)
+{
+	RenderAnimation();
+	pwindow->draw(*pshape);
+}
+
+
+// Virtual; derived classes can override this with their appropriate different animation if they wish.
+void Unit::RenderAnimation()
+{
+}

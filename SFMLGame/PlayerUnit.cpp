@@ -1,5 +1,4 @@
 #include "stdafx.h"
-#include <sstream>
 #include "PlayerUnit.h"
 #include "VectorUtils.h"
 
@@ -10,15 +9,6 @@ PlayerUnit::PlayerUnit()
 	ps->setFillColor(sf::Color::White);
 	ps->setPosition(100.f, 100.f);
 	ps->setOrigin( radius, radius ); // The center of the object rather than the top-left.
-
-	// This doesn't really belong in this class:
-	if (font.loadFromFile("AdobeClean-Regular.otf"))
-	{
-		text.setFont(font);
-		text.setCharacterSize(20); // in pixels, not points!
-		text.setFillColor(sf::Color::White);
-		text.setStyle(sf::Text::Regular);
-	}
 }
 
 
@@ -30,31 +20,6 @@ void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
 {
 	if( ps != nullptr )
 		pwin->draw( *ps );
-
-	renderStats( pwin );
-}
-
-
-// TODO: Move this to a separate class which has a reference to the player and to the ShapeList
-// TODO: Also, show Shapelist stats for the size of m_deleted list.
-void PlayerUnit::renderStats( shared_ptr<sf::RenderWindow> pwin )
-{
-	// Should I use a single text object for all the lines? Or one for each line?
-	std::stringstream ss;
-	text.setString("Stats:");
-	text.setPosition(sf::Vector2f(25.f, 50.f));
-	pwin->draw(text);
-
-	ss << "Health: " << health;
-	text.setString(ss.str());
-	text.setPosition(sf::Vector2f(25.f, 75.f));
-	pwin->draw(text);
-
-	ss.str(""); // Clear the string
-	ss << "Units Eaten: " << eaten;
-	text.setString(ss.str());
-	text.setPosition(sf::Vector2f(25.f, 100.f));
-	pwin->draw(text);
 }
 
 
