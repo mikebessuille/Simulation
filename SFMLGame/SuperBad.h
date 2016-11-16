@@ -13,9 +13,11 @@ public:
 	static const UnitDefaults *GetDefaults() { return &defaults; }; // returns the SuperBad:: version of defaults.
 
 protected:
+	virtual void RenderAnimation();
 	virtual void RenderDestroyAnimation();
 
 private:
 	static UnitDefaults const defaults;
+	bool bRenderColourIncreasing{ false };
 };
 
