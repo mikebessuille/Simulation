@@ -16,15 +16,24 @@ PlayerUnit::~PlayerUnit()
 {
 }
 
-void PlayerUnit::render(shared_ptr<sf::RenderWindow> pwin )
+void PlayerUnit::Render(shared_ptr<sf::RenderWindow> pwin )
 {
 	if( ps != nullptr )
 		pwin->draw( *ps );
 }
 
 
-// Don't rely on events for key handling; poll the keys in the main loop, so that it doesn't stutter (events are less frequent).
-void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
+void PlayerUnit::Update(shared_ptr<sf::RenderWindow> pwin, float speedFactor )
+{
+	Move(pwin, speedFactor);
+	UpdateShield();
+	UpdateFiring();
+	HandleBulletCollisions(pwin);
+}
+
+
+// Don't rely on events for key handling; poll key status here, so that it doesn't stutter (events are less frequent).
+void PlayerUnit::Move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 {
 	float speed = baseSpeed * speedFactor;
 	sf::Vector2f vel{ 0.f, 0.f };
@@ -91,9 +100,6 @@ void PlayerUnit::move(shared_ptr<sf::RenderWindow> pwin, float speedFactor)
 	VectorNormalize(vel);
 	velCurrent = vel * speed;
 	ps->move(velCurrent);
-
-	// Update other player attributes like shield
-	update();
 }
 
 
@@ -118,10 +124,10 @@ void PlayerUnit::gainHealth(const unsigned int points)
 	health += points;
 }
 
-// Update other attributes like Shield
-void PlayerUnit::update()
+
+void PlayerUnit::UpdateShield()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
 	{
 		// Space bar is pressed; shield is on
 		if( bShield == false )
@@ -143,5 +149,41 @@ void PlayerUnit::update()
 }
 
 
+void PlayerUnit::UpdateFiring()
+{
+	// Decide if the user is firing, and if it's ready to fire again (don't fire on every frame!)
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	{
+		sf::Time timeSinceLastShot = lastShotClock.getElapsedTime(); // since the clock was last restarted
+		if (timeSinceLastShot > shotCooldownTime)
+		{
+			timeSinceLastShot = sf::milliseconds(0);
+			lastShotClock.restart();
+
+			Fire();
+		}
+	}
+}
+
+
+// Add a new bullet to the bullet list.
+void PlayerUnit::Fire()
+{
+}
+
+
+// Move the bullets (if any) and deal with collisions between bullets and shapes.
+// Bullets decay after a certain period or if they move outside the window.
+void PlayerUnit::HandleBulletCollisions( shared_ptr<sf::RenderWindow> pwin )
+{
+	// WE SOMEHOW NEED TO GET THE ShapeList here..   Maybe the bullets should be a separate class, owned by PlayerUnit?
+	// Maybe the handling of bullets should be done by the ShapeList, which already has a pointer to the player? 
+}
+
+
+
 // TODO:  Speed boost?  (Some amount of fuel that gradually fills up, used for speed boost using shift key)
+// TODO:  (Same thing for shield - can only use it for a few seconds before it needs to recharge).
+// TODO:  Show health, shield charge, speed boost as rectangles with text overlay.  Maybe create a generic "bar" UI control class
+//		which each of those stats uses?  And a "stats" class that owns all of them?  Instead of the GameController?
 // TODO:  Firing weapons?  (Destroying units...    auto-spawn of new units...)

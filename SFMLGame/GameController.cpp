@@ -111,7 +111,7 @@ void GameController::UpdateEverything()
 {
 	const float speedFactor = (float)(elapsed / tick);
 	shapes.updatePositions(pwindow, speedFactor); // Update position of all units
-	player.move(pwindow, speedFactor); // Move the player
+	player.Update(pwindow, speedFactor); // Move the player, deal with shield, etc.
 	shapes.HandleCollisions(player); // Deal with collisions between player and units
 	shapes.SpawnUnits(pwindow);  // Spawn new units gradually...
 }
@@ -122,7 +122,7 @@ void GameController::Render()
 {
 	pwindow->clear();
 	shapes.render(pwindow);
-	player.render(pwindow);
+	player.Render(pwindow);
 	RenderStats();
 	pwindow->display();
 }

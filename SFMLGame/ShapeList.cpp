@@ -62,7 +62,7 @@ void ShapeList::CreateInitialUnits()
 // Called on each move... May create new random units
 // This would eventually be some function of the length of time the player has been alive, the number of points they've
 // accumulated, etc.
-// This will be called approximately 100 times per second.
+// This will be called approximately 100 times per second, but it doesn't create new units that often.
 void ShapeList::SpawnUnits( shared_ptr<sf::RenderWindow> pwin )
 {
 	sf::Time timeSinceLastSpawn = spawnClock.getElapsedTime(); // since the clock was last restarted
@@ -91,12 +91,12 @@ void ShapeList::SpawnUnit( shared_ptr<sf::RenderWindow> pwin )
 
 	// Random position.  Eventually: make them only spawn somewhere along the border.
 	sf::Vector2u wsize = pwin->getSize();
-	sf::Vector2f pos(( distribution(randomGenerator) * (float)wsize.x ) / 100.f, 
-					 ( distribution(randomGenerator) * (float)wsize.y) / 100.f);
+	sf::Vector2f pos(( (float)distribution(randomGenerator) * (float)wsize.x ) / 100.f, 
+					 ( (float)distribution(randomGenerator) * (float)wsize.y) / 100.f);
 
 	// Random Velocity
 	std::uniform_real_distribution<double> velocityDistribution(-1.0f, 1.0f);
-	sf::Vector2f vel(velocityDistribution(randomGenerator), velocityDistribution(randomGenerator));
+	sf::Vector2f vel((float)velocityDistribution(randomGenerator), (float)velocityDistribution(randomGenerator));
 
 	// Random type of unit
 	shared_ptr<Unit> pu{ nullptr };
