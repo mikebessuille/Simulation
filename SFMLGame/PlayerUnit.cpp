@@ -28,7 +28,7 @@ void PlayerUnit::Update(shared_ptr<sf::RenderWindow> pwin, float speedFactor )
 	Move(pwin, speedFactor);
 	UpdateShield();
 	UpdateFiring();
-	HandleBulletCollisions(pwin);
+	MoveBullets( pwin );
 }
 
 
@@ -171,13 +171,10 @@ void PlayerUnit::Fire()
 {
 }
 
-
-// Move the bullets (if any) and deal with collisions between bullets and shapes.
 // Bullets decay after a certain period or if they move outside the window.
-void PlayerUnit::HandleBulletCollisions( shared_ptr<sf::RenderWindow> pwin )
+void PlayerUnit::MoveBullets( shared_ptr<sf::RenderWindow> pwin )
 {
-	// WE SOMEHOW NEED TO GET THE ShapeList here..   Maybe the bullets should be a separate class, owned by PlayerUnit?
-	// Maybe the handling of bullets should be done by the ShapeList, which already has a pointer to the player? 
+
 }
 
 

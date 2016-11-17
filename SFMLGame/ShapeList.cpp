@@ -242,8 +242,10 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 // All shapes are circles, and all should have their origin set to their center (so getPos() returns the center, not the top-left).
 // Avoid O(N^2) collision detection (no need to detect collisions between all objects and each other; just need to
 // detect collisions between the player(s) and all other objects, which is O(N) ).
-void ShapeList::HandleCollisions(PlayerUnit &player)
+void ShapeList::HandleCollisions( PlayerUnit &player)
 {
+	HandleBulletHits(player);  // Handle bullets first; a bullet may prevent a collision.
+
 	sf::Vector2f PlayerPos = player.getPos();
 	float PlayerSize = player.getRadius();
 
@@ -271,4 +273,18 @@ void ShapeList::HandleCollisions(PlayerUnit &player)
 			++it; // Wasn't done in the for loop
 		}
 	}
+}
+
+
+// Deal with collisions between bullets and shapes.
+void ShapeList::HandleBulletHits( PlayerUnit &player )
+{
+	// Note: this just deals with the bullet's current location; so it won't necessarily
+	// pick up collisions where the bullet passes right through a unit
+
+	// TODO: If the bullet list isn't empty, go through all bullets in the list
+	// and for each, see if it is within the radius of each unit.
+	// TODO: need some methods in player class that get next bullet?
+
+	// If a bullet hits a Unit, the bullet needs to be removed from the list.
 }

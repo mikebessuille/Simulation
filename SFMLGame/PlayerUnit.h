@@ -25,8 +25,8 @@ public:
 protected:
 	void UpdateShield();
 	void UpdateFiring();
-	void HandleBulletCollisions( shared_ptr<sf::RenderWindow> pwin );
 	void Fire();
+	void MoveBullets(shared_ptr<sf::RenderWindow>);
 	void Move(shared_ptr<sf::RenderWindow>, float speedFactor);
 
 
