@@ -255,11 +255,16 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 
 		if (player.CheckBulletHit(UnitPos, UnitSize))
 		{
-			// Bullet hit this shape!
-			// Add it to the deleted list first, so its delete animation can run
-			m_deleted.push_back(*it);
-			// Then remove it from the units list:
-			it = m_units.erase(it); // returns next element
+			// Bullet hit this unit!
+			if ((*it)->HandleShot(player))
+			{
+				// Add it to the deleted list first, so its delete animation can run
+				m_deleted.push_back(*it);
+				// Then remove it from the units list:
+				it = m_units.erase(it); // returns next element
+			}
+			else
+				++it; // Shot, but didn't destroy the unit.
 		}
 		else if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
 		{

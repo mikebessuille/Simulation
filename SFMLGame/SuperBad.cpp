@@ -16,6 +16,13 @@ SuperBad::SuperBad(sf::Vector2f pos, sf::Vector2f vel, const UnitDefaults *pdef 
 }
 
 
+bool SuperBad::HandleShot(PlayerUnit & player)
+{
+	// TODO:  Add some kind of health to this class, and each bullet does a certain amount of damage (several shots to destroy)
+	return( false );
+}
+
+
 // Virtual; derived classes can override this with their appropriate different animation if they wish.
 void SuperBad::RenderDestroyAnimation()
 {

@@ -175,10 +175,12 @@ void PlayerUnit::Fire()
 	bullet.pos = ps->getPosition();
 	bullet.vel = velCurrent;
 	VectorNormalize(bullet.vel);
-	// TODO: Deal with bullets that have almost no speed.
-	bullet.vel *= bulletSpeed;
-	bullet.ticksRemaining = maxBulletTicks;
-	m_bullets.push_back(bullet);
+	if (VectorLength(bullet.vel) != 0.f) // Don't fire if the bullet will end up sitting there...
+	{ 
+		bullet.vel *= bulletSpeed;
+		bullet.ticksRemaining = maxBulletTicks;
+		m_bullets.push_back(bullet);
+	}
 }
 
 // Bullets decay after a certain period or if they move outside the window.

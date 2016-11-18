@@ -33,7 +33,8 @@ public:
 	void move( const float speedFactor );
 	void setVelocity(const sf::Vector2f vel) { velocity = vel; }
 	sf::Vector2f getVelocity() { return velocity; }
-	virtual bool HandleCollision(PlayerUnit &player);
+	virtual bool HandleCollision(PlayerUnit &player); // Player collided with the unit
+	virtual bool HandleShot(PlayerUnit &player); // Player shot the unit
 	void Render(shared_ptr<sf::RenderWindow> pwindow); // non-virtual
 	void RenderDestroy( shared_ptr<sf::RenderWindow> pwindow ); // non-virtual
 	virtual bool FinishedDestroying() { return(destroyFrames >= pdefaults->maxDestroyFrames); };

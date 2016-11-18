@@ -69,6 +69,14 @@ bool Unit::HandleCollision(PlayerUnit & player)
 }
 
 
+// Returns true if the current unit should be destroyed.
+bool Unit::HandleShot(PlayerUnit & player)
+{
+	// TODO:  Gain points by destroying units?  Gain health?
+	return(true);
+}
+
+
 void Unit::Bounce(PlayerUnit & player)
 {
 	// bounce off the player; keep the same speed, just change direction
