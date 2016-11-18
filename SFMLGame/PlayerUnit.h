@@ -2,7 +2,15 @@
 
 #include <SFML\Graphics.hpp>
 #include <memory>
+#include <list>
 
+
+struct Bullet
+{
+	sf::Vector2f pos; // current position
+	sf::Vector2f vel; // velocity
+	unsigned int ticksRemaining; // how many ticks remain before the bullet decays.  (This could change to a Time value).
+};
 
 class PlayerUnit
 {
@@ -21,12 +29,16 @@ public:
 	const unsigned int getEaten() { return(eaten); };
 	void gainHealth(const unsigned int points);
 	bool isAlive() { return(health > 0); };
+	bool AreBullets() { return(m_bullets.size() > 0); };
+	bool CheckBulletHit(sf::Vector2f pos, float radius);
+
 
 protected:
 	void UpdateShield();
 	void UpdateFiring();
 	void Fire();
-	void MoveBullets(shared_ptr<sf::RenderWindow>);
+	void MoveBullets(shared_ptr<sf::RenderWindow>, float speedFactor );
+	void RenderBullets(shared_ptr<sf::RenderWindow> pwin);
 	void Move(shared_ptr<sf::RenderWindow>, float speedFactor);
 
 
@@ -48,5 +60,8 @@ private:
 	// Firing
 	sf::Clock lastShotClock;
 	sf::Time shotCooldownTime{ sf::milliseconds(100) };
+	list<Bullet> m_bullets;
+	const float bulletSpeed{ 3.0f };
+	const unsigned int maxBulletTicks{ 200 };
 };
 

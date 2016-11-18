@@ -242,10 +242,9 @@ bool ShapeList::removeUnitsAt(sf::Vector2f pos)
 // All shapes are circles, and all should have their origin set to their center (so getPos() returns the center, not the top-left).
 // Avoid O(N^2) collision detection (no need to detect collisions between all objects and each other; just need to
 // detect collisions between the player(s) and all other objects, which is O(N) ).
+// This also handles bullet hits, which is O(N^2) as units & bullets increase.
 void ShapeList::HandleCollisions( PlayerUnit &player)
 {
-	HandleBulletHits(player);  // Handle bullets first; a bullet may prevent a collision.
-
 	sf::Vector2f PlayerPos = player.getPos();
 	float PlayerSize = player.getRadius();
 
@@ -254,9 +253,17 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 		sf::Vector2f UnitPos = (*it)->getShape()->getPosition();
 		float UnitSize = (float)((*it)->getShape()->getGlobalBounds().width / 2); // Assumes it's a circle...
 
-		if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
+		if (player.CheckBulletHit(UnitPos, UnitSize))
 		{
-			// Collision!
+			// Bullet hit this shape!
+			// Add it to the deleted list first, so its delete animation can run
+			m_deleted.push_back(*it);
+			// Then remove it from the units list:
+			it = m_units.erase(it); // returns next element
+		}
+		else if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
+		{
+			// Collision between unit and player!
 			if ((*it)->HandleCollision(player))
 			{
 				// if HandleCollision returns true, destroy that unit
@@ -273,18 +280,4 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 			++it; // Wasn't done in the for loop
 		}
 	}
-}
-
-
-// Deal with collisions between bullets and shapes.
-void ShapeList::HandleBulletHits( PlayerUnit &player )
-{
-	// Note: this just deals with the bullet's current location; so it won't necessarily
-	// pick up collisions where the bullet passes right through a unit
-
-	// TODO: If the bullet list isn't empty, go through all bullets in the list
-	// and for each, see if it is within the radius of each unit.
-	// TODO: need some methods in player class that get next bullet?
-
-	// If a bullet hits a Unit, the bullet needs to be removed from the list.
 }

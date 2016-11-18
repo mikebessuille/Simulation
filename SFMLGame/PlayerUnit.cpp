@@ -20,6 +20,8 @@ void PlayerUnit::Render(shared_ptr<sf::RenderWindow> pwin )
 {
 	if( ps != nullptr )
 		pwin->draw( *ps );
+
+	RenderBullets(pwin);
 }
 
 
@@ -28,7 +30,7 @@ void PlayerUnit::Update(shared_ptr<sf::RenderWindow> pwin, float speedFactor )
 	Move(pwin, speedFactor);
 	UpdateShield();
 	UpdateFiring();
-	MoveBullets( pwin );
+	MoveBullets( pwin, speedFactor );
 }
 
 
@@ -152,7 +154,7 @@ void PlayerUnit::UpdateShield()
 void PlayerUnit::UpdateFiring()
 {
 	// Decide if the user is firing, and if it's ready to fire again (don't fire on every frame!)
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Space) && !isShield())
 	{
 		sf::Time timeSinceLastShot = lastShotClock.getElapsedTime(); // since the clock was last restarted
 		if (timeSinceLastShot > shotCooldownTime)
@@ -169,18 +171,79 @@ void PlayerUnit::UpdateFiring()
 // Add a new bullet to the bullet list.
 void PlayerUnit::Fire()
 {
+	Bullet bullet;
+	bullet.pos = ps->getPosition();
+	bullet.vel = velCurrent;
+	VectorNormalize(bullet.vel);
+	// TODO: Deal with bullets that have almost no speed.
+	bullet.vel *= bulletSpeed;
+	bullet.ticksRemaining = maxBulletTicks;
+	m_bullets.push_back(bullet);
 }
 
 // Bullets decay after a certain period or if they move outside the window.
-void PlayerUnit::MoveBullets( shared_ptr<sf::RenderWindow> pwin )
+void PlayerUnit::MoveBullets( shared_ptr<sf::RenderWindow> pwin, float speedFactor )
 {
+	sf::Vector2u wsize = pwin->getSize();
 
+	for (auto it = m_bullets.begin(); it != m_bullets.end(); /* do not increment in the loop */)
+	{
+		(*it).pos += (*it).vel;
+		if ((*it).pos.x < 0 || (*it).pos.x >= wsize.x || (*it).pos.y < 0 || (*it).pos.y >= wsize.y)
+		{
+			it = m_bullets.erase(it);
+		}
+		else
+		{
+			(*it).ticksRemaining--;
+			if ((*it).ticksRemaining == 0)
+			{
+				it = m_bullets.erase(it);
+			}
+			else
+			{
+				++it; // increment the iterator only if we didn't remove the bullet from the list.
+			}
+		}
+	}
 }
 
 
+// Returns true if a bullet hits a unit at that position & radius.
+bool PlayerUnit::CheckBulletHit(sf::Vector2f pos, float radius)
+{
+	for (auto it = m_bullets.begin(); it != m_bullets.end(); /* do not increment in the loop */)
+	{
+		// Really should compute with squares and not take the square root; it's expensive.
+		if (VectorLength((*it).pos, pos) < radius)
+		{
+			// Delete the bullet from the list, and stop checking other bullets
+			it = m_bullets.erase(it);
+			return(true);
+		}
+		else
+		{
+			++it;
+		}
+	}
+	return(false);
+}
+
+
+void PlayerUnit::RenderBullets(shared_ptr<sf::RenderWindow> pwin)
+{
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(4, 4));
+	rect.setOutlineColor(sf::Color::White);
+
+	for (auto bullet : m_bullets)
+	{
+		rect.setPosition( bullet.pos );
+		pwin->draw(rect);
+	}
+}
 
 // TODO:  Speed boost?  (Some amount of fuel that gradually fills up, used for speed boost using shift key)
 // TODO:  (Same thing for shield - can only use it for a few seconds before it needs to recharge).
 // TODO:  Show health, shield charge, speed boost as rectangles with text overlay.  Maybe create a generic "bar" UI control class
 //		which each of those stats uses?  And a "stats" class that owns all of them?  Instead of the GameController?
-// TODO:  Firing weapons?  (Destroying units...    auto-spawn of new units...)
