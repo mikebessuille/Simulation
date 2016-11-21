@@ -31,6 +31,7 @@ public:
 	bool isAlive() { return(health > 0); };
 	bool AreBullets() { return(m_bullets.size() > 0); };
 	bool CheckBulletHit(sf::Vector2f pos, float radius);
+	unsigned int GetBulletDamage() { return(bulletDamage); };
 
 
 protected:
@@ -63,5 +64,6 @@ private:
 	list<Bullet> m_bullets;
 	const float bulletSpeed{ 3.0f };
 	const unsigned int maxBulletTicks{ 200 };
+	const unsigned int bulletDamage{ 10 };
 };
 

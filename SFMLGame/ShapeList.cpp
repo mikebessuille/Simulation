@@ -264,7 +264,13 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 				it = m_units.erase(it); // returns next element
 			}
 			else
+			{
 				++it; // Shot, but didn't destroy the unit.
+				// TODO: In this case, we should also check if the player collides with the unit as well!
+				// Also, even if the unit is not hit by a bullet, we should not be incrementing the iterator, because we haven't
+				// yet checked for collisions with this same iterator.  
+				// There is a strange case happening where I've seen red (BadUnit) units spawned which don't bounce off the shielded player.
+			}
 		}
 		else if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
 		{

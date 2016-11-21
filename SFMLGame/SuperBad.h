@@ -21,5 +21,6 @@ protected:
 private:
 	static UnitDefaults const defaults;
 	bool bRenderColourIncreasing{ false };
+	unsigned int health{ 30 };
 };
 
