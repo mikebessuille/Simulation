@@ -108,12 +108,12 @@ void ShapeList::SpawnUnit( shared_ptr<sf::RenderWindow> pwin )
 	else if (percent < 90)
 	{
 		// spawn a BadUnit
-		pu = make_shared<Unit>(pos, vel, BadUnit::GetDefaults());
+		pu = make_shared<BadUnit>(pos, vel, BadUnit::GetDefaults());
 	}
 	else if (percent < 95)
 	{
 		// Spawn a SuperBad
-		pu = make_shared<Unit>(pos, vel, Unit::GetDefaults());
+		pu = make_shared<SuperBad>(pos, vel, SuperBad::GetDefaults());
 	}
 	else
 	{
@@ -252,6 +252,7 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 	{
 		sf::Vector2f UnitPos = (*it)->getShape()->getPosition();
 		float UnitSize = (float)((*it)->getShape()->getGlobalBounds().width / 2); // Assumes it's a circle...
+		bool bDeleted{ false };
 
 		if (player.CheckBulletHit(UnitPos, UnitSize))
 		{
@@ -262,17 +263,13 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 				m_deleted.push_back(*it);
 				// Then remove it from the units list:
 				it = m_units.erase(it); // returns next element
+				bDeleted = true;
 			}
-			else
-			{
-				++it; // Shot, but didn't destroy the unit.
-				// TODO: In this case, we should also check if the player collides with the unit as well!
-				// Also, even if the unit is not hit by a bullet, we should not be incrementing the iterator, because we haven't
-				// yet checked for collisions with this same iterator.  
-				// There is a strange case happening where I've seen red (BadUnit) units spawned which don't bounce off the shielded player.
-			}
+			// Else case:  unit may have been shot, but wasn't destroyed.  In that case, continue to next code block and
+			// check if unit collided with player.
 		}
-		else if (VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize))
+		
+		if (!bDeleted && ( VectorLength(PlayerPos, UnitPos) < (PlayerSize + UnitSize)))
 		{
 			// Collision between unit and player!
 			if ((*it)->HandleCollision(player))
@@ -282,13 +279,13 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 				m_deleted.push_back(*it);
 				// Then remove it from the units list:
 				it = m_units.erase(it); // returns next element
+				bDeleted = true;
 			}
-			else
-				++it; // didn't destroy unit
 		}
-		else
+
+		if( !bDeleted )
 		{
-			++it; // Wasn't done in the for loop
+			++it; // Unit wasn't deleted, and iterator wasn't incremented in the for loop
 		}
 	}
 }
