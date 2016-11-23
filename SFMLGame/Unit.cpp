@@ -6,6 +6,7 @@
 // size, colour, points
 const UnitDefaults Unit::defaults{	30.f, // default_size
 									{0, 0, 250}, // blue 
+									5, // default_healthGain
 									5, // default_points 
 									0, // default_damage
 									25 // maxDestroyFrames
@@ -62,19 +63,17 @@ bool Unit::HandleCollision(PlayerUnit & player)
 	else
 	{
 		// Player eats the unit and gains points.
-		player.gainHealth( pdefaults->default_points );
+		player.gainHealth( pdefaults->default_healthGain );
 		return(true);
 	}
 	return(false);
 }
 
 
-// TODO:  Implement this (or use a base implementation?) for Derived units, which currently don't add to the player's score.
 // Returns true if the current unit should be destroyed.
 bool Unit::HandleShot(PlayerUnit & player)
 {
-	// Gain points by destroying units.  Currently the same default value is used for when the player
-	// eats the unit (gains health) or when it shoots a unit (gains score)
+	// Gain points by destroying units.
 	player.ShotAndDestroyedUnit(pdefaults->default_points);
 	return(true);
 }

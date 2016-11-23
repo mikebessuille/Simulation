@@ -7,7 +7,8 @@
 
 const UnitDefaults BadUnit::defaults{	25.f, // default_size
 										{ 255, 0, 0 }, // Red 
-										0, // default_points
+										0, // default_healthGain
+										7, // default_points
 										25, // default_damage
 										25 // maxDestroyFrames
 									};

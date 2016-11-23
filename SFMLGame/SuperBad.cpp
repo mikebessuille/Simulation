@@ -4,7 +4,8 @@
 
 const UnitDefaults SuperBad::defaults{	15.f, // default_size
 										{ 250, 250, 0 }, // Yellow
-										0, // default_points
+										0, // default_healthGain
+										10, // default_points
 										35, // default_damage
 										50 // maxDestroyFrames
 									};
@@ -20,7 +21,11 @@ bool SuperBad::HandleShot(PlayerUnit & player)
 {
 	health -= player.GetBulletDamage();
 	if (health == 0)
+	{
+		// Gain points by destroying units.
+		player.ShotAndDestroyedUnit(pdefaults->default_points);
 		return(true);
+	}
 	return( false );
 }
 

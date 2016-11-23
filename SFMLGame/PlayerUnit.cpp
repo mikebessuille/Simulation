@@ -256,5 +256,7 @@ void PlayerUnit::ShotAndDestroyedUnit(unsigned int points )
 
 // TODO:  Speed boost?  (Some amount of fuel that gradually fills up, used for speed boost using shift key)
 // TODO:  (Same thing for shield - can only use it for a few seconds before it needs to recharge).
+//			Shield recharges slowly over time; faster if the player eats units (not shoots them)?
+//			Health increases if player eats units...
 // TODO:  Show health, shield charge, speed boost as rectangles with text overlay.  Maybe create a generic "bar" UI control class
 //		which each of those stats uses?  And a "stats" class that owns all of them?  Instead of the GameController?
