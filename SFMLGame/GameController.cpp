@@ -150,9 +150,21 @@ void GameController::RenderStats()
 	pwindow->draw(text);
 
 	ss.str(""); // Clear the string
+	ss << "Units Shot: " << player.getShot();
+	text.setString(ss.str());
+	text.setPosition(sf::Vector2f(25.f, 110.f));
+	pwindow->draw(text);
+
+	ss.str(""); // Clear the string
+	ss << "Score: " << player.getScore();
+	text.setString(ss.str());
+	text.setPosition(sf::Vector2f(25.f, 130.f));
+	pwindow->draw(text);
+
+	ss.str(""); // Clear the string
 	float fps = sf::milliseconds(1000) / elapsed;
 	ss << "Frame Rate: " << (int)fps << " fps.";
 	text.setString(ss.str());
-	text.setPosition(sf::Vector2f(25.f, 110.f));
+	text.setPosition(sf::Vector2f(25.f, 150.f));
 	pwindow->draw(text);
 }

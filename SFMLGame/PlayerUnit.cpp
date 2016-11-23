@@ -211,24 +211,25 @@ void PlayerUnit::MoveBullets( shared_ptr<sf::RenderWindow> pwin, float speedFact
 }
 
 
-// Returns true if a bullet hits a unit at that position & radius.
-bool PlayerUnit::CheckBulletHit(sf::Vector2f pos, float radius)
+// Returns the number of bullets that hit a unit at that position & radius.
+unsigned int PlayerUnit::CheckBulletHit(sf::Vector2f pos, float radius)
 {
+	unsigned int hits{ 0 };
 	for (auto it = m_bullets.begin(); it != m_bullets.end(); /* do not increment in the loop */)
 	{
 		// Really should compute with squares and not take the square root; it's expensive.
 		if (VectorLength((*it).pos, pos) < radius)
 		{
-			// Delete the bullet from the list, and stop checking other bullets
+			// Delete the bullet from the list, but keep checking other bullets; more than one bullet may have hit the unit.
 			it = m_bullets.erase(it);
-			return(true);
+			hits++;
 		}
 		else
 		{
 			++it;
 		}
 	}
-	return(false);
+	return( hits );
 }
 
 
@@ -244,6 +245,14 @@ void PlayerUnit::RenderBullets(shared_ptr<sf::RenderWindow> pwin)
 		pwin->draw(rect);
 	}
 }
+
+
+void PlayerUnit::ShotAndDestroyedUnit(unsigned int points )
+{
+	unitsShot++;
+	score += points;
+}
+
 
 // TODO:  Speed boost?  (Some amount of fuel that gradually fills up, used for speed boost using shift key)
 // TODO:  (Same thing for shield - can only use it for a few seconds before it needs to recharge).

@@ -9,7 +9,7 @@ struct UnitDefaults
 {
 	const float default_size;
 	const sf::Color default_colour;
-	const unsigned int default_points;
+	const unsigned int default_points; // currently this is both when eaten or when shot.
 	const unsigned int default_damage;
 	const unsigned int maxDestroyFrames;
 };

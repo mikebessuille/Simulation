@@ -83,6 +83,7 @@ void ShapeList::SpawnUnits( shared_ptr<sf::RenderWindow> pwin )
 }
 
 
+// This is basicaly a Factory method that creates units of different types.
 void ShapeList::SpawnUnit( shared_ptr<sf::RenderWindow> pwin )
 {
 	// consider storing this uniform dist function inside the object?
@@ -254,18 +255,23 @@ void ShapeList::HandleCollisions( PlayerUnit &player)
 		float UnitSize = (float)((*it)->getShape()->getGlobalBounds().width / 2); // Assumes it's a circle...
 		bool bDeleted{ false };
 
-		if (player.CheckBulletHit(UnitPos, UnitSize))
+		unsigned int hits = player.CheckBulletHit(UnitPos, UnitSize);
+		if( hits > 0 )
 		{
-			// Bullet hit this unit!
-			if ((*it)->HandleShot(player))
+			// Bullet(s) hit this unit!
+			while ( hits > 0 && !bDeleted )
 			{
-				// Add it to the deleted list first, so its delete animation can run
-				m_deleted.push_back(*it);
-				// Then remove it from the units list:
-				it = m_units.erase(it); // returns next element
-				bDeleted = true;
+				hits--;
+				if ((*it)->HandleShot(player))
+				{
+					// Add it to the deleted list first, so its delete animation can run
+					m_deleted.push_back(*it);
+					// Then remove it from the units list:
+					it = m_units.erase(it); // returns next element
+					bDeleted = true;
+				}
 			}
-			// Else case:  unit may have been shot, but wasn't destroyed.  In that case, continue to next code block and
+			// at this point, unit was shot but may not have been destroyed.  In that case, continue to next code block and
 			// check if unit collided with player.
 		}
 		

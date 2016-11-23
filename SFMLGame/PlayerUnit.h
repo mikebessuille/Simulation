@@ -27,11 +27,14 @@ public:
 	bool damage(const unsigned int dmg);
 	const unsigned int getHealth() { return(health); };
 	const unsigned int getEaten() { return(eaten); };
+	const unsigned int getShot() { return(unitsShot); };
+	const unsigned int getScore() { return(score); };
 	void gainHealth(const unsigned int points);
 	bool isAlive() { return(health > 0); };
 	bool AreBullets() { return(m_bullets.size() > 0); };
-	bool CheckBulletHit(sf::Vector2f pos, float radius);
+	unsigned int CheckBulletHit(sf::Vector2f pos, float radius);
 	unsigned int GetBulletDamage() { return(bulletDamage); };
+	void ShotAndDestroyedUnit( unsigned int points );
 
 
 protected:
@@ -65,5 +68,7 @@ private:
 	const float bulletSpeed{ 3.0f };
 	const unsigned int maxBulletTicks{ 200 };
 	const unsigned int bulletDamage{ 10 };
+	unsigned int unitsShot{ 0 };
+	unsigned int score { 0 };
 };
 

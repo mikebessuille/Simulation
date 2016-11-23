@@ -69,10 +69,13 @@ bool Unit::HandleCollision(PlayerUnit & player)
 }
 
 
+// TODO:  Implement this (or use a base implementation?) for Derived units, which currently don't add to the player's score.
 // Returns true if the current unit should be destroyed.
 bool Unit::HandleShot(PlayerUnit & player)
 {
-	// TODO:  Gain points by destroying units?  Gain health?
+	// Gain points by destroying units.  Currently the same default value is used for when the player
+	// eats the unit (gains health) or when it shoots a unit (gains score)
+	player.ShotAndDestroyedUnit(pdefaults->default_points);
 	return(true);
 }
 
