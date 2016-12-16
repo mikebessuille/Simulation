@@ -110,6 +110,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CPP11AsyncTasks.cpp" />
     <ClCompile Include="CPP11Features.cpp" />
     <ClCompile Include="CPP11SpecialFunctions.cpp" />
     <ClCompile Include="main.cpp" />
@@ -118,6 +119,7 @@
     <ClCompile Include="ProducerConsumer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CPP11AsyncTasks.h" />
     <ClInclude Include="CPP11Features.h" />
     <ClInclude Include="CPP11SpecialFunctions.h" />
     <ClInclude Include="MessageQueue.h" />

@@ -7,13 +7,14 @@
 #include "PimplPattern.h"
 #include "CPP11Threads.h"
 #include "ProducerConsumer.h"
+#include "CPP11AsyncTasks.h"
 
 using namespace std;
 
 void WaitForChar(string str)
 {
 	// Get any char as input, without requiring Enter.
-	cout << str.c_str() << endl;
+	cout << endl << str.c_str() << endl;
 	while (_kbhit() == 0) {}
 	char ch = _getch();
 	cout << "   You Typed Char: " << ch << endl; // if we used _getch() directly here, it would output the ASCII (int) value, not the char.
@@ -38,6 +39,10 @@ int main()
 	WaitForChar("Hit any key to start Thread Test");
 	CPP11Threads cpp11Threads;
 	cpp11Threads.run();
+
+	WaitForChar("Hit any key to start Async Task tests");
+	CPP11AsyncTasks cpp11Tasks;
+	cpp11Tasks.run();
 
 	WaitForChar("Hit any key to start Producer Consumer test (then any key to stop)");
 	ProducerConsumer pc;
