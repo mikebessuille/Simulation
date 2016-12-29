@@ -114,6 +114,7 @@
     <ClCompile Include="CPP11Features.cpp" />
     <ClCompile Include="CPP11SpecialFunctions.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NestedClassTest.cpp" />
     <ClCompile Include="PimplPattern.cpp" />
     <ClCompile Include="CPP11Threads.cpp" />
     <ClCompile Include="ProducerConsumer.cpp" />
