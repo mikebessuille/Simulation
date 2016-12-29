@@ -4,6 +4,11 @@
 #include <memory>
 #include <list>
 
+// TODO: Move all these and shield functionality to a new shield class?  Or at least inside the PlayerUnit class to control scope...
+static const unsigned int MaxShieldPower{ 1000 };	// Max amount of power the player can have.
+static const unsigned int ShieldPowerPerTick{ 5 };	// Amount of power the shield uses per tick
+static const unsigned int ShieldRechargePerTick{ 1 };	// Amount of power that is charged per tick when the shield is off
+static const unsigned int MinShieldPowerToStartShield{ 250 }; // If shield is off, this is the minimum power needed to start the shield.  Prevents shield flicker.
 
 struct Bullet
 {
@@ -29,6 +34,7 @@ public:
 	const unsigned int getEaten() { return(eaten); };
 	const unsigned int getShot() { return(unitsShot); };
 	const unsigned int getScore() { return(score); };
+	const unsigned int getPower() { return(power); };
 	void gainHealth(const unsigned int points);
 	bool isAlive() { return(health > 0); };
 	bool AreBullets() { return(m_bullets.size() > 0); };
@@ -60,10 +66,11 @@ private:
 	// Shield
 	bool bShield{ false };
 	float shieldSize{ 5.f }; // Shield size can change over time?
+	unsigned int power{ MaxShieldPower }; // Shield power, from 0 to 1000.
 
 	// Firing
 	sf::Clock lastShotClock;
-	sf::Time shotCooldownTime{ sf::milliseconds(100) };
+	sf::Time shotCooldownTime{ sf::milliseconds(150) };
 	list<Bullet> m_bullets;
 	const float bulletSpeed{ 3.0f };
 	const unsigned int maxBulletTicks{ 200 };

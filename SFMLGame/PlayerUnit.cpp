@@ -129,23 +129,41 @@ void PlayerUnit::gainHealth(const unsigned int points)
 
 void PlayerUnit::UpdateShield()
 {
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Z) && power > ShieldPowerPerTick )
 	{
-		// Space bar is pressed; shield is on
-		if( bShield == false )
+		// Shield button is pressed; shield is on if there's enough power
+		
+		if (bShield == false && power >= MinShieldPowerToStartShield ) // minShieldPowerToStartShield is used to prevent shield flicker.
 		{
 			bShield = true;
-			ps->setOutlineThickness( shieldSize );
+			ps->setOutlineThickness(shieldSize);
 			ps->setOutlineColor(sf::Color(220, 220, 220));
 		}
 	}
 	else
 	{
+		// shield button is not pressed, or there's not enough power to power the shields.
 		if (bShield == true)
 		{
 			// reset shield to false
 			bShield = false;
 			ps->setOutlineThickness(0.f);
+		}
+	}
+
+	if (bShield == true)
+	{
+		// The shield is on, so it uses power.
+		power -= ShieldPowerPerTick;
+	}
+	else
+	{
+		// Shield is off; charge the power. (shield key may still be pressed though, but it may not have enough power to run)
+		if (power < MaxShieldPower)
+		{
+			power += ShieldRechargePerTick;
+			if (power > MaxShieldPower)
+				power = MaxShieldPower;
 		}
 	}
 }

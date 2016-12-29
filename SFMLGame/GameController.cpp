@@ -124,6 +124,7 @@ void GameController::Render()
 	shapes.render(pwindow);
 	player.Render(pwindow);
 	RenderStats();
+	RenderUI();
 	pwindow->display();
 }
 
@@ -167,4 +168,9 @@ void GameController::RenderStats()
 	text.setString(ss.str());
 	text.setPosition(sf::Vector2f(25.f, 150.f));
 	pwindow->draw(text);
+}
+
+void GameController::RenderUI()
+{
+	powerDisplay.Render( pwindow, (player.getPower() * 100) / MaxShieldPower);
 }

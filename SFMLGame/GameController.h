@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include "ShapeList.h"
 #include "PlayerUnit.h"
+#include "TankWidget.h"
 
 class GameController
 {
@@ -17,6 +18,7 @@ private:
 	void UpdateEverything(); // Move all units, player, collisions...
 	void Render(); // Render everything in the game
 	void RenderStats();
+	void RenderUI();
 
 private:
 	sf::Vector2i startPos; // for mouse operations
@@ -30,5 +32,8 @@ private:
 	// For Stats
 	sf::Font font;
 	sf::Text text;
+
+	// For UI; this could be moved to a UI class that contains all the various screen widgets.
+	TankWidget powerDisplay{ sf::Vector2f(25.f, 180.f), 15.f, 100.f };
 };
 
