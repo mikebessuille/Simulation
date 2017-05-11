@@ -18,9 +18,14 @@ char WaitForChar(string str)
 	return(ch);
 }
 
+void Print(string str)
+{
+	cout << str << endl;
+}
 
 int main()
 {
+	Print("Henry is a wonderful boy.");
 	cout << "Day 1, Breakfast: I had cereal which made me sick. Then the doorbell rang." << endl;
 	char ch = WaitForChar("Do you answer it? (y/n)");
 	if (ch == 'y')
@@ -30,6 +35,7 @@ int main()
 	WaitForChar("Hit any key to exit.");
     return 0;
 }
+
 
 
 

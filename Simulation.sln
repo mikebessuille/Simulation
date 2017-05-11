@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.26403.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimulationConsole", "SimulationConsole\SimulationConsole.vcxproj", "{5FFC01CB-DEDF-435C-A4FD-DAD9EEBAB02E}"
 EndProject
@@ -14,6 +14,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LearningCode", "LearningCode\LearningCode.vcxproj", "{A4FF7D42-12C4-4703-B85E-B3473D304C50}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SFMLGame", "SFMLGame\SFMLGame.vcxproj", "{5B037048-C001-4522-BA3B-5781D061DA2E}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketLibrary", "SocketLibrary\SocketLibrary.vcxproj", "{5B274524-9975-41DC-8072-14024E0B6730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -86,6 +88,16 @@ Global
 		{5B037048-C001-4522-BA3B-5781D061DA2E}.Release|x64.Build.0 = Release|x64
 		{5B037048-C001-4522-BA3B-5781D061DA2E}.Release|x86.ActiveCfg = Release|Win32
 		{5B037048-C001-4522-BA3B-5781D061DA2E}.Release|x86.Build.0 = Release|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Debug|ARM.ActiveCfg = Debug|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Debug|x64.ActiveCfg = Debug|x64
+		{5B274524-9975-41DC-8072-14024E0B6730}.Debug|x64.Build.0 = Debug|x64
+		{5B274524-9975-41DC-8072-14024E0B6730}.Debug|x86.ActiveCfg = Debug|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Debug|x86.Build.0 = Debug|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Release|ARM.ActiveCfg = Release|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Release|x64.ActiveCfg = Release|x64
+		{5B274524-9975-41DC-8072-14024E0B6730}.Release|x64.Build.0 = Release|x64
+		{5B274524-9975-41DC-8072-14024E0B6730}.Release|x86.ActiveCfg = Release|Win32
+		{5B274524-9975-41DC-8072-14024E0B6730}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
