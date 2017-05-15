@@ -19,11 +19,24 @@ char WaitForChar(string str)
 }
 
 
-int main()
+int main(int argc, char* argv[])
 {
-	SocketClass sc;
-	int val = sc.TestMethod();
-	cout << val << endl;
+	bool bServer = false;
+	if (argc > 20)
+		return 0;
+
+	for (int i = 1; i < argc; ++i)
+	{
+		string arg = argv[i];
+		if (arg == "-server" || arg == "-s")
+		{
+			bServer = true;
+		}
+	}
+
+	WaitForChar("Hit any key to start socket");
+
+	SocketClass sc(bServer);
 	WaitForChar( "Hit any key to exit");
     return 0;
 }

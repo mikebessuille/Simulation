@@ -1,14 +1,17 @@
 #pragma once
+
+#include "stdafx.h"
+
 class SocketClass
 {
 public:
-	SocketClass();
+	SocketClass(bool bIsServer);
+	SocketClass() : SocketClass(false) {};
 	virtual ~SocketClass();
 
-	int TestMethod() { return 3; };
-
 private:
-	int test1 = 0;	// Remove!
-	int test2 = 0;	// Remove!
+	WSADATA wsaData;
+	bool bInitialized = false;
+	bool bServer = false;
 };
 
