@@ -5,7 +5,9 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
-#include "SocketClass.h"
+
+#include "NetworkManagerServer.h"
+#include "NetworkManagerClient.h"
 
 using namespace std;
 
@@ -34,9 +36,19 @@ int main(int argc, char* argv[])
 		}
 	}
 
-	WaitForChar("Hit any key to start socket");
+	WaitForChar("Hit any key to start.");
 
-	SocketClass sc(bServer);
+	if (bServer)
+	{
+		NetworkManagerServer server;
+		server.run();
+	}
+	else
+	{
+		NetworkManagerClient client;
+		client.run();
+	}
+
 	WaitForChar( "Hit any key to exit");
     return 0;
 }
