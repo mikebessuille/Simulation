@@ -16,5 +16,6 @@ public:
 
 private:
 	shared_ptr<SocketClass> pUDPSocket{ nullptr };
+	SocketAddressPtr m_pServerAddress{ nullptr };
 };
 

@@ -31,7 +31,12 @@ void NetworkManagerClient::run()
 {
 	// Send an initial buffer
 	char *sendbuf = "this is a test";
-	auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), default_server_port );
+
+	string addrString = "localhost:" + default_server_port;
+	cout << "Client sending to server at: " << addrString << endl;
+	m_pServerAddress = SocketAddressFactory::CreateIPv4FromString( addrString );
+
+	auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), (*m_pServerAddress) );
 	if (ret <= 0)
 	{
 		cout << "Failed to send!!" << endl;

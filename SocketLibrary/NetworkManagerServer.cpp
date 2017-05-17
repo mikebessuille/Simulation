@@ -35,7 +35,10 @@ void NetworkManagerServer::run()
 		return;
 	}
 
-	auto iResult = pUDPSocket->Bind(default_server_port);
+	string addrString = "localhost:" + default_server_port;
+	cout << "Trying to bind to: " << addrString << endl;
+	SocketAddressPtr pServerAddress = SocketAddressFactory::CreateIPv4FromString( addrString );
+	auto iResult = pUDPSocket->Bind( (*pServerAddress) );
 	if (iResult != 0)
 	{
 		cout << "Server failed to bind" << endl;

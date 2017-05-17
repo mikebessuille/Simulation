@@ -2,6 +2,8 @@
 
 #include "stdafx.h"
 #include "SocketClass.h"
+#include "SocketAddress.h"
+
 #include <string>
 
 using namespace std;
@@ -13,13 +15,14 @@ public:
 	virtual ~SocketClass();
 	bool IsInitialized() { return(bInitialized); }
 
-	/*  Relies on SocketAddress class...
+	/*  TODO: REMOVE THIS  COMMENT 
+	Relies on SocketAddress class...
 	int Bind(const SocketAddress& inToAddress);
 	int SendTo(const void* inData, int inLen, const SocketAddress& inTo);
 	int ReceiveFrom(void* inBuffer, int inLen, SocketAddress& outFrom);
 	*/
-	int Bind( string ListenPort );
-	int Send(const void* inData, int inLen, string ToPort );
+	int Bind( const SocketAddress & inBindAddress );
+	int Send(const void* inData, int inLen, const SocketAddress & inTo );
 	int Receive(void * inBuffer, int inLen);
 	void Cleanup();
 

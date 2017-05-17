@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SocketClass.h"
+#include "SocketAddress.h"
 #include <iostream>
 #include <string>
 
@@ -55,8 +56,7 @@ void SocketClass::Cleanup()
 
 
 // Returns the number of bytes actually sent, or 0 if nothing is sent.
-// TODO: Change "ToPort" param to a full socket address, so we can send to a different machine.
-int SocketClass::Send( const void* inData, int inLen, string ToPort )
+int SocketClass::Send( const void* inData, int inLen, const SocketAddress& inTo )
 {
 	if (!bInitialized)
 		return(-1);
@@ -64,29 +64,8 @@ int SocketClass::Send( const void* inData, int inLen, string ToPort )
 	if (inLen > max_buffer_size)
 		inLen = max_buffer_size;
 
-	struct addrinfo *resultAddr = NULL,
-		*addr = NULL,
-		hints;
-
-	// Get the address
-	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_INET; // was AF_UNSPEC
-	hints.ai_socktype = SOCK_DGRAM;
-	hints.ai_protocol = IPPROTO_UDP;
-	// Resolve the server address and port
-	auto iResult = getaddrinfo("localhost", ToPort.c_str(), &hints, &resultAddr);
-	if (iResult != 0)
-	{
-		cout << "getaddrinfo failed: " << iResult << endl;
-		WSACleanup();
-		return(1);
-	}
-
-	iResult = sendto(	mSocket, static_cast<const char *>(inData), inLen, 0,
-						resultAddr->ai_addr, (int)resultAddr->ai_addrlen );
-	freeaddrinfo(resultAddr); // TODO: Instead of creating and destroying this address every time, we should store it
-	// in the NetworkManagerClient class and reuse the address each time.  The address, not the port, shoudl be passed 
-	// to this send method.
+	auto iResult = sendto(	mSocket, static_cast<const char *>(inData), inLen, 0,
+							&inTo.mSockAddr, inTo.GetSize());
 	if (iResult == SOCKET_ERROR)
 	{
 		cout << "Send failed with error: " << WSAGetLastError() << endl;
@@ -128,28 +107,9 @@ int SocketClass::Receive(void * inBuffer, int inLen )
 
 // Binds to a particular address to start listening.  Need to call this from the server.
 // Returns 0 for success
-int SocketClass::Bind( string ListenPort )
+int SocketClass::Bind(const SocketAddress & inBindAddress )
 {
-	struct addrinfo *resultAddr = NULL,
-					*addr = NULL,
-					hints;
-
-	// Get the address
-	ZeroMemory(&hints, sizeof(hints));
-	hints.ai_family = AF_INET; // was AF_UNSPEC
-	hints.ai_socktype = SOCK_DGRAM;
-	hints.ai_protocol = IPPROTO_UDP;
-	// Resolve the server address and port
-	auto iResult = getaddrinfo("localhost", ListenPort.c_str(), &hints, &resultAddr);
-	if (iResult != 0)
-	{
-		cout << "getaddrinfo failed: " << iResult << endl;
-		WSACleanup();
-		return(1);
-	}
-
-	iResult = bind(mSocket, resultAddr->ai_addr, (int)resultAddr->ai_addrlen);
-	freeaddrinfo(resultAddr);
+	auto iResult = bind(mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize());
 	if (iResult == SOCKET_ERROR)
 	{
 		cout << "bind failed with error: " << WSAGetLastError() << endl;
