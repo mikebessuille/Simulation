@@ -47,7 +47,8 @@ void NetworkManagerClient::run()
 	do
 	{
 		// TODO: I believe this is a blocking call, and shouldn't be...
-		nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen);
+		SocketAddress senderAddr;
+		nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen, senderAddr );
 	} while (nBytesReceived > 0 && (IsKeyHit() == false));
 }
 

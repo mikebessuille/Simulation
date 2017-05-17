@@ -50,7 +50,8 @@ void NetworkManagerServer::run()
 		// TODO: Listen for clients.
 		// If it's a new client (not yet in our list), add it to the list.
 		// Otherwise, just receive its messages.
-		auto nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen);
+		SocketAddress senderAddr;
+		auto nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen, senderAddr );
 		if (nBytesReceived > 0)
 		{
 			// TODO: Make this non-blocking

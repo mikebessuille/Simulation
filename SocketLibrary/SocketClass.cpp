@@ -81,7 +81,7 @@ int SocketClass::Send( const void* inData, int inLen, const SocketAddress& inTo 
 // Receive one packet.
 // Returns the number of bytes actually received.
 // TODO: Change FromPort param to a full socket address, so we can receive messages from a different machine.
-int SocketClass::Receive(void * inBuffer, int inLen )
+int SocketClass::Receive(void * inBuffer, int inLen, SocketAddress & outFrom )
 {
 	if (!bInitialized)
 		return(-1);
