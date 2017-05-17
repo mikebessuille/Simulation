@@ -57,6 +57,15 @@ void NetworkManagerServer::run()
 		{
 			string recvStr(recvbuf, recvbuf + nBytesReceived );
 			cout << endl << "Received: [" << recvStr << "]" << endl;
+
+			// send a response
+			string responseStr("Got it!");
+			const char * responseChar = responseStr.c_str();
+			iResult = pUDPSocket->Send(responseChar, responseStr.size(), senderAddr );
+			if( iResult <= 0 )
+			{
+				cout << "ERROR: Failed to send the response!!" << endl;
+			}
 		}
 		else
 		{

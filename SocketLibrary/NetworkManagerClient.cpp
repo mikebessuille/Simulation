@@ -39,17 +39,21 @@ void NetworkManagerClient::run()
 	auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), (*m_pServerAddress) );
 	if (ret <= 0)
 	{
-		cout << "Failed to send!!" << endl;
+		cout << "ERROR: Failed to send!!" << endl;
 	}
 
 	// see what the server sends back
 	auto nBytesReceived(0);
 	do
 	{
-		// TODO: I believe this is a blocking call, and shouldn't be...
 		SocketAddress senderAddr;
 		nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen, senderAddr );
-	} while (nBytesReceived > 0 && (IsKeyHit() == false));
+		if (nBytesReceived > 0)
+		{
+			string recvStr(recvbuf, recvbuf + nBytesReceived);
+			cout << endl << "Received: [" << recvStr << "]" << endl;
+		}
+	} while( IsKeyHit() == false );
 }
 
 
