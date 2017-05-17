@@ -55,6 +55,7 @@ void SocketClass::Cleanup()
 
 
 // Returns the number of bytes actually sent, or 0 if nothing is sent.
+// TODO: Change "ToPort" param to a full socket address, so we can send to a different machine.
 int SocketClass::Send( const void* inData, int inLen, string ToPort )
 {
 	if (!bInitialized)
@@ -100,7 +101,8 @@ int SocketClass::Send( const void* inData, int inLen, string ToPort )
 
 // Receive one packet.
 // Returns the number of bytes actually received.
-int SocketClass::Receive(void * inBuffer, int inLen)
+// TODO: Change FromPort param to a full socket address, so we can receive messages from a different machine.
+int SocketClass::Receive(void * inBuffer, int inLen )
 {
 	if (!bInitialized)
 		return(-1);

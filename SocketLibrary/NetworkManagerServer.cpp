@@ -45,28 +45,21 @@ void NetworkManagerServer::run()
 	do
 	{
 		// TODO: Listen for clients.
-		// If it's a new client, add it to the list.
+		// If it's a new client (not yet in our list), add it to the list.
 		// Otherwise, just receive its messages.
-
-		cout << ".";
+		auto nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen);
+		if (nBytesReceived > 0)
+		{
+			// TODO: Make this non-blocking
+			// 
+			string recvStr(recvbuf, recvbuf + nBytesReceived );
+			cout << endl << "Received: [" << recvStr << "]" << endl;
+		}
+		else
+		{
+			cout << ".";
+			// Nothing received
+		}
 
 	} while (IsKeyHit() == false);
-
-/*
-	// Send an initial buffer
-	char *sendbuf = "this is a test";
-	auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size));
-	if (ret <= 0)
-	{
-		cout << "Failed to send!!" << endl;
-	}
-
-	// see what the server sends back
-	auto nBytesReceived(0);
-	do
-	{
-		nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen);
-	} while (nBytesReceived > 0);
-*/
-
 }
