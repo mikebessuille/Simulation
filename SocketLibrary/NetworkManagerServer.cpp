@@ -14,7 +14,7 @@ NetworkManagerServer::NetworkManagerServer()
 	}
 	else
 	{
-		cout << "Server Startup failed." << endl;
+		cout << "ERROR: Server Startup failed." << endl;
 		pUDPSocket = nullptr;
 	}
 }
@@ -31,17 +31,18 @@ void NetworkManagerServer::run()
 
 	if ( !pUDPSocket || !pUDPSocket->IsInitialized())
 	{
-		cout << "Called Run when the server is not initialized!" << endl;
+		cout << "ERROR: Called Run when the server is not initialized!" << endl;
 		return;
 	}
 
+	// Bind to the default server port so that the server starts listening for clients.
 	string addrString = "localhost:" + default_server_port;
 	cout << "Trying to bind to: " << addrString << endl;
 	SocketAddressPtr pServerAddress = SocketAddressFactory::CreateIPv4FromString( addrString );
 	auto iResult = pUDPSocket->Bind( (*pServerAddress) );
 	if (iResult != 0)
 	{
-		cout << "Server failed to bind" << endl;
+		cout << "ERROR: Server failed to bind" << endl;
 		return;
 	}
 
@@ -54,14 +55,12 @@ void NetworkManagerServer::run()
 		auto nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen, senderAddr );
 		if (nBytesReceived > 0)
 		{
-			// TODO: Make this non-blocking
-			// 
 			string recvStr(recvbuf, recvbuf + nBytesReceived );
 			cout << endl << "Received: [" << recvStr << "]" << endl;
 		}
 		else
 		{
-			cout << ".";
+			// cout << ".";
 			// Nothing received
 		}
 

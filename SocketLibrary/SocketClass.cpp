@@ -16,7 +16,7 @@ SocketClass::SocketClass() : mSocket(INVALID_SOCKET)
 	result = WSAStartup(wVersionRequested, &wsaData);
 	if (result != 0)
 	{
-		cout << "Socket Startup failed" << result << endl;
+		cout << "ERROR: Socket Startup failed" << result << endl;
 		return;
 	}
 
@@ -32,7 +32,17 @@ SocketClass::SocketClass() : mSocket(INVALID_SOCKET)
 
 	if (mSocket == INVALID_SOCKET)
 	{
-		cout << "Unable to connect!" << endl;
+		cout << "ERROR: Unable to connect!" << endl;
+		Cleanup();
+		return;
+	}
+
+	// Set non-blocking mode so Bind/Send/Receive methods don't block.
+	u_long arg = 1;
+	result = ioctlsocket(mSocket, FIONBIO, &arg);
+	if (result == SOCKET_ERROR)
+	{
+		cout << "ERROR: Unable to set to non-blocking!" << endl;
 		Cleanup();
 		return;
 	}
@@ -68,7 +78,7 @@ int SocketClass::Send( const void* inData, int inLen, const SocketAddress& inTo 
 							&inTo.mSockAddr, inTo.GetSize());
 	if (iResult == SOCKET_ERROR)
 	{
-		cout << "Send failed with error: " << WSAGetLastError() << endl;
+		cout << "ERROR: Send failed with error: " << WSAGetLastError() << endl;
 		Cleanup();
 		return(0);
 	}
@@ -80,7 +90,6 @@ int SocketClass::Send( const void* inData, int inLen, const SocketAddress& inTo 
 
 // Receive one packet.
 // Returns the number of bytes actually received.
-// TODO: Change FromPort param to a full socket address, so we can receive messages from a different machine.
 int SocketClass::Receive(void * inBuffer, int inLen, SocketAddress & outFrom )
 {
 	if (!bInitialized)
@@ -88,20 +97,37 @@ int SocketClass::Receive(void * inBuffer, int inLen, SocketAddress & outFrom )
 	
 	if (inLen > max_buffer_size)
 		inLen = max_buffer_size;
+	
+	int fromLength = outFrom.GetSize();
 
-	auto iResult = recv(mSocket, static_cast<char*>(inBuffer), inLen, 0);
-	if (iResult > 0)
-		cout << "Bytes received: " << iResult << endl;
-	else if (iResult == 0)
+	auto bytes = recvfrom(mSocket, static_cast<char*>(inBuffer), inLen, 0, &outFrom.mSockAddr, &fromLength );
+	if (bytes > 0)
 	{
-		// Do nothing!
+		cout << "Bytes received: " << bytes << endl;
+	}
+	else if (bytes == 0)
+	{
+		// Received, but no bytes.  Do nothing!
+	}
+	else if (bytes == -1)
+	{
+		if (WSAGetLastError() == WSAEWOULDBLOCK)
+		{
+			// Receive would have blocked, but nothing was received.
+			// Do nothing!
+		}
+		else
+		{
+			cout << "ERROR: receive returned -1 but error code not as expected." << endl;
+			Cleanup();
+		}
 	}
 	else
 	{
-		cout << "recv failed with error: " << WSAGetLastError() << endl;
+		cout << "ERROR: recv failed with error: " << WSAGetLastError() << endl;
 		Cleanup();
 	}
-	return(iResult); // returns number of bytes received
+	return( bytes ); // returns number of bytes received
 }
 
 
@@ -112,7 +138,7 @@ int SocketClass::Bind(const SocketAddress & inBindAddress )
 	auto iResult = bind(mSocket, &inBindAddress.mSockAddr, inBindAddress.GetSize());
 	if (iResult == SOCKET_ERROR)
 	{
-		cout << "bind failed with error: " << WSAGetLastError() << endl;
+		cout << "ERROR: bind failed with error: " << WSAGetLastError() << endl;
 		Cleanup();
 		return(1);
 	}
