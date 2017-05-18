@@ -27,6 +27,13 @@ NetworkManagerClient::~NetworkManagerClient()
 {
 }
 
+
+// TODO:  Change this method so that it can be run from a game.  It should either run on a separate thread, receiving messages into a
+// message collection of some kind, for later processing by the game engine.  Or (preferrably) it should be a call every game-loop
+// and process some small number of messages each game loop; make sure it can process all the messages available from all the clients,
+// on each game loop.
+
+// TODO:  Support more than localhost, by passing in a command-line argument with the server IP address to all clients?
 void NetworkManagerClient::run()
 {
 	// Send an initial buffer

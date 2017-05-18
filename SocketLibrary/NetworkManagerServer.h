@@ -15,8 +15,10 @@ public:
 	void run();
 
 private:
-	// Client address; this should become a collection of client sockets
+	// Client address collection (all clients that have sent packets to this server).
+	// TODO...
 
+	// Single socket listening for all clients.
 	shared_ptr<SocketClass> pUDPSocket{ nullptr };
 };
 
