@@ -12,13 +12,13 @@ class NetworkManagerServer : public NetworkManager
 public:
 	NetworkManagerServer();
 	~NetworkManagerServer();
-	void run();
+	virtual void run();
+
+protected:
+	virtual bool HandleMessage(char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr);
 
 private:
-	// Client address collection (all clients that have sent packets to this server).
-	// TODO...
+	// TODO:  Client address collection (all clients that have sent packets to this server).
 
-	// Single socket listening for all clients.
-	shared_ptr<SocketClass> pUDPSocket{ nullptr };
 };
 

@@ -75,3 +75,9 @@ void NetworkManagerServer::run()
 
 	} while (IsKeyHit() == false);
 }
+
+
+bool NetworkManagerServer::HandleMessage(char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr)
+{
+	return(true);
+}

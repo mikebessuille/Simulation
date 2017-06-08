@@ -50,17 +50,20 @@ void NetworkManagerClient::run()
 	}
 
 	// see what the server sends back
-	auto nBytesReceived(0);
 	do
 	{
-		SocketAddress senderAddr;
-		nBytesReceived = pUDPSocket->Receive(recvbuf, recvbuflen, senderAddr );
-		if (nBytesReceived > 0)
-		{
-			string recvStr(recvbuf, recvbuf + nBytesReceived);
-			cout << endl << "Received: [" << recvStr << "]" << endl;
-		}
+		ProcessMessages();
 	} while( IsKeyHit() == false );
 }
 
 
+bool NetworkManagerClient::HandleMessage(char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr)
+{
+	if (nBytesReceived > 0)
+	{
+		string recvStr(msgbuf, msgbuf + nBytesReceived );
+		cout << endl << "Received: [" << recvStr << "]" << endl;
+		return(true);
+	}	
+	return(false);
+}

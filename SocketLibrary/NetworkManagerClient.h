@@ -12,10 +12,12 @@ class NetworkManagerClient : public NetworkManager
 public:
 	NetworkManagerClient();
 	~NetworkManagerClient();
-	void run();
+	virtual void run();
+
+protected:
+	virtual bool HandleMessage(char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr);
 
 private:
-	shared_ptr<SocketClass> pUDPSocket{ nullptr };
 	SocketAddressPtr m_pServerAddress{ nullptr };
 };
 

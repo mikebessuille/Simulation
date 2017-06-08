@@ -27,11 +27,6 @@ int main()
 	// std::cin.ignore(); // Accepts user input.
 	std::cin.get(); // gets any user input (requires user to hit enter as well)
 
-	/*
-	DLLClass simDLL;
-	simDLL.RunSimulation();
-	*/
-
 	Game game;
 
 	// TODO:  Move all this to a new Unit Test!!!
