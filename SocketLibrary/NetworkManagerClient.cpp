@@ -14,6 +14,10 @@ NetworkManagerClient::NetworkManagerClient()
 	if (pUDPSocket && pUDPSocket->IsInitialized())
 	{
 		cout << "Client started." << endl;
+		
+		string addrString = "localhost:" + default_server_port;
+		cout << "Client will communicate with server at: " << addrString << endl;
+		m_pServerAddress = SocketAddressFactory::CreateIPv4FromString(addrString);
 	}
 	else
 	{
@@ -28,32 +32,24 @@ NetworkManagerClient::~NetworkManagerClient()
 }
 
 
-// TODO:  Change this method so that it can be run from a game.  It should either run on a separate thread, receiving messages into a
-// message collection of some kind, for later processing by the game engine.  Or (preferrably) it should be a call every game-loop
-// and process some small number of messages each game loop; make sure it can process all the messages available from all the clients,
-// on each game loop.
-
 // TODO:  Support more than localhost, by passing in a command-line argument with the server IP address to all clients?
 void NetworkManagerClient::run()
 {
-	// Send an initial buffer
-	char *sendbuf = "this is a test";
-
-	string addrString = "localhost:" + default_server_port;
-	cout << "Client sending to server at: " << addrString << endl;
-	m_pServerAddress = SocketAddressFactory::CreateIPv4FromString( addrString );
-
-	auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), (*m_pServerAddress) );
-	if (ret <= 0)
+	if (pUDPSocket && pUDPSocket->IsInitialized() && m_pServerAddress)
 	{
-		cout << "ERROR: Failed to send!!" << endl;
+		if (ConnectToServer())
+		{
+			// see what the server sends back
+			do
+			{
+				ProcessMessages();
+			} while (IsKeyHit() == false);
+		}
 	}
-
-	// see what the server sends back
-	do
+	else
 	{
-		ProcessMessages();
-	} while( IsKeyHit() == false );
+		cout << "ERROR: NetworkManagerClient::run() called when not initialized!" << endl;
+	}
 }
 
 
@@ -67,3 +63,23 @@ bool NetworkManagerClient::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 	}	
 	return(false);
 }
+
+
+bool NetworkManagerClient::ConnectToServer()
+{
+	if (pUDPSocket && pUDPSocket->IsInitialized() && m_pServerAddress)
+	{
+		// Send an initial connection message
+		char *sendbuf = "this is a test";
+		auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), (*m_pServerAddress));
+		if (ret <= 0)
+		{
+			cout << "ERROR: Failed to send!!" << endl;
+			return(false);
+		}
+		else
+			return(true);
+	}
+	return(false);
+}
+

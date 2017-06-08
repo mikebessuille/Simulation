@@ -14,6 +14,8 @@ NetworkManager::~NetworkManager()
 }
 
 
+// This should be a call every game-loop and process some small number of messages each game loop;
+// make sure it can process all the messages available from all the clients, on each game loop.
 // Returns the number of messages received.
 int NetworkManager::ProcessMessages()
 {

@@ -28,7 +28,7 @@ protected:
 	shared_ptr<SocketClass> pUDPSocket{ nullptr }; // The UDP socket this NetworkManager is listening to.  (Single socket for all clients, if this is the server).
 
 private:
-	static const int MAX_MESSAGES_PER_FRAME{ 10 }; // max number of messages to process each time ProcessMessages() is called, to avoid hanging
+	static const int MAX_MESSAGES_PER_FRAME{ 100 }; // max number of messages to process each time ProcessMessages() is called, to avoid hanging
 };
 
 

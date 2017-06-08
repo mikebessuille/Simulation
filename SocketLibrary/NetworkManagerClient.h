@@ -18,6 +18,10 @@ protected:
 	virtual bool HandleMessage(char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr);
 
 private:
+	bool ConnectToServer();
+
+private:
 	SocketAddressPtr m_pServerAddress{ nullptr };
+	
 };
 
