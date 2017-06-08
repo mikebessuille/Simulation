@@ -40,6 +40,7 @@ void NetworkManagerClient::run()
 		if (ConnectToServer())
 		{
 			// see what the server sends back
+			cout << "Hit any key to stop the client." << endl;
 			do
 			{
 				ProcessMessages();
@@ -58,7 +59,7 @@ bool NetworkManagerClient::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 	if (nBytesReceived > 0)
 	{
 		string recvStr(msgbuf, msgbuf + nBytesReceived );
-		cout << endl << "Received: [" << recvStr << "]" << endl;
+		cout << "Received: [" << recvStr << "]" << endl;
 		return(true);
 	}	
 	return(false);
