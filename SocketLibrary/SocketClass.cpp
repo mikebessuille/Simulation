@@ -119,7 +119,8 @@ int SocketClass::Receive(void * inBuffer, int inLen, SocketAddress & outFrom )
 		else
 		{
 			cout << "ERROR: receive returned -1 but error code not as expected." << endl;
-			Cleanup();
+			// Don't clean up the socket... may want to retry!
+			// Cleanup();
 		}
 	}
 	else

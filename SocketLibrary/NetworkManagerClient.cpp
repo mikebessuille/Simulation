@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <memory>
+#include <chrono>
 
 using namespace std;
 
@@ -32,6 +33,7 @@ NetworkManagerClient::~NetworkManagerClient()
 }
 
 
+// This is an example game loop to test sockets.  Don't use this method in a real application.
 // TODO:  Support more than localhost, by passing in a command-line argument with the server IP address to all clients?
 void NetworkManagerClient::run()
 {
@@ -39,11 +41,20 @@ void NetworkManagerClient::run()
 	{
 		if (ConnectToServer())
 		{
-			// see what the server sends back
+
+			chrono::system_clock::time_point startTime = chrono::system_clock::now();
+			const chrono::seconds pingRate{ chrono::seconds(1) };
 			cout << "Hit any key to stop the client." << endl;
 			do
 			{
+				// see what the server sends back
 				ProcessMessages();
+
+				if (chrono::system_clock::now() > (startTime + pingRate))
+				{
+					startTime = chrono::system_clock::now();
+					PingServer();
+				}
 			} while (IsKeyHit() == false);
 		}
 	}
@@ -68,7 +79,6 @@ bool NetworkManagerClient::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 
 bool NetworkManagerClient::ConnectToServer()
 {
-	if (pUDPSocket && pUDPSocket->IsInitialized() && m_pServerAddress)
 	{
 		// Send an initial connection message
 		char *sendbuf = "this is a test";
@@ -84,3 +94,20 @@ bool NetworkManagerClient::ConnectToServer()
 	return(false);
 }
 
+
+bool NetworkManagerClient::PingServer()
+{
+	{
+		// Send an initial connection message
+		char *sendbuf = ".";
+		auto ret = pUDPSocket->Send(sendbuf, (int)strnlen_s(sendbuf, max_buffer_size), (*m_pServerAddress));
+		if (ret <= 0)
+		{
+			cout << "ERROR: Failed to send!!" << endl;
+			return(false);
+		}
+		else
+			return(true);
+	}
+	return(false);
+}

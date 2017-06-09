@@ -55,7 +55,7 @@ SocketAddressPtr SocketAddressFactory::CreateIPv4FromString(const string& inStri
 	hints.ai_protocol = IPPROTO_UDP;
 	addrinfo* resultAddr; // will be allocated by getaddrinfo()
 	int error = getaddrinfo(host.c_str(), service.c_str(), &hints, &resultAddr);
-	if (error != 0 && resultAddr != nullptr)
+	if (error != 0 || resultAddr == nullptr) // was && resultAddr != nullptr), but that makes no sense!
 	{
 		cout << "Could not create address!" << endl;
 		return nullptr;

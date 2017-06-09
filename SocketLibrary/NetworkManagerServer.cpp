@@ -63,6 +63,23 @@ bool NetworkManagerServer::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 		// If it's a new client (not yet in our list), add it to the list.
 		// Otherwise, just receive its messages.
 
+		bool bExistingClient{ false };
+		for (const SocketAddress addr : clientSocketAddresses)
+		{
+			if( addr == senderAddr )
+			{
+				bExistingClient = true;
+				break;
+			}
+		}
+		
+		if (!bExistingClient)
+		{
+			// it's a new client that's not yet in the list.
+			clientSocketAddresses.push_back(senderAddr);
+		}
+		
+		// handle a message from an existing client that's already in our list
 		// send a response
 		string responseStr("Got it!");
 		const char * responseChar = responseStr.c_str();
@@ -72,8 +89,7 @@ bool NetworkManagerServer::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 			cout << "ERROR: Failed to send the response!!" << endl;
 			return(false);
 		}
-
 		return(true);
 	}
-	return(false);
+	return(false); // nBytesReceived was negative or zero
 }

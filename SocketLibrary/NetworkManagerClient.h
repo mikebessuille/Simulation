@@ -19,6 +19,7 @@ protected:
 
 private:
 	bool ConnectToServer();
+	bool PingServer();
 
 private:
 	SocketAddressPtr m_pServerAddress{ nullptr };
