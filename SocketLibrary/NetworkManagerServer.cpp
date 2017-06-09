@@ -75,7 +75,7 @@ bool NetworkManagerServer::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 		{
 			// it's a new client that's not yet in the list, so add it!
 			clientSocketAddresses.push_back(senderAddr);
-			return(HandleNew( msgbuf, msgbuflen, nBytesReceived, senderAddr ));
+			return( RegisterNewClient( msgbuf, msgbuflen, nBytesReceived, senderAddr ));
 		}
 		else
 		{
@@ -87,7 +87,7 @@ bool NetworkManagerServer::HandleMessage(char * msgbuf, int msgbuflen, int nByte
 
 
 // Handle the first-time registration of a client.  I don't love this design; duplicated code, etc. 
-bool NetworkManagerServer::HandleNew( char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr )
+bool NetworkManagerServer::RegisterNewClient( char * msgbuf, int msgbuflen, int nBytesReceived, SocketAddress senderAddr )
 {
 	// handle a message from an existing client that's already in our list
 	// send a response
