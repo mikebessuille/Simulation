@@ -34,6 +34,7 @@ public:
 	UnitMgr();
 	~UnitMgr();
 	void Update( GameState &gs, const unsigned long nTick );
+	void Render( GameState &gs );
 	
 public:	// not sure why these methods were private at one point...
 	int NumUnits() { return unitList.size(); }

@@ -58,6 +58,17 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 		m_pHealthComponent->Update(gs, nTick);
 }
 
+
+void UnitBase::Render(GameState &gs )
+{
+	if (m_pMoveComponent)
+		m_pMoveComponent->Render( gs );
+	if (m_pAttackComponent)
+		m_pAttackComponent->Render( gs );
+	if (m_pHealthComponent)
+		m_pHealthComponent->Render( gs );
+}
+
 // Static
 void UnitBase::SetUnitID(unsigned int &id_)
 {

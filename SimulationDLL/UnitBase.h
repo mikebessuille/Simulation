@@ -21,6 +21,7 @@ public:
 				shared_ptr<HealthComponent> hc_ptr );
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
+	void Render( GameState &gs );
 
 // Getters and Setters
 	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }

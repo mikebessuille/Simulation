@@ -63,6 +63,9 @@
     <ClCompile Include="MoveComponentAirBasic.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="Renderer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">
@@ -124,6 +127,9 @@
     </ClInclude>
     <ClInclude Include="MoveComponentAirBasic.h">
       <Filter>Source Files\Units</Filter>
+    </ClInclude>
+    <ClInclude Include="Renderer.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

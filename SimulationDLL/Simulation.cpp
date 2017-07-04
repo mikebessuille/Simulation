@@ -21,6 +21,7 @@ Simulation::Simulation(Game *parent) :
 
 	// TODO: need to use simLock mutex to lock access to Simulation data that may be accessed by multiple threads.
 	// Including Ticker?
+	// Probably should move that mutext to the GameState class?
 }
 
 

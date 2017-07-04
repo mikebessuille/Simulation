@@ -3,7 +3,9 @@
 
 // Game class to hold the simulation, players, etc.
 
-Game::Game() : sim(this)
+Game::Game() : 
+	sim(this),
+	renderer(this)
 {
 
 }
@@ -32,6 +34,7 @@ void Game::Start()
 	if (bInitialized == true )
 	{
 		sim.Start();
+		renderer.Start();
 	}
 }
 
@@ -40,6 +43,7 @@ void Game::Stop()
 	//if (bInitialized)
 	//{
 		sim.Stop();
+		renderer.Stop();
 	//}
 }
 

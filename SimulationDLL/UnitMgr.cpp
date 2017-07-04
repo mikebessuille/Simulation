@@ -78,6 +78,16 @@ void UnitMgr::Update( GameState &gs, const unsigned long nTick)
 }
 
 
+void UnitMgr::Render(GameState &gs)
+{
+	for (auto &it : unitList)
+	{
+		// Render each unit
+		it->Render( gs );
+	}
+}
+
+
 //TODO:  Is this the best place (for now) to put some static factory methods to create new UnitBase objects?
 // It should create it with the correct Components as well.
 // For example: 

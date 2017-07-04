@@ -16,3 +16,8 @@ void MoveComponentAirBasic::Update(GameState & gs, unsigned long nTick)
 	m_parent->x += dx;
 	m_parent->y += dy;
 }
+
+void MoveComponentAirBasic::Render(GameState & gs)
+{
+	// TODO:
+}

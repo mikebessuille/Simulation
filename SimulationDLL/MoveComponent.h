@@ -11,6 +11,7 @@ public:
 	MoveComponent( double maxSpeed ) : m_speed(maxSpeed) {}
 	virtual ~MoveComponent() {}
 	virtual void Update(GameState &gs, unsigned long nTick) = 0; // keep this here to make this an interface class
+	virtual void Render(GameState &gs) = 0;
 
 protected:
 	double m_speed;	// max speed

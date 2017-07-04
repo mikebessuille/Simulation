@@ -22,6 +22,11 @@ void HealthComponentBasic::Update(GameState &gs, unsigned long nTick)
 	// or if it's a shield type, it would recharge here...
 }
 
+void HealthComponentBasic::Render(GameState &gs )
+{
+	// TODO: Render health and shield values for the unit
+}
+
 // returns true if unit is still alive, false if it's destroyed
 bool HealthComponentBasic::TakeDamage(unsigned int damage)
 {

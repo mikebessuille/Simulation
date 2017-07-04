@@ -35,6 +35,7 @@
     <ClCompile Include="MoveComponentAirBasic.cpp" />
     <ClCompile Include="MoveComponentGroundBasic.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Target.cpp" />
@@ -50,6 +51,7 @@
     <ClInclude Include="GameState.h" />
     <ClInclude Include="MoveComponentAirBasic.h" />
     <ClInclude Include="MoveComponentGroundBasic.h" />
+    <ClInclude Include="Renderer.h" />
     <ClInclude Include="UnitTypes.h" />
     <ClInclude Include="HealthComponent.h" />
     <ClInclude Include="HealthComponentBasic.h" />

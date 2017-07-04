@@ -28,6 +28,13 @@ void AttackComponent::Update(GameState &gs, unsigned long nTick)
 	}
 }
 
+
+void AttackComponent::Render( GameState &gs )
+{
+	// TODO: Render any attack UI / animations.
+}
+
+
 // Returns true if the unit's weapon is ready to fire
 bool AttackComponent::ReadyToFire( unsigned long nTick )
 {

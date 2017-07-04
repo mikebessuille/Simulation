@@ -2,6 +2,7 @@
 #include "Simulation.h"
 #include "GameState.h"
 #include "Player.h"
+#include "Renderer.h"
 #include <list>
 
 // Game class to hold the simulation, players, etc.
@@ -24,6 +25,7 @@ private:
 							   // because game constructor inits sim, whose constructor takes this pointer, which hasn't been fully initialized...
 	Simulation sim;
 	GameState gs;
+	Renderer renderer;
 
 public:
 	std::list<Player> playerList;

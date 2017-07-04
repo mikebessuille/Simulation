@@ -10,6 +10,7 @@ public:
 	UnitComponent() : m_parent(nullptr) {}
 	virtual ~UnitComponent() {}
 	virtual void Update(GameState &gs, unsigned long nTick) = 0;
+	virtual void Render( GameState &gs ) = 0;
 	void Attach(UnitBase *pUnit) { m_parent = pUnit; }
 
 protected:

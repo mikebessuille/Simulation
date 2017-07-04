@@ -27,6 +27,14 @@ namespace UnitTestProject
 				m_parent->y += dy;
 			}
 
+			virtual void Render(GameState &gs)
+			{
+				string message = (string) "Render:  X: [" + (string)to_string(m_parent->x) +
+					(string) "]	 Y: [" + (string)to_string(m_parent->y) + (string)"]";
+				const char * c_msg = message.c_str();
+				Logger::WriteMessage(c_msg);
+			}
+
 		protected:
 			double dx, dy;	// current velocity
 
@@ -101,6 +109,7 @@ namespace UnitTestProject
 				for (auto &unit : UM.unitList)
 				{
 					unit->Update( gs, nTick );
+					unit->Render(gs);
 				}
 			}
 			
