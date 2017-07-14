@@ -79,9 +79,16 @@ void Renderer::Loop()
 void Renderer::RenderFrame()
 {
 	GameState & gs = pGame->GetGameState();
+	map.pwindow->clear();
+
 	for (auto player : pGame->playerList)
 	{
 		// have to call a methond on the UM, because its list of units is private.  I don't love this design.
 		player.UM.Render(gs);
 	}
+
+	// TEST CODE
+	map.TestDraw();
+
+	map.pwindow->display();
 }

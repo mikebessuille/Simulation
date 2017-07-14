@@ -1,6 +1,7 @@
 #include "MoveComponentGroundBasic.h"
 #include "UnitBase.h"
 #include <iostream>
+#include <SFML/Graphics.hpp>
 
 
 MoveComponentGroundBasic::MoveComponentGroundBasic(double maxSpeed, double dx_, double dy_) :
@@ -21,6 +22,17 @@ void MoveComponentGroundBasic::Update(GameState & gs, unsigned long nTick)
 
 void MoveComponentGroundBasic::Render(GameState & gs)
 {
-	// TODO: render to the map
+	// Logging - take this out!
 	cout << "X: [" << m_parent->x << "]  Y: [" << m_parent->y << "]" << endl;
+
+	// TODO: render to the map
+	// Test code for basic rendering:
+	/*
+	sf::CircleShape * ps = new sf::CircleShape(4.0f);
+	ps->setFillColor(sf::Color::Red);
+	ps->setPosition((float)(10*m_parent->x), (float)(10*m_parent->y));
+	ps->setOrigin(4.f, 4.f); // The center of the object rather than the top-left.
+	pwindow->draw(*ps);
+	delete ps;
+	*/
 }

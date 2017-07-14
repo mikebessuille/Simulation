@@ -26,6 +26,22 @@ Map::~Map()
 void Map::Initialize()
 {
 	pwindow = make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "Simulation Map"); // width, height
+	pwindow->setActive(false); // on the main thread, so that rendering can take place on a separate thread.
+}
+
+
+// TEST method to draw something on the map window
+void Map::TestDraw()
+{
+	// Test Code:
+	pwindow->clear();
+	sf::CircleShape * ps = new sf::CircleShape(10.f);
+	ps->setFillColor(sf::Color::Blue);
+	ps->setPosition((float)70, (float)145);
+	ps->setOrigin(10.f, 10.f); // The center of the object rather than the top-left.
+	pwindow->draw(*ps);
+	pwindow->display();
+	delete ps;
 }
 
 /*
