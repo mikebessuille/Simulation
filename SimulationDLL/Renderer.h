@@ -1,6 +1,7 @@
 #pragma once
 
 #include <thread>
+#include "Map.h"
 
 using namespace std;
 
@@ -26,5 +27,6 @@ public:
 private:
 	void Loop();
 	void RenderFrame();
+	Map map;
 };
 

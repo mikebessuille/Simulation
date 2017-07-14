@@ -8,7 +8,6 @@ using namespace std;
 
 Map::Map()
 {
-	/*
 	if (font.loadFromFile("AdobeClean-Regular.otf"))
 	{
 		text.setFont(font);
@@ -16,7 +15,6 @@ Map::Map()
 		text.setFillColor(sf::Color::White);
 		text.setStyle(sf::Text::Regular);
 	}
-	*/
 }
 
 
@@ -27,7 +25,7 @@ Map::~Map()
 
 void Map::Initialize()
 {
-	// pwindow = make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "Simulation Map"); // width, height
+	pwindow = make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "Simulation Map"); // width, height
 }
 
 /*

@@ -12,6 +12,7 @@ Renderer::Renderer( Game *parent ) :
 	pGame(parent)
 {
 	assert(pGame);
+	map.Initialize();
 }
 
 
