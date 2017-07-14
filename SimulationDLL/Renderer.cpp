@@ -83,7 +83,7 @@ void Renderer::RenderFrame()
 
 	for (auto player : pGame->playerList)
 	{
-		// have to call a methond on the UM, because its list of units is private.  I don't love this design.
+		// have to call a method on the UM, because its list of units is private.  I don't love this design.
 		player.UM.Render(gs);
 	}
 

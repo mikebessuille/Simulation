@@ -27,6 +27,8 @@ void MoveComponentGroundBasic::Render(GameState & gs)
 
 	// TODO: render to the map
 	// Test code for basic rendering:
+	// HOW CAN THIS HAVE ACCESSS TO THE MAP???  Map should be global?  Shouldn't be part of GameState...
+	// Don't really want to pass it in as a parameter all over the place...
 	/*
 	sf::CircleShape * ps = new sf::CircleShape(4.0f);
 	ps->setFillColor(sf::Color::Red);
