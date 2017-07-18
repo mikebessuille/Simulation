@@ -4,6 +4,7 @@
 #include "MoveComponent.h"
 #include "UnitBase.h"
 #include "GameState.h"
+#include "Map.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -27,7 +28,7 @@ namespace UnitTestProject
 				m_parent->y += dy;
 			}
 
-			virtual void Render(GameState &gs)
+			virtual void Render(GameState &gs, Map &map )
 			{
 				string message = (string) "Render:  X: [" + (string)to_string(m_parent->x) +
 					(string) "]	 Y: [" + (string)to_string(m_parent->y) + (string)"]";
@@ -103,13 +104,14 @@ namespace UnitTestProject
 			OutputLocations(UM);
 
 			GameState gs;
+			Map map;
 			
 			for (int nTick = 0; nTick < 10; nTick++)
 			{
 				for (auto &unit : UM.unitList)
 				{
 					unit->Update( gs, nTick );
-					unit->Render(gs);
+					unit->Render(gs, map);
 				}
 			}
 			

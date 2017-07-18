@@ -12,7 +12,7 @@ public:
 	virtual ~HealthComponentBasic();
 
 	virtual void Update(GameState &gs, unsigned long nTick);
-	virtual void Render(GameState &gs);
+	virtual void Render(GameState &gs, Map &map);
 	virtual bool TakeDamage(unsigned int damage);
 	virtual void Heal(unsigned int health);
 };

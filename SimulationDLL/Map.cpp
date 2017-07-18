@@ -45,6 +45,9 @@ void Map::TestDraw()
 }
 
 /*
+// THIS IS A BUNCH OF STUFF FROM THE SFML GAME... CAN USE SOME OF THIS FOR RENDERING EXAMPLES...
+
+
 // The main game loop!
 void GameController::GameLoop()
 {

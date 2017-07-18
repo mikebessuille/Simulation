@@ -2,6 +2,7 @@
 
 #include "GameState.h"
 #include "UnitBase.h"
+#include "Map.h"
 #include <list>
 #include <iostream>
 #include <chrono>
@@ -34,7 +35,7 @@ public:
 	UnitMgr();
 	~UnitMgr();
 	void Update( GameState &gs, const unsigned long nTick );
-	void Render( GameState &gs );
+	void Render( GameState &gs, Map &map );
 	
 public:	// not sure why these methods were private at one point...
 	int NumUnits() { return unitList.size(); }

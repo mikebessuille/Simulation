@@ -4,10 +4,12 @@
 #include <memory>
 #include "UnitComponent.h" // need to include this before including other components
 
+// forward declarations:
 class GameState;
 class MoveComponent;
 class AttackComponent;
 class HealthComponent;
+class Map;
 
 using namespace std;
 
@@ -21,7 +23,7 @@ public:
 				shared_ptr<HealthComponent> hc_ptr );
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
-	void Render( GameState &gs );
+	void Render( GameState &gs, Map &map );
 
 // Getters and Setters
 	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }

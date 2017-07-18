@@ -7,6 +7,8 @@
 #include "AttackComponent.h"
 #include "HealthComponent.h"
 
+#include "Map.h"
+
 using namespace std;
 
 // TODO: this global should be moved into whatever factory class is responsible for creating units.
@@ -59,14 +61,14 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 }
 
 
-void UnitBase::Render(GameState &gs )
+void UnitBase::Render(GameState &gs, Map &map )
 {
 	if (m_pMoveComponent)
-		m_pMoveComponent->Render( gs );
+		m_pMoveComponent->Render( gs, map );
 	if (m_pAttackComponent)
-		m_pAttackComponent->Render( gs );
+		m_pAttackComponent->Render( gs, map );
 	if (m_pHealthComponent)
-		m_pHealthComponent->Render( gs );
+		m_pHealthComponent->Render( gs, map );
 }
 
 // Static

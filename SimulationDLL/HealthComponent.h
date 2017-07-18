@@ -3,6 +3,7 @@
 
 class UnitComponent;
 class GameState;
+class Map;
 
 // Interface for health components (components of units that can take damage).  Must implement this interface for each different way that a unit
 // can take damage.
@@ -14,7 +15,7 @@ public:
 		m_CurrentHealth(maxHealth) {}
 	virtual ~HealthComponent() {}
 	virtual void Update(GameState &gs, unsigned long nTick) = 0; // keep this here to make this an interface class
-	virtual void Render(GameState &gs) = 0;
+	virtual void Render(GameState &gs, Map &map) = 0;
 	virtual bool TakeDamage(unsigned int damage) = 0; // returns true if unit is still alive, false if it's destroyed
 	virtual void Heal(unsigned int health) = 0;
 	bool IsAlive() { return(m_CurrentHealth > 0); }

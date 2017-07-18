@@ -78,12 +78,12 @@ void UnitMgr::Update( GameState &gs, const unsigned long nTick)
 }
 
 
-void UnitMgr::Render(GameState &gs)
+void UnitMgr::Render(GameState &gs, Map &map)
 {
 	for (auto &it : unitList)
 	{
 		// Render each unit
-		it->Render( gs );
+		it->Render( gs, map );
 	}
 }
 

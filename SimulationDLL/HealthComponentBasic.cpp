@@ -22,7 +22,7 @@ void HealthComponentBasic::Update(GameState &gs, unsigned long nTick)
 	// or if it's a shield type, it would recharge here...
 }
 
-void HealthComponentBasic::Render(GameState &gs )
+void HealthComponentBasic::Render(GameState &gs, Map &map)
 {
 	// TODO: Render health and shield values for the unit
 }

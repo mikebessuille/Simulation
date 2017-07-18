@@ -4,6 +4,7 @@
 
 class UnitComponent;
 class GameState;
+class Map;
 class UnitBase;
 
 // Interface for attack components.  Must implement this interface for each method of attack.
@@ -13,7 +14,7 @@ public:
 	AttackComponent(unsigned int maxDamage, double maxRange, unsigned int cooldown);
 	virtual ~AttackComponent() {}
 	virtual void Update(GameState &gs, unsigned long nTick) final; // overriding base component version, but don't want derived classes to override.
-	virtual void Render(GameState &gs);
+	virtual void Render(GameState &gs, Map &map );
 	bool AssignTarget(UnitBase *pTarget); // Returns false if the target is not valid for this unit.  Only set by the player.
 	UnitBase * GetDesignatedTarget(); // Returns null if the unit is not currently targetting anything explicitly (due to player command).
 

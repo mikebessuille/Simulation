@@ -29,7 +29,7 @@ void AttackComponent::Update(GameState &gs, unsigned long nTick)
 }
 
 
-void AttackComponent::Render( GameState &gs )
+void AttackComponent::Render( GameState &gs, Map &map )
 {
 	// TODO: Render any attack UI / animations.
 }
