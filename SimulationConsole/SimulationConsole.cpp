@@ -9,15 +9,41 @@
 #include "Simulation.h"
 #include "Game.h"
 #include "Player.h"
+#include "Tech1Factory.h"
+#include "UnitTypes.h"
+#include "UnitMgr.h"
+
 
 using namespace std;
 
 
 void CreateSomeUsers( Game &g )
 {
-	g.playerList.push_back(Player("Mike"));
-	g.playerList.push_back(Player("Bob"));
-	g.playerList.push_back(Player("Sally"));
+	Player * p = new Player("Mike");
+	g.playerList.push_back(*p);
+	p = new Player("Bob");
+	g.playerList.push_back(*p);
+	p = new Player("Sally");
+	g.playerList.push_back(*p);
+
+	cout << "Players:" << endl;
+	for (auto pl : g.playerList)
+	{
+		cout << pl.Name << endl;
+	}
+	cout << endl;
+}
+
+void CreateSomeUnits(Game &g)
+{
+	Tech1Factory factory;
+
+	// auto pl = g.playerList.front(); // No!  This causes the first element of playerList to be copied into pl, because auto converts to "Player" instead of a reference to player
+	Player &pl = g.playerList.front();
+	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 10, 15));
+	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 30, 35));
+	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 70, 10));
+	cout << "Size of Unit list: " << pl.UM.NumUnits() << endl;
 }
 
 
@@ -31,15 +57,17 @@ int main()
 
 	// TODO:  Move all this to a new Unit Test!!!
 	CreateSomeUsers(game);
-
-	cout << "Players:" << endl;
-	for (auto pl : game.playerList)
-	{
-		cout << pl.Name << endl;
-	}
-	cout << endl;
+	CreateSomeUnits(game);
 
 	game.InitializeGame();
+	cout << "number of players: " << game.GetGameState().UMList.size() << endl;
+	int nPlayerNum = 0;
+	for (auto &pum : game.GetGameState().UMList )
+	{
+		cout << "Player [" << nPlayerNum << "] units: " << pum->NumUnits() << endl;
+		nPlayerNum++;
+	}
+
 
 	cout << "Simulation Looping: Hit Enter to stop..." << endl;
 	game.Start();

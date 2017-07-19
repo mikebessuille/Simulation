@@ -33,7 +33,7 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 		shared_ptr<HealthComponentBasic> hcptr(new HealthComponentBasic(health));
 
 		const double maxSpeed(10.0);
-	// TODO: REMove this; create a new method on the movecomponent to set the speed.
+	// TODO: Remove this; create a new method on the movecomponent to set the speed.
 	// Future movecomponents won't have speed set at creation; they will have a
 	// target location, and will adjust speed accordingly.
 		const double dx(0.0);

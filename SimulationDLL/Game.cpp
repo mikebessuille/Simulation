@@ -19,7 +19,7 @@ bool Game::InitializeGame()
 	// Initialize the Simulation
 
 	// Initialize the GameState and its pointers to each player's Unit Manager
-	for (auto player : playerList)
+	for (Player &player : playerList)
 	{
 		gs.UMList.push_back(&(player.UM));
 	}

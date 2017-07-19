@@ -10,7 +10,7 @@ class IUnitFactory
 public:
 	IUnitFactory() {}
 	virtual ~IUnitFactory() {}
-	virtual UnitBase * CreateUnit( UnitType nType ) = 0; // keep this here to make this an interface class
+	virtual UnitBase * CreateUnit( UnitType nType, double x, double y ) = 0; // keep this here to make this an interface class
 };
 
 
