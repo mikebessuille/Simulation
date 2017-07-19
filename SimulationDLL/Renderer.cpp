@@ -81,6 +81,7 @@ void Renderer::RenderFrame()
 	GameState & gs = pGame->GetGameState();
 	map.pwindow->clear();
 
+	// TODO: This fails with corrupted memory, possibly because of thread problems between update and render
 	for (auto player : pGame->playerList)
 	{
 		// have to call a method on the UM, because its list of units is private.  I don't love this design.
