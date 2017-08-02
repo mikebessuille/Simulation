@@ -48,7 +48,7 @@ void CreateSomeUnits(Game &g)
 	UnitBase * punit = factory.CreateUnit(UnitType::TANK, 10, 15);
 	shared_ptr<MoveComponent> mc = punit->GetMoveComponent();
 	shared_ptr<MoveComponentGroundBasic> mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
-	if( mcgb ) mcgb->SetSpeed(40, 30);
+	if( mcgb ) mcgb->SetSpeed(40, 30); // this will get normalized to the max-speed of this unit type...
 	pl->UM.AddUnit( punit );
 
 	punit = factory.CreateUnit(UnitType::TANK, 30, 35);
@@ -60,8 +60,7 @@ void CreateSomeUnits(Game &g)
 	punit = factory.CreateUnit(UnitType::TANK, 70, 10);
 	mc = punit->GetMoveComponent();
 	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
-	if (mcgb) mcgb->SetSpeed(0.5, 2.0
-	);
+	if (mcgb) mcgb->SetSpeed(0.5, 2.0);
 	pl->UM.AddUnit(punit);
 
 	cout << "Size of Unit list: " << pl->UM.NumUnits() << endl;
