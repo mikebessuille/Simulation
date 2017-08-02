@@ -107,8 +107,10 @@ void MessageHandler::HandleMessages( const ConsumerFunction & handler )
 			if (handler(msg))
 			{
 				// Print the thread ID and the Message ID here
-				lock_guard<mutex> c_lock(cout_mtx);
-				cout << "Thread: " << name << "    Processing: " << msg.id << endl;
+				{ // only lock cout for the duration of writing to cout; not for the time we sleep!!!
+					lock_guard<mutex> c_lock(cout_mtx);
+					cout << "Thread: " << name << "    Processing: " << msg.id << endl;
+				}
 
 				// for testing, each consumer thread takes a random amount of time to process each message, in order to cause the threads to be out-of-order.
 				std::this_thread::sleep_for(std::chrono::milliseconds(dur / 10)); // between 0 and 20 ms
