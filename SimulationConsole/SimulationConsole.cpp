@@ -10,6 +10,7 @@
 #include "Game.h"
 #include "Player.h"
 #include "Tech1Factory.h"
+#include "MoveComponentGroundBasic.h"
 #include "UnitTypes.h"
 #include "UnitMgr.h"
 #include <memory>
@@ -40,13 +41,29 @@ void CreateSomeUnits(Game &g)
 	Tech1Factory factory;
 
 	// This next comment was true when playerList was a list of <Player> instead of pointers to players
-	// auto pl = g.playerList.front(); // No!  This causes the first element of playerList to be copied into pl, because auto converts to "Player" instead of a reference to player
+	// // auto pl = g.playerList.front(); // No!  This causes the first element of playerList to be copied into pl, because auto converts to "Player" instead of a reference to player
 	// Player &pl = g.playerList.front();
 
 	shared_ptr<Player> pl = g.playerList.front();
-	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 10, 15));
-	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 30, 35));
-	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 70, 10));
+	UnitBase * punit = factory.CreateUnit(UnitType::TANK, 10, 15);
+	shared_ptr<MoveComponent> mc = punit->GetMoveComponent();
+	shared_ptr<MoveComponentGroundBasic> mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
+	if( mcgb ) mcgb->SetSpeed(40, 30);
+	pl->UM.AddUnit( punit );
+
+	punit = factory.CreateUnit(UnitType::TANK, 30, 35);
+	mc = punit->GetMoveComponent();
+	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
+	if (mcgb) mcgb->SetSpeed(7, 1);
+	pl->UM.AddUnit(punit);
+
+	punit = factory.CreateUnit(UnitType::TANK, 70, 10);
+	mc = punit->GetMoveComponent();
+	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
+	if (mcgb) mcgb->SetSpeed(0.5, 2.0
+	);
+	pl->UM.AddUnit(punit);
+
 	cout << "Size of Unit list: " << pl->UM.NumUnits() << endl;
 }
 

@@ -9,6 +9,7 @@ public:
 	virtual ~MoveComponentGroundBasic();
 	virtual void Update(GameState &gs, unsigned long nTick);
 	virtual void Render(GameState &gs, Map &map);
+	void SetSpeed(double dx_, double dy_); // non-virtual so cannot override
 
 protected:
 	double dx, dy;	// current velocity

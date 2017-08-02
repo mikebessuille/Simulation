@@ -36,3 +36,24 @@ void MoveComponentGroundBasic::Render(GameState & gs, Map &map)
 	map.GetWindow()->draw(*ps);
 	delete ps;
 }
+
+
+// Non-member function; find a better place for this utility function!!!
+void CapAtMax( double &dx, double &dy, double max )
+{
+	double maxsquared = max * max;
+	double lengthsquared = dx*dx + dy*dy;
+	if (lengthsquared > maxsquared)
+	{
+		double factor = max / sqrt(lengthsquared);
+		dx *= factor;
+		dy *= factor;
+	}
+}
+
+void MoveComponentGroundBasic::SetSpeed(double dx_, double dy_)
+{
+	CapAtMax(dx_, dy_, m_speed);
+	dx = dx_;
+	dy = dy_;
+}
