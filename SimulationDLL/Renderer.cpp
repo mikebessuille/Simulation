@@ -91,8 +91,8 @@ void Renderer::RenderFrame()
 		player->UM.Render(gs, map);
 	}
 
-	// TEST CODE
-	map.TestDraw();
+	// TEST CODE - don't call this when the renderer for each unit is actually working because it clears the map!
+	// map.TestDraw();
 
 	map.pwindow->display();
 }
