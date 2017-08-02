@@ -12,6 +12,7 @@
 #include "Tech1Factory.h"
 #include "UnitTypes.h"
 #include "UnitMgr.h"
+#include <memory>
 
 
 using namespace std;
@@ -19,17 +20,17 @@ using namespace std;
 
 void CreateSomeUsers( Game &g )
 {
-	Player * p = new Player("Mike");
-	g.playerList.push_back(*p);
-	p = new Player("Bob");
-	g.playerList.push_back(*p);
-	p = new Player("Sally");
-	g.playerList.push_back(*p);
+	shared_ptr<Player> p(new Player("Mike"));
+	g.playerList.push_back(p);
+	p = make_shared<Player>("Bob");
+	g.playerList.push_back(p);
+	p = make_shared<Player>("Sally");
+	g.playerList.push_back(p);
 
 	cout << "Players:" << endl;
 	for (auto pl : g.playerList)
 	{
-		cout << pl.Name << endl;
+		cout << pl->Name << endl;
 	}
 	cout << endl;
 }
@@ -38,12 +39,15 @@ void CreateSomeUnits(Game &g)
 {
 	Tech1Factory factory;
 
+	// This next comment was true when playerList was a list of <Player> instead of pointers to players
 	// auto pl = g.playerList.front(); // No!  This causes the first element of playerList to be copied into pl, because auto converts to "Player" instead of a reference to player
-	Player &pl = g.playerList.front();
-	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 10, 15));
-	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 30, 35));
-	pl.UM.AddUnit(factory.CreateUnit(UnitType::TANK, 70, 10));
-	cout << "Size of Unit list: " << pl.UM.NumUnits() << endl;
+	// Player &pl = g.playerList.front();
+
+	shared_ptr<Player> pl = g.playerList.front();
+	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 10, 15));
+	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 30, 35));
+	pl->UM.AddUnit(factory.CreateUnit(UnitType::TANK, 70, 10));
+	cout << "Size of Unit list: " << pl->UM.NumUnits() << endl;
 }
 
 

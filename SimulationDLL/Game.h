@@ -28,7 +28,7 @@ private:
 	Renderer renderer;
 
 public:
-	std::list<Player> playerList;
+	std::list<shared_ptr<Player>> playerList;
 
 // Class Methods
 public:

@@ -6,6 +6,7 @@
 #include <list>
 #include <iostream>
 #include <chrono>
+#include <mutex>
 
 
 // using namespace std;
@@ -29,6 +30,7 @@ class UnitMgr
 // Class Variables
 private:
 	std::list<UnitBase*> unitList;
+	mutex um_mtx; // for controlling multi-thread access to this UnitManager instance
 
 // Class Methods
 public:
@@ -36,6 +38,7 @@ public:
 	~UnitMgr();
 	void Update( GameState &gs, const unsigned long nTick );
 	void Render( GameState &gs, Map &map );
+	mutex & GetMutex() { return( std::ref( um_mtx )); };
 	
 public:	// not sure why these methods were private at one point...
 	int NumUnits() { return unitList.size(); }

@@ -3,6 +3,8 @@
 #include "UnitMgr.h"
 #include <thread>
 #include <assert.h>
+#include <mutex>
+
 
 mutex Simulation::simLock;
 
@@ -122,8 +124,10 @@ void Simulation::Loop()
 void Simulation::Update( const unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
+	// TODO:  THis next line seems to make a COPY of the player (which copies its entire UnitManager!!!)
 	for (auto player : pGame->playerList)
 	{
-		player.UM.Update( gs, nTick);
+		lock_guard<mutex> c_lock( player->UM.GetMutex() );
+		player->UM.Update( gs, nTick);
 	}
 }

@@ -3,6 +3,8 @@
 #include "UnitMgr.h"
 
 #include <assert.h>
+#include <mutex>
+
 
 
 // TODO:  This class contains a lot of stuff (bRunning, thread management) that could be more easily handled by the Game class.
@@ -84,8 +86,9 @@ void Renderer::RenderFrame()
 	// TODO: This fails with corrupted memory, possibly because of thread problems between update and render
 	for (auto player : pGame->playerList)
 	{
+		lock_guard<mutex> c_lock(player->UM.GetMutex());
 		// have to call a method on the UM, because its list of units is private.  I don't love this design.
-		player.UM.Render(gs, map);
+		player->UM.Render(gs, map);
 	}
 
 	// TEST CODE

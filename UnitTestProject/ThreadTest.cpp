@@ -2,6 +2,7 @@
 #include "CppUnitTest.h"
 
 #include <thread>
+#include <memory>
 #include "Simulation.h"
 #include "Game.h"
 
@@ -63,9 +64,9 @@ namespace UnitTestProject
 
 		void CreateSomeUsers(Game &g)
 		{
-			g.playerList.push_back(Player("Mike"));
-			g.playerList.push_back(Player("Bob"));
-			g.playerList.push_back(Player("Sally"));
+			g.playerList.push_back(make_shared<Player>("Mike"));
+			g.playerList.push_back(make_shared<Player>("Bob"));
+			g.playerList.push_back(make_shared<Player>("Sally"));
 		}
 
 
