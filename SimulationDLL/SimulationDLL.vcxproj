@@ -39,7 +39,7 @@
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
-    <ClCompile Include="Target.cpp" />
+    <ClCompile Include="Order.cpp" />
     <ClCompile Include="Tech1Factory.cpp" />
     <ClCompile Include="TickControl.cpp" />
     <ClCompile Include="UnitBase.cpp" />
@@ -62,7 +62,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SimDLL.h" />
     <ClInclude Include="Simulation.h" />
-    <ClInclude Include="Target.h" />
+    <ClInclude Include="Order.h" />
     <ClInclude Include="Tech1Factory.h" />
     <ClInclude Include="TickControl.h" />
     <ClInclude Include="UnitBase.h" />

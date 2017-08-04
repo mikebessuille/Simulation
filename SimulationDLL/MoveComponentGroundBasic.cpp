@@ -24,7 +24,7 @@ void MoveComponentGroundBasic::Update(GameState & gs, unsigned long nTick)
 void MoveComponentGroundBasic::Render(GameState & gs, Map &map)
 {
 	// Logging - take this out!
-	cout << "X: [" << m_parent->x << "]  Y: [" << m_parent->y << "]" << endl;
+	// cout << "X: [" << m_parent->x << "]  Y: [" << m_parent->y << "]" << endl;
 
 	// TODO: render to the map
 	// Test code for basic rendering:
