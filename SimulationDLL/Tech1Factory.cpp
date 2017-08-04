@@ -19,9 +19,9 @@ Tech1Factory::~Tech1Factory()
 
 // TODO:  The stats (range, etc) should be read from a file that defines this unit as much as possible
 // (Is there a way to identify which Attack/Move/Health components to instantiate, as well?
-UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
+shared_ptr<UnitBase> Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 {
-	UnitBase *pUnit = nullptr;
+	shared_ptr<UnitBase>pUnit = nullptr;
 	if (nType == UnitType::FIGHTER)
 	{
 		const unsigned int damage(2);
@@ -40,7 +40,7 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 		const double dy(0.0);
 		shared_ptr<MoveComponentAirBasic> mcptr(new MoveComponentAirBasic(maxSpeed, dx, dy));
 
-		pUnit = new UnitBase(x, y, mcptr, acptr, hcptr);
+		pUnit = make_shared<UnitBase>(x, y, mcptr, acptr, hcptr);
 	}
 	else if (nType == UnitType::TANK)
 	{
@@ -60,7 +60,7 @@ UnitBase * Tech1Factory::CreateUnit(UnitType nType, double x, double y)
 		const double dy(2.0);
 		shared_ptr<MoveComponentGroundBasic> mcptr(new MoveComponentGroundBasic(maxSpeed, dx, dy));
 
-		pUnit = new UnitBase(x, y, mcptr, acptr, hcptr);
+		pUnit = make_shared<UnitBase>(x, y, mcptr, acptr, hcptr);
 	}
 	return pUnit;
 }

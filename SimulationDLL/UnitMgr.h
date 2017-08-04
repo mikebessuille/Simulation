@@ -7,6 +7,7 @@
 #include <iostream>
 #include <chrono>
 #include <mutex>
+#include <memory>
 
 
 // using namespace std;
@@ -29,7 +30,7 @@ class UnitMgr
 
 // Class Variables
 private:
-	std::list<UnitBase*> unitList;
+	std::list<shared_ptr<UnitBase>> unitList;
 	mutex um_mtx; // for controlling multi-thread access to this UnitManager instance
 
 // Class Methods
@@ -42,8 +43,8 @@ public:
 	
 public:	// not sure why these methods were private at one point...
 	int NumUnits() { return unitList.size(); }
-	void AddUnit(UnitBase *pUnit);
-	void DestroyUnit( std::list<UnitBase*>::iterator it);
-	void RemoveUnit(std::list<UnitBase*>::iterator it);
+	void AddUnit(shared_ptr<UnitBase> pUnit);
+	void DestroyUnit( std::list<shared_ptr<UnitBase>>::iterator it);
+	void RemoveUnit(std::list<shared_ptr<UnitBase>>::iterator it);
 };
 

@@ -20,7 +20,7 @@ void AttackComponent::Update(GameState &gs, unsigned long nTick)
 	if (ReadyToFire( nTick ))
 	{
 		// if there's a target in range...
-		UnitBase *pTarget = GetTarget( gs );
+		shared_ptr<UnitBase> pTarget = GetTarget( gs );
 		if (pTarget != nullptr)
 		{
 			Attack( pTarget, nTick );
@@ -48,12 +48,12 @@ bool AttackComponent::ReadyToFire( unsigned long nTick )
 // Returns a valid target in range, or nullptr if no target is in range.
 // This is going to be called very often, so we need to make this extremely efficient.
 // For example, only go through units on the current (or nearby) map tile.  Only go through enemy units...
-UnitBase * AttackComponent::GetTarget( GameState &gs )
+shared_ptr<UnitBase> AttackComponent::GetTarget( GameState &gs )
 {
-	UnitBase *pTarget = nullptr;
+	shared_ptr<UnitBase> pTarget = nullptr;
 
 	// If this component has a designated target that is in range...
-	UnitBase * pDesTarget = GetDesignatedTarget();
+	shared_ptr<UnitBase> pDesTarget = GetDesignatedTarget();
 	if (pDesTarget && IsInRange(pDesTarget) && IsValidTarget(pDesTarget))
 	{
 		pTarget = pDesTarget;
@@ -87,7 +87,7 @@ void AttackComponent::Attack(UnitBase *pTarget, unsigned long nTick )
 
 // Inherited classes will override IsValidTarget() and provide an implementation based on what kinds of targets this unit can actually attack.
 // Ex, Air units?  Attacking an area?  etc.
-bool AttackComponent::IsValidTarget(UnitBase *pTarget)
+bool AttackComponent::IsValidTarget(shared_ptr<UnitBase>pTarget)
 {
 	if (pTarget )
 	{
@@ -104,14 +104,15 @@ bool AttackComponent::IsValidTarget(UnitBase *pTarget)
 }
 
 
-// Helper function... put this someplace where it can be re-used
+// Helper function... put this someplace where it can be re-used ...  
+// TODO: See Point class!!!!
 double Distance(double x1, double y1, double x2, double y2)
 {
 	return(sqrt((x2 - x1)*(x2 - x1) + (y2 - y1)*(y2 - y1)));
 }
 
 
-bool AttackComponent::IsInRange(UnitBase *pTarget)
+bool AttackComponent::IsInRange(shared_ptr<UnitBase> pTarget)
 {
 	if (pTarget)
 	{
@@ -125,7 +126,7 @@ bool AttackComponent::IsInRange(UnitBase *pTarget)
 
 
 // Returns false if the target is not valid for this unit.  Only set by the player.
-bool AttackComponent::AssignTarget(UnitBase *pTarget)
+bool AttackComponent::AssignTarget(shared_ptr<UnitBase> pTarget)
 {
 	if (IsValidTarget(pTarget))
 	{
@@ -144,7 +145,7 @@ bool AttackComponent::AssignTarget(UnitBase *pTarget)
 // Returns the unit's currently designated attack target, IF it exists.
 // TODO:  May want to remove this and put it into the UnitBase class or into a "target" or "order" component, so we don't have to worry about 
 // having multiple conflicting orders at the same time (a movecomponent order to move somewhere, and patrol order, and an attack order).
-UnitBase * AttackComponent::GetDesignatedTarget()
+shared_ptr<UnitBase> AttackComponent::GetDesignatedTarget()
 {
 	return(m_pDesignatedTarget);
 }

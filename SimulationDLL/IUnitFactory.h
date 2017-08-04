@@ -1,5 +1,6 @@
 #pragma once
 #include "UnitTypes.h"
+#include <memory>
 
 class UnitComponent;
 class UnitBase;
@@ -8,9 +9,9 @@ class UnitBase;
 class IUnitFactory
 {
 public:
-	IUnitFactory() {}
-	virtual ~IUnitFactory() {}
-	virtual UnitBase * CreateUnit( UnitType nType, double x, double y ) = 0; // keep this here to make this an interface class
+	IUnitFactory() {};
+	virtual ~IUnitFactory() {};
+	virtual shared_ptr<UnitBase> CreateUnit( UnitType nType, double x, double y ) = 0; // keep this here to make this an interface class
 };
 
 

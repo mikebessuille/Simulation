@@ -45,7 +45,7 @@ void CreateSomeUnits(Game &g)
 	// Player &pl = g.playerList.front();
 
 	shared_ptr<Player> pl = g.playerList.front();
-	UnitBase * punit = factory.CreateUnit(UnitType::TANK, 10, 15);
+	shared_ptr<UnitBase> punit = factory.CreateUnit(UnitType::TANK, 10, 15);
 	shared_ptr<MoveComponent> mc = punit->GetMoveComponent();
 	// don't like having to dynamic_cast... this should be refactored so that the base class has a setspeed method,
 	// or so that we don't need setspeed at all (if we have a target, and the speed is automatically set by the component itself,

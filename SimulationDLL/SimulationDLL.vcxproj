@@ -35,7 +35,9 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="MoveComponentAirBasic.cpp" />
     <ClCompile Include="MoveComponentGroundBasic.cpp" />
+    <ClCompile Include="OrderMove.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Point.cpp" />
     <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
@@ -53,6 +55,8 @@
     <ClInclude Include="Map.h" />
     <ClInclude Include="MoveComponentAirBasic.h" />
     <ClInclude Include="MoveComponentGroundBasic.h" />
+    <ClInclude Include="OrderMove.h" />
+    <ClInclude Include="Point.h" />
     <ClInclude Include="Renderer.h" />
     <ClInclude Include="UnitTypes.h" />
     <ClInclude Include="HealthComponent.h" />

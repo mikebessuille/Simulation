@@ -15,6 +15,7 @@ class Order
 public:
 	Order();
 	virtual ~Order();
-	virtual double DistanceToTarget() = 0;
+
+private: 
 };
 

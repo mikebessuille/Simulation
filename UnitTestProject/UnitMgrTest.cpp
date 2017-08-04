@@ -56,7 +56,7 @@ namespace UnitTestProject
 			for (int i = 0; i < 10; i++)
 			{
 				shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasicTest> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasicTest((double)10 / (double)(i + 1), 1));
-				UnitBase *pUnit = new UnitBase( 0, i, mcptr, nullptr, nullptr );
+				shared_ptr<UnitBase>pUnit( new UnitBase(0, i, mcptr, nullptr, nullptr ));
 				UM.AddUnit( pUnit );
 				Assert::AreEqual(UM.NumUnits(), i + 1);
 			}
@@ -69,8 +69,9 @@ namespace UnitTestProject
 			while( it != UM.unitList.end() )
 			{
 				int nOldSize = UM.NumUnits();
-				UnitBase *pUnit = *it;
-				delete pUnit;
+				shared_ptr<UnitBase>pUnit = *it;
+				// delete pUnit; no need since we're removing it from the list
+				// TODO: should clear its orders though
 
 				/*
 				std::list<UnitBase *>::iterator newIt = it;

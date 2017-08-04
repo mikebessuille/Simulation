@@ -20,7 +20,7 @@ GroundAttackComponentBasic::~GroundAttackComponentBasic()
 
 
 // Returns true if the target can be attacked by this unit
-bool GroundAttackComponentBasic::IsValidTargetType(UnitBase *pTarget)
+bool GroundAttackComponentBasic::IsValidTargetType(shared_ptr<UnitBase> pTarget)
 {
 	// TODO:  return true only if the target is a ground unit (or an air unit that is on the ground...)
 	return(true);

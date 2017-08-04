@@ -1,6 +1,6 @@
 #pragma once
 #include "IUnitFactory.h"
-
+#include <memory>
 
 class Tech1Factory :
 	public IUnitFactory
@@ -8,6 +8,6 @@ class Tech1Factory :
 public:
 	Tech1Factory();
 	virtual ~Tech1Factory();
-	virtual UnitBase * CreateUnit(UnitType nType, double x, double y);
+	virtual shared_ptr<UnitBase> CreateUnit(UnitType nType, double x, double y);
 };
 

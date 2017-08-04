@@ -15,18 +15,18 @@ namespace UnitTestProject
 	TEST_CLASS(UnitAndComponentTest)
 	{
 		// This test method acts like a factory
-		UnitBase * ConstructUnit(double x, double y, unsigned int damage, double range, unsigned int cooldown, unsigned int health )
+		shared_ptr<UnitBase> ConstructUnit(double x, double y, unsigned int damage, double range, unsigned int cooldown, unsigned int health )
 		{
 			shared_ptr<GroundAttackComponentBasic> acptr(new GroundAttackComponentBasic( damage, range, cooldown ));
 			shared_ptr<HealthComponentBasic> hcptr(new HealthComponentBasic( health ));
-			return(new UnitBase(x, y, nullptr, acptr, hcptr));
+			return(make_shared<UnitBase>(x, y, nullptr, acptr, hcptr));
 		}
 
 
 		void PopulateUnits1(UnitMgr &UM1, UnitMgr &UM2)
 		{
 			// Create some units for Player 1
-			UnitBase *P1[5];
+			shared_ptr<UnitBase> P1[5];
 			// x, y, damage, range, cooldown, health
 			P1[0] = ConstructUnit(0, 0, 5, 10.0, 2, 12);
 			P1[1] = ConstructUnit(0, 1, 5, 10.0, 2, 12);
@@ -40,7 +40,7 @@ namespace UnitTestProject
 			}
 
 			// Create some units for Player 2
-			UnitBase *P2[5];
+			shared_ptr<UnitBase> P2[5];
 			P2[0] = ConstructUnit(5, 5, 5, 10.0, 2, 12);
 			P2[1] = ConstructUnit(5, 4, 5, 10.0, 2, 12);
 			P2[2] = ConstructUnit(4, 5, 5, 10.0, 2, 12);

@@ -18,26 +18,31 @@ UnitMgr::~UnitMgr()
 	// C++11 functionality for iterators!
 	for (auto &it : unitList)
 	{
-		delete it;
+		// delete it; // this was needed when unitList was a list of UnitBase*.  Now that it's a list of shared_ptr, we just need to clear the ptrs.
 		// it = unitList.erase(it); // No need to erase each value if we're going to clear the entire vector!
+
+		// TODO:  CLear the orders of the unit first; they may point to other units, and because we're using smart points,
+		// the units may never get deleted if they're pointing at each other.
 	}
 	unitList.clear();
 }
 
-void UnitMgr::AddUnit(UnitBase * pUnit)
+void UnitMgr::AddUnit(shared_ptr<UnitBase> pUnit)
 {
 	unitList.push_back(pUnit);
 }
 
 
 // Private method to destroy a unit at a specific index
-void UnitMgr::DestroyUnit(std::list<UnitBase*>::iterator it)
+void UnitMgr::DestroyUnit(std::list<shared_ptr<UnitBase>>::iterator it)
 {
-	UnitBase *pUnit = *it;
+	shared_ptr<UnitBase> pUnit = *it;
 	if( pUnit )
 	{
+		// TODO: need to clear its orders first
+
 		unitList.erase( it );
-		delete pUnit;
+		// delete pUnit; // No need to delete since it's a smart pointer.
 	}
 	// TODO:  else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
 	// Having to use iterators and lists is probably not very efficient.  We probably want a way to directly access
@@ -48,9 +53,9 @@ void UnitMgr::DestroyUnit(std::list<UnitBase*>::iterator it)
 // removes the unit from this list without destroying it (for example, if you're moving this unit to another UnitMgr).
 // This public method shouldn't take a list iterator, as that exposes the UnitMgr's implementation
 // and makes it difficult to change in the future (for example, to store an array of units).
-void UnitMgr::RemoveUnit(std::list<UnitBase*>::iterator it )
+void UnitMgr::RemoveUnit(std::list<shared_ptr<UnitBase>>::iterator it )
 {
-	UnitBase *pUnit = *it;
+	shared_ptr<UnitBase> pUnit = *it;
 	if (pUnit)
 	{
 		unitList.erase( it );

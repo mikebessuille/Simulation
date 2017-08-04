@@ -1,5 +1,7 @@
 #pragma once
 
+#include <memory>
+
 class GameState;
 class UnitBase;
 class Map;
@@ -12,9 +14,9 @@ public:
 	virtual ~UnitComponent() {}
 	virtual void Update(GameState &gs, unsigned long nTick) = 0;
 	virtual void Render( GameState &gs, Map &map ) = 0;
-	void Attach(UnitBase *pUnit) { m_parent = pUnit; }
+	void Attach(shared_ptr<UnitBase> pUnit) { m_parent = pUnit; }
 
 protected:
-	UnitBase *m_parent;
+	shared_ptr<UnitBase> m_parent;
 };
 
