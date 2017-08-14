@@ -6,7 +6,7 @@
 #include "MoveComponent.h"
 #include "AttackComponent.h"
 #include "HealthComponent.h"
-
+#include "Order.h"
 #include "Map.h"
 
 using namespace std;
@@ -52,10 +52,28 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 	assert(nLastUpdateTick == 0 || nTick == nLastUpdateTick + 1);
 	nLastUpdateTick = nTick;
 
+	/*   Is there any reason to still have Update() methods on these components, if we're now only processing orders?
 	if (m_pMoveComponent)
 		m_pMoveComponent->Update(gs, nTick);
 	if (m_pAttackComponent)
 		m_pAttackComponent->Update(gs, nTick);
+	*/
+	if (m_Orders.empty() == false)
+	{
+		bool ret = m_Orders.front()->Execute(gs, this);
+		if (ret == false)
+		{
+			// todo: order is no longer valid; delete it, and try the next order.  Change this to a while loop...
+		}
+	}
+	else
+	{
+		if (m_pAttackComponent)
+		{
+			// TODO: shoot at any nearby enemies
+		}
+	}
+
 	if (m_pHealthComponent)
 		m_pHealthComponent->Update(gs, nTick);
 }
@@ -76,6 +94,20 @@ void UnitBase::SetUnitID(unsigned int &id_)
 {
 	LastId++; // TODO: This shouldn't be part of the UnitBase class, but should be part of a Factory class.
 	id_ = LastId;
+}
+
+
+bool UnitBase::IsAlive()
+{
+	if (m_pHealthComponent)
+	{
+		return(m_pHealthComponent->IsAlive());
+	}
+	else
+	{
+		// In this case the unit can't be destroyed, so always return true.
+		return(true);
+	}
 }
 
 // TODO:  Use Composite design pattern so that the base class is an abstraction can represent a single unit, or a group of units.

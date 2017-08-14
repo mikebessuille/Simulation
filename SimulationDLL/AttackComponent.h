@@ -32,11 +32,10 @@ protected:
 	double			m_Range;		// Max range of this unit
 	unsigned int	m_CoolDown;		// number of ticks between shots
 	unsigned long	m_LastTickFired;	// The number of the tick this was last fired.
+
+	// Get rid of this - should be encompassed by the attack order class instead.
 	shared_ptr<UnitBase>	m_pDesignatedTarget;	// A designated target for this unit.
 											// (Unit can still fire on other targets, if the designated target is out of range)
-
-	// TODO:  AttackComponent needs to have a target unit (or location, or...) to attack.
-	// Create a "target" class that can contain a pointer to another unit, or a location, or...?
 };
 
 

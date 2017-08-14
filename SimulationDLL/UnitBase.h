@@ -2,6 +2,7 @@
 
 // #include "GameState.h"
 #include <memory>
+#include <list>
 #include "UnitComponent.h" // need to include this before including other components
 
 // forward declarations:
@@ -10,6 +11,7 @@ class MoveComponent;
 class AttackComponent;
 class HealthComponent;
 class Map;
+class Order;
 
 using namespace std;
 
@@ -24,12 +26,13 @@ public:
 	virtual ~UnitBase();
 	void Update( GameState &gs, const unsigned long nTick );
 	void Render( GameState &gs, Map &map );
+	bool IsAlive();
 
-// Getters and Setters
+
+	// Getters and Setters
 	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }
 	shared_ptr<AttackComponent> GetAttackComponent() { return (m_pAttackComponent); }
 	shared_ptr<HealthComponent> GetHealthComponent() { return (m_pHealthComponent); }
-
 
 // Static Functions
 protected:
@@ -53,8 +56,8 @@ protected:
 	// Could convert this to std::vector<UnitComponent *> m_components;
 
 	//TODO:  Pointer to the current map tile
-	//TODO:  Something to identify it's current orders (Move, attack, patrol, do nothing...)
-	//		 Or is that better just being part of each component?
-	//		 What if different components get out of sync and have different, conflicting orders?
+	
+	// Identifies it's current orders (Move, attack, patrol, guard, do nothing...)
+	list<shared_ptr<Order>> m_Orders;
 };
 

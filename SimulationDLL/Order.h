@@ -1,6 +1,9 @@
 #pragma once
 
-// Orders can be attack (a unit, a location); move to a location; patrol to a location; ...
+#include "UnitBase.h" 
+#include "GameState.h"
+
+// Orders can be attack (a unit, a location); move to a location; patrol to a location; guard another unit; ...
 // I don't want to have to create / manage / destroy order objects every time a unit is firing at another unit
 // An order with a target should only be created because the user selected a target; if the AI decides to fire at its closest enemy,
 // no order should be created, because we don't want this unit chasing that target around, potentially.
@@ -15,7 +18,9 @@ class Order
 public:
 	Order();
 	virtual ~Order();
+	virtual bool Execute(GameState &gs, UnitBase *punit ) = 0; // returns true if the order is valid and continues to execute.  Returns False if invalid or complete.
 
 private: 
+
 };
 

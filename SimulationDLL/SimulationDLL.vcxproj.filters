@@ -16,6 +16,9 @@
     <Filter Include="Source Files\Units">
       <UniqueIdentifier>{0f9c5f78-e399-46fa-aa1a-58cd6941d960}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Orders">
+      <UniqueIdentifier>{5d5abb6f-79bb-4052-83ca-27884dfeba1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Simulation.cpp">
@@ -66,14 +69,14 @@
     <ClCompile Include="Map.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Order.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="OrderMove.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Point.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Order.cpp">
+      <Filter>Source Files\Orders</Filter>
+    </ClCompile>
+    <ClCompile Include="OrderMove.cpp">
+      <Filter>Source Files\Orders</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -140,14 +143,14 @@
     <ClInclude Include="Map.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Order.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OrderMove.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Point.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Order.h">
+      <Filter>Source Files\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderMove.h">
+      <Filter>Source Files\Orders</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

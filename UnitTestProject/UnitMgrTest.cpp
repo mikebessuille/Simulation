@@ -24,8 +24,14 @@ namespace UnitTestProject
 
 			virtual void Update(GameState &gs, unsigned long nTick)
 			{	
+				// TODO: move this to the Move() method below
 				m_parent->x += dx;
 				m_parent->y += dy;
+			}
+
+			void Move(GameState &gs, Point ptDest)
+			{
+				// TODO...
 			}
 
 			virtual void Render(GameState &gs, Map &map )
