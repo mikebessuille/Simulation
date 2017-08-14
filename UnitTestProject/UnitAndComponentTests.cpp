@@ -6,6 +6,7 @@
 #include "GroundAttackComponentBasic.h"
 #include "HealthComponentBasic.h"
 #include "GameState.h"
+#include <memory>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 using namespace std;
@@ -125,7 +126,7 @@ namespace UnitTestProject
 		void PopulateUnitsRangeAttack(UnitMgr &UM1, UnitMgr &UM2)
 		{
 			// Create some units for Player 1
-			UnitBase *P1[2];
+			shared_ptr<UnitBase> P1[2];
 			// x, y, damage, range, cooldown, health
 			P1[0] = ConstructUnit(0, 0, 5, 16, 2, 12);
 			P1[1] = ConstructUnit(0, 1, 5, 10, 2, 8);
@@ -136,7 +137,7 @@ namespace UnitTestProject
 			}
 
 			// Create some units for Player 2
-			UnitBase *P2[2];
+			shared_ptr<UnitBase> P2[2];
 			P2[0] = ConstructUnit(10, 10, 5, 10.0, 2, 17);
 			P2[1] = ConstructUnit(20, 3, 1, 23, 0, 12);
 
@@ -154,7 +155,7 @@ namespace UnitTestProject
 		} 
 
 		// utility function...
-		bool CheckIfUnitIsAlive(std::list<UnitBase *>::iterator it, std::list<UnitBase *>::iterator end )
+		bool CheckIfUnitIsAlive(std::list<shared_ptr<UnitBase>>::iterator it, std::list<shared_ptr<UnitBase>>::iterator end )
 		{
 			if (it != end)
 			{
@@ -187,8 +188,8 @@ namespace UnitTestProject
 
 			DoSomethingWithUnits(gs);
 
-			std::list<UnitBase *>::iterator it = UM_Player1.unitList.begin();
-			std::list<UnitBase *>::iterator end = UM_Player1.unitList.end();
+			std::list<shared_ptr<UnitBase>>::iterator it = UM_Player1.unitList.begin();
+			std::list<shared_ptr<UnitBase>>::iterator end = UM_Player1.unitList.end();
 			Assert::IsTrue(CheckIfUnitIsAlive(it, end));
 			if( it != end ) ++it;
 			Assert::IsFalse(CheckIfUnitIsAlive(it, end )); //P1[1] should be dead

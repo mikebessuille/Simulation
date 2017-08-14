@@ -17,11 +17,11 @@ public:
 	virtual void Update(GameState &gs, unsigned long nTick) final; // overriding base component version, but don't want derived classes to override.
 	virtual void Render(GameState &gs, Map &map );
 	bool AssignTarget(shared_ptr<UnitBase> pTarget); // Returns false if the target is not valid for this unit.  Only set by the player.
-	UnitBase * GetDesignatedTarget(); // Returns null if the unit is not currently targetting anything explicitly (due to player command).
+	shared_ptr<UnitBase> GetDesignatedTarget(); // Returns null if the unit is not currently targetting anything explicitly (due to player command).
 
 protected:
 	bool ReadyToFire(unsigned long nTick);	// Returns true if the unit's weapon is ready to fire
-	virtual UnitBase * GetTarget(GameState &gs);  // Returns a valid target in range, or nullptr if no target is in range
+	virtual shared_ptr<UnitBase> GetTarget(GameState &gs);  // Returns a valid target in range, or nullptr if no target is in range
 	virtual void Attack(shared_ptr<UnitBase> pTarget, unsigned long nTick); // performs the attack against the target.  Decides whether it hits the target and how much damage it does.
 	bool IsValidTarget(shared_ptr<UnitBase> pTarget); // Keep this non-virtual.  Derived classes override IsValidTargetType();
 	virtual bool IsValidTargetType(shared_ptr<UnitBase> pTarget) = 0;	// Returns true if the target can be attacked by this unit

@@ -70,7 +70,7 @@ shared_ptr<UnitBase> AttackComponent::GetTarget( GameState &gs )
 
 
 // performs the attack against the target.  Decides whether it hits the target and how much damage it does.
-void AttackComponent::Attack(UnitBase *pTarget, unsigned long nTick )
+void AttackComponent::Attack(shared_ptr<UnitBase> pTarget, unsigned long nTick )
 {
 	if (pTarget)
 	{
