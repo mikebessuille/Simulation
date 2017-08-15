@@ -29,7 +29,11 @@ bool OrderMove::Execute( GameState &gs, UnitBase *punit )
 
 	pmc->Move(gs, ptTarget);
 
-	// TODO: if it's close enough, return False since this order is complete.  Else return true.
+	if (pmc->AtDestination(ptTarget))
+	{
+		// if it's close enough, return False since this order is complete.  Else return true.
+		return(false);
+	}
 
 	return(true);
 }

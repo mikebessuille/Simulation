@@ -78,6 +78,9 @@
     <ClCompile Include="OrderMove.cpp">
       <Filter>Source Files\Orders</Filter>
     </ClCompile>
+    <ClCompile Include="MoveComponent.cpp">
+      <Filter>Source Files\Units</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">

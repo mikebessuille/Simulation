@@ -42,6 +42,7 @@
     <ClCompile Include="SimDLL.cpp" />
     <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Order.cpp" />
+    <ClCompile Include="MoveComponent.cpp" />
     <ClCompile Include="Tech1Factory.cpp" />
     <ClCompile Include="TickControl.cpp" />
     <ClCompile Include="UnitBase.cpp" />

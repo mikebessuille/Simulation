@@ -28,9 +28,22 @@ void MoveComponentGroundBasic::Update(GameState & gs, unsigned long nTick)
 void MoveComponentGroundBasic::Move(GameState &gs, Point ptDest )
 {
 	// Move by it's max speed towards the destination, if it's not already close to the destination.
-	// TODO
-	// TODO: Implement
-	// TODO
+	if (!AtDestination(ptDest))
+	{
+		Point ptCurrent(m_parent->x, m_parent->y);
+		if (ptCurrent.Distance(ptDest) < m_speed)
+		{
+			// We can move the entire distance this tick
+			m_parent->x = ptDest.x;
+			m_parent->y = ptDest.y;
+		}
+		else
+		{
+			dx = ptDest.x - m_parent->x;
+			dy = ptDest.y - m_parent->y;
+			CapAtMax( dx, dy)
+		}
+	}
 }
 
 
