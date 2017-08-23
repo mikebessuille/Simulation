@@ -16,6 +16,19 @@ MoveComponentGroundBasic::~MoveComponentGroundBasic()
 }
 
 
+// Non-member function; find a better place for this utility function!!!
+void CapAtMax(double &dx, double &dy, double max)
+{
+	double maxsquared = max * max;
+	double lengthsquared = dx*dx + dy*dy;
+	if (lengthsquared > maxsquared)
+	{
+		double factor = max / sqrt(lengthsquared);
+		dx *= factor;
+		dy *= factor;
+	}
+}
+
 
 // TODO: Get rid of this; replace with the concept of an Order that calls "move()" method on this component when necessary.
 void MoveComponentGroundBasic::Update(GameState & gs, unsigned long nTick)
@@ -41,7 +54,9 @@ void MoveComponentGroundBasic::Move(GameState &gs, Point ptDest )
 		{
 			dx = ptDest.x - m_parent->x;
 			dy = ptDest.y - m_parent->y;
-			CapAtMax( dx, dy)
+			CapAtMax(dx, dy, m_speed);
+			m_parent->x += dx;
+			m_parent->y += dy;
 		}
 	}
 }
@@ -57,19 +72,6 @@ void MoveComponentGroundBasic::Render(GameState & gs, Map &map)
 	delete ps;
 }
 
-
-// Non-member function; find a better place for this utility function!!!
-void CapAtMax( double &dx, double &dy, double max )
-{
-	double maxsquared = max * max;
-	double lengthsquared = dx*dx + dy*dy;
-	if (lengthsquared > maxsquared)
-	{
-		double factor = max / sqrt(lengthsquared);
-		dx *= factor;
-		dy *= factor;
-	}
-}
 
 void MoveComponentGroundBasic::SetSpeed(double dx_, double dy_)
 {

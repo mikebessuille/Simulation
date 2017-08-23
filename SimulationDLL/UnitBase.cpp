@@ -63,14 +63,16 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 		bool ret = m_Orders.front()->Execute(gs, this);
 		if (ret == false)
 		{
-			// todo: order is no longer valid; delete it, and try the next order.  Change this to a while loop...
+			// TODO: order is no longer valid; delete it, and try the next order.  Change this to a while loop...
 		}
+
+		// TODO: at this point, if we haven't already attacked anything, we could attack any targets of opportunity nearby.
 	}
 	else
 	{
 		if (m_pAttackComponent)
 		{
-			// TODO: shoot at any nearby enemies
+			// TODO: shoot at any nearby enemies.
 		}
 	}
 

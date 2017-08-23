@@ -28,6 +28,10 @@ public:
 	void Render( GameState &gs, Map &map );
 	bool IsAlive();
 
+	// TODO:
+	// TODO:  need methods to add and remove orders from this unit...  and "ClearOrders()"?
+	//        Do we allow an order to belong to more than one unit?
+	// TODO: 
 
 	// Getters and Setters
 	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }

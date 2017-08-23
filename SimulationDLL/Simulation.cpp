@@ -125,6 +125,7 @@ void Simulation::Update( const unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
 	// TODO:  THis next line seems to make a COPY of the player (which copies its entire UnitManager!!!)
+	// That is likely not true anymore, now that playerList is a list of shared_ptr's to players
 	for (auto player : pGame->playerList)
 	{
 		lock_guard<mutex> c_lock( player->UM.GetMutex() );
