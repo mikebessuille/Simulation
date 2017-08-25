@@ -58,12 +58,14 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 	if (m_pAttackComponent)
 		m_pAttackComponent->Update(gs, nTick);
 	*/
+	
 	if (m_Orders.empty() == false)
 	{
 		bool ret = m_Orders.front()->Execute(gs, this);
 		if (ret == false)
 		{
-			// TODO: order is no longer valid; delete it, and try the next order.  Change this to a while loop...
+			// order is no longer valid; delete it; next time Update is called, the next order will be tried.  
+			m_Orders.pop_front(); 
 		}
 
 		// TODO: at this point, if we haven't already attacked anything, we could attack any targets of opportunity nearby.

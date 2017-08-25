@@ -67,6 +67,8 @@ void CreateSomeUnits(Game &g)
 	*/
 	order = make_shared<OrderMove>(Point(20, 4));
 	punit->AddOrder(order);
+	order = make_shared<OrderMove>(Point(100, 400));
+	punit->AddOrder(order);
 	pl->UM.AddUnit(punit);
 
 	punit = factory.CreateUnit(UnitType::TANK, 170, 10);
@@ -76,6 +78,8 @@ void CreateSomeUnits(Game &g)
 	if (mcgb != nullptr) mcgb->SetSpeed(0.5, 2.0);
 	*/
 	order = make_shared<OrderMove>(Point(4, 500));
+	punit->AddOrder(order);
+	order = make_shared<OrderMove>(Point(170, 100));
 	punit->AddOrder(order);
 	pl->UM.AddUnit(punit);
 
