@@ -83,7 +83,6 @@ void Renderer::RenderFrame()
 	GameState & gs = pGame->GetGameState();
 	map.pwindow->clear();
 
-	// TODO: This fails with corrupted memory, possibly because of thread problems between update and render
 	for (auto player : pGame->playerList)
 	{
 		lock_guard<mutex> c_lock(player->UM.GetMutex());

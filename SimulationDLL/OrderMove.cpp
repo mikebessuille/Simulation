@@ -2,7 +2,6 @@
 #include "OrderMove.h"
 #include "MoveComponent.h"
 
-// TODO: really should convert this into a location object (point) that includes x, y values in it.
 OrderMove::OrderMove( Point pt ) : ptTarget( pt )
 {
 }

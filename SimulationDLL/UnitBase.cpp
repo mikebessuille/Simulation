@@ -112,6 +112,18 @@ bool UnitBase::IsAlive()
 	}
 }
 
+
+void UnitBase::AddOrder(shared_ptr<Order> order)
+{
+	m_Orders.emplace_back(order);
+}
+
+void UnitBase::ClearOrders()
+{
+	m_Orders.clear();
+}
+
+
 // TODO:  Use Composite design pattern so that the base class is an abstraction can represent a single unit, or a group of units.
 // That way, other operations can treat the class the same whether it's a single tank or a group (army) of tanks.
 // For example, a UI class that gives orders to a Unit should be able to operate on a group and give similar orders to the group without even

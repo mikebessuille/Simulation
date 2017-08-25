@@ -13,6 +13,7 @@
 #include "MoveComponentGroundBasic.h"
 #include "UnitTypes.h"
 #include "UnitMgr.h"
+#include "OrderMove.h"
 #include <memory>
 
 
@@ -40,30 +41,42 @@ void CreateSomeUnits(Game &g)
 {
 	Tech1Factory factory;
 
-	// This next comment was true when playerList was a list of <Player> instead of pointers to players
+	// This next "No!..." comment was true when playerList was a list of <Player> instead of pointers to players
 	// // auto pl = g.playerList.front(); // No!  This causes the first element of playerList to be copied into pl, because auto converts to "Player" instead of a reference to player
 	// Player &pl = g.playerList.front();
 
 	shared_ptr<Player> pl = g.playerList.front();
 	shared_ptr<UnitBase> punit = factory.CreateUnit(UnitType::TANK, 10, 15);
+	/*
 	shared_ptr<MoveComponent> mc = punit->GetMoveComponent();
 	// don't like having to dynamic_cast... this should be refactored so that the base class has a setspeed method,
 	// or so that we don't need setspeed at all (if we have a target, and the speed is automatically set by the component itself,
 	// and is always set to maxspeed)
 	shared_ptr<MoveComponentGroundBasic> mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc); 
 	if( mcgb != nullptr ) mcgb->SetSpeed(40, 30); // this will get normalized to the max-speed of this unit type...
+	*/
+	shared_ptr<Order> order = make_shared<OrderMove>(Point(300, 300));
+	punit->AddOrder(order);
 	pl->UM.AddUnit( punit );
 
-	punit = factory.CreateUnit(UnitType::TANK, 30, 35);
+	punit = factory.CreateUnit(UnitType::TANK, 30, 350);
+	/*
 	mc = punit->GetMoveComponent();
 	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
 	if (mcgb != nullptr) mcgb->SetSpeed(7, 1);
+	*/
+	order = make_shared<OrderMove>(Point(20, 4));
+	punit->AddOrder(order);
 	pl->UM.AddUnit(punit);
 
-	punit = factory.CreateUnit(UnitType::TANK, 70, 10);
+	punit = factory.CreateUnit(UnitType::TANK, 170, 10);
+	/*
 	mc = punit->GetMoveComponent();
 	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
 	if (mcgb != nullptr) mcgb->SetSpeed(0.5, 2.0);
+	*/
+	order = make_shared<OrderMove>(Point(4, 500));
+	punit->AddOrder(order);
 	pl->UM.AddUnit(punit);
 
 	cout << "Size of Unit list: " << pl->UM.NumUnits() << endl;

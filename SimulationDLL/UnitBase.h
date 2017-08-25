@@ -32,6 +32,8 @@ public:
 	// TODO:  need methods to add and remove orders from this unit...  and "ClearOrders()"?
 	//        Do we allow an order to belong to more than one unit?
 	// TODO: 
+	void AddOrder(shared_ptr<Order> order);
+	void ClearOrders();
 
 	// Getters and Setters
 	shared_ptr<MoveComponent> GetMoveComponent() { return (m_pMoveComponent); }
