@@ -17,6 +17,7 @@ public:
 	void Initialize();
 	void TestDraw();
 	shared_ptr<sf::RenderWindow> GetWindow() { return(pwindow); };
+	void Reset();
 
 protected:
 

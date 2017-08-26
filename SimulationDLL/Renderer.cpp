@@ -44,6 +44,7 @@ void Renderer::Start()
 	{
 		cout << "Renderer Start\n";
 		bRunning = true;
+		map.Reset();
 		assert(!pRenderThread);
 		pRenderThread = new thread(&Renderer::Loop, this);
 	}
@@ -75,6 +76,7 @@ void Renderer::Loop()
 		// Render a frame
 		RenderFrame();
 	}
+	map.Reset(); // set it inactive on the render thread, because a new thread will be created the next time we call Start()
 }
 
 
@@ -82,6 +84,7 @@ void Renderer::RenderFrame()
 {
 	GameState & gs = pGame->GetGameState();
 	map.pwindow->clear();
+	map.pwindow->setActive(); // called on the render thread
 
 	for (auto player : pGame->playerList)
 	{

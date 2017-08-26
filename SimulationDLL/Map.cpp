@@ -26,9 +26,14 @@ Map::~Map()
 void Map::Initialize()
 {
 	pwindow = make_shared<sf::RenderWindow>(sf::VideoMode(800, 600), "Simulation Map"); // width, height
-	pwindow->setActive(false); // on the main thread, so that rendering can take place on a separate thread.
+	Reset();
 }
 
+
+void Map::Reset()
+{
+	pwindow->setActive(false); // on the main thread, so that rendering can take place on a separate thread.
+}
 
 // TEST method to draw something on the map window
 void Map::TestDraw()
