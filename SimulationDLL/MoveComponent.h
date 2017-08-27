@@ -6,7 +6,6 @@ class UnitComponent;
 class GameState;
 class Map;
 
-#define DISTANCE_THRESHOLD (double)0.5
 
 // Interface for movement components.  Ground, Air, Water all implement this interface.
 // This class knows how to move, but not where to move (that's encompassed in a move "order")
@@ -25,5 +24,8 @@ public:
 
 protected:
 	double m_speed;	// max speed
+
+private:
+	static const double distance_threshold;
 };
 

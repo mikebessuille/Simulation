@@ -173,7 +173,12 @@ namespace UnitTestProject
 				return false;
 			}
 		}
+		
 
+		// TODO
+		// TODO: this test fails because calling unit->update() no longer calls update on the attack component.   That whole mechanism
+		//		needs to be rewired to call attack...
+		// TODO
 		TEST_METHOD(TestUnitRangeAttack)
 		{
 			UnitMgr UM_Player1;
