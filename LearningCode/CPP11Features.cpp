@@ -33,6 +33,56 @@ int MethodReturnTypeMayChange()
 	return(3);
 }
 
+
+class Something // A local class which is defined only in the scope of this function.
+{
+public:
+	Something(int x, int y) : m_x(x), m_y(y) {};
+	~Something() {};
+	void increment() { m_x++; m_y++; };
+	int getSum() { return m_x + m_y; }
+private:
+	int m_x{ 0 }, m_y{ 0 };
+};
+
+void printVector(vector<Something> vec, string heading )
+{
+	cout << heading << ": ";
+	for (Something it : vec)
+	{
+		cout << it.getSum() << " : ";
+	}
+	cout << endl;
+}
+
+void UsingAutoIterators()
+{
+	vector<Something> vec{ { 1,2 },{ 3,4 },{ 5,6 },{ 7,8 } };
+	cout << "Auto as Iterators ***************** " << endl;
+	printVector(vec, "Original ");
+
+	// This makes a copy of each Widget and modifies the copy:
+	for (auto it : vec)
+	{
+		it.increment();
+	}
+	printVector(vec, "auto it  ");
+
+	// This uses auto but explicitly asks for a reference, so it doesn't make copies.  Actually modifies the elements in the vector.
+	for ( auto& it: vec )
+	{
+		it.increment();
+	}
+	printVector(vec, "auto ref ");
+
+	// Alternative that avoids auto and actually modifies the elements in the vector:
+	for (Something& it : vec)
+	{
+		it.increment();
+	}
+	printVector(vec, "Reference");
+}
+
 void CPP11Features::UsingAuto()
 {
 	cout << "Auto ******************** " << endl;
@@ -48,6 +98,8 @@ void CPP11Features::UsingAuto()
 
 	// Using auto here will avoid having to change code that uses a method whose signature may change due to refactoring.
 	auto val = MethodReturnTypeMayChange();
+
+	UsingAutoIterators();
 }
 
 // Tests initialization of a more complex object in a list
@@ -71,6 +123,7 @@ void TestObjectInitialization()
 	cout << "Widget Sizes:" << endl;
 	for (auto it : wv )
 	{
+		// Note that "it" in this case contains a copy of each Widget in the vector; I don't think it points to the original widget.
 		cout << "    Widget Sum:" << it.getSum() << endl;
 	}
 }
