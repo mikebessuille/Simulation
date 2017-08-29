@@ -69,9 +69,11 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 		}
 
 		// TODO: at this point, if we haven't already attacked anything, we could attack any targets of opportunity nearby.
+		// Or: should that be part of each order type (including OrderMove?)
 	}
 	else
 	{
+		// There are no orders.
 		if (m_pAttackComponent)
 		{
 			// TODO: shoot at any nearby enemies.

@@ -81,6 +81,9 @@
     <ClCompile Include="MoveComponent.cpp">
       <Filter>Source Files\Units</Filter>
     </ClCompile>
+    <ClCompile Include="OrderAttack.cpp">
+      <Filter>Source Files\Orders</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="UnitMgr.h">
@@ -153,6 +156,9 @@
       <Filter>Source Files\Orders</Filter>
     </ClInclude>
     <ClInclude Include="OrderMove.h">
+      <Filter>Source Files\Orders</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderAttack.h">
       <Filter>Source Files\Orders</Filter>
     </ClInclude>
   </ItemGroup>

@@ -59,7 +59,7 @@ void CreateSomeUnits(Game &g)
 	punit->AddOrder(order);
 	pl->UM.AddUnit( punit );
 
-	punit = factory.CreateUnit(UnitType::TANK, 30, 250);
+	punit = factory.CreateUnit(UnitType::TANK, 30, 150);
 	/*
 	mc = punit->GetMoveComponent();
 	mcgb = dynamic_pointer_cast<MoveComponentGroundBasic>(mc);
@@ -67,9 +67,9 @@ void CreateSomeUnits(Game &g)
 	*/
 	order = make_shared<OrderMove>(Point(20, 4));
 	punit->AddOrder(order);
-	order = make_shared<OrderMove>(Point(30, 54));
+	order = make_shared<OrderMove>(Point(30, 100));
 	punit->AddOrder(order);
-	order = make_shared<OrderMove>(Point(100, 400));
+	order = make_shared<OrderMove>(Point(400, 400));
 	punit->AddOrder(order);
 	pl->UM.AddUnit(punit);
 
