@@ -61,7 +61,7 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 	
 	if (m_Orders.empty() == false)
 	{
-		bool ret = m_Orders.front()->Execute(gs, this);
+		bool ret = m_Orders.front()->Execute(gs, this, nTick );
 		if (ret == false)
 		{
 			// order is no longer valid; delete it; next time Update is called, the next order will be tried.  
@@ -69,7 +69,8 @@ void UnitBase::Update( GameState &gs, const unsigned long nTick )
 		}
 
 		// TODO: at this point, if we haven't already attacked anything, we could attack any targets of opportunity nearby.
-		// Or: should that be part of each order type (including OrderMove?)
+		// Or: should that be part of each order type (including OrderMove?)  It seems that is already part of the AttackComponent functionality
+		// which will be called from an OrderAttack.
 	}
 	else
 	{

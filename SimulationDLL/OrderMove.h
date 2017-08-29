@@ -10,7 +10,7 @@ public:
 	OrderMove() = delete;
 	OrderMove( Point pt );  // you create a new move order with the destination location always.  It can't be set after creation.
 	virtual ~OrderMove();
-	virtual bool Execute( GameState &gs, UnitBase * punit);
+	virtual bool Execute( GameState &gs, UnitBase * punit, unsigned long nTick );
 	virtual double DistanceToTarget( Point ptCurrent );
 
 private:

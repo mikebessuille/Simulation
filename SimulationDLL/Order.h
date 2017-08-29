@@ -18,7 +18,7 @@ class Order
 public:
 	Order();
 	virtual ~Order();
-	virtual bool Execute(GameState &gs, UnitBase *punit ) = 0; // returns true if the order is valid and continues to execute.  Returns False if invalid or complete.
+	virtual bool Execute(GameState &gs, UnitBase *punit, unsigned long nTick ) = 0; // returns true if the order is valid and continues to execute.  Returns False if invalid or complete.
 
 private: 
 

@@ -13,7 +13,7 @@ OrderMove::~OrderMove()
 
 
 // Returns true if the order is valid and continues to execute.  Returns false if the order is invalid or if it's complete.
-bool OrderMove::Execute( GameState &gs, UnitBase *punit )
+bool OrderMove::Execute( GameState &gs, UnitBase *punit, unsigned long nTick )
 {
 	if (punit == nullptr)
 	{

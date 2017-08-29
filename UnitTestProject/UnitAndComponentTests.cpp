@@ -6,6 +6,9 @@
 #include "GroundAttackComponentBasic.h"
 #include "HealthComponentBasic.h"
 #include "GameState.h"
+#include "Order.h"
+#include "OrderAttack.h"
+
 #include <memory>
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
@@ -147,11 +150,21 @@ namespace UnitTestProject
 			}
 
 			// Then assign them targets, so that they shoot at each other.
+			/*
 			P1[0]->GetAttackComponent()->AssignTarget(P2[0]); // should be in range
 			P1[1]->GetAttackComponent()->AssignTarget(P2[1]); // not in range
 
 			P2[0]->GetAttackComponent()->AssignTarget(P1[0]); // not in range
 			P2[1]->GetAttackComponent()->AssignTarget(P1[1]); // in range
+			*/
+			shared_ptr<Order> order = make_shared<OrderAttack>(P2[0]);
+			P1[0]->AddOrder(order);
+			order = make_shared<OrderAttack>(P2[1]);
+			P1[1]->AddOrder(order);
+			order = make_shared<OrderAttack>(P1[0]);
+			P2[0]->AddOrder(order);
+			order = make_shared<OrderAttack>(P1[1]);
+			P2[1]->AddOrder(order);
 		} 
 
 		// utility function...
@@ -175,10 +188,6 @@ namespace UnitTestProject
 		}
 		
 
-		// TODO
-		// TODO: this test fails because calling unit->update() no longer calls update on the attack component.   That whole mechanism
-		//		needs to be rewired to call attack...
-		// TODO
 		TEST_METHOD(TestUnitRangeAttack)
 		{
 			UnitMgr UM_Player1;
