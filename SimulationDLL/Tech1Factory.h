@@ -8,6 +8,6 @@ class Tech1Factory :
 public:
 	Tech1Factory();
 	virtual ~Tech1Factory();
-	virtual shared_ptr<UnitBase> CreateUnit(UnitType nType, double x, double y);
+	virtual unique_ptr<UnitBase> CreateUnit(UnitType nType, double x, double y);
 };
 
