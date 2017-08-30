@@ -105,26 +105,26 @@ void CPP11Features::UsingAuto()
 // Tests initialization of a more complex object in a list
 void TestObjectInitialization()
 {
-	class Widget // A local class which is defined only in the scope of this function.
+	class Widget2 // A local class which is defined only in the scope of this function.
 	{
 	public:
-		Widget(int x, int y) : m_x(x), m_y(y) {};
-		~Widget() {};
+		Widget2(int x, int y) : m_x(x), m_y(y) {};
+		~Widget2() {};
 		int getSum() { return m_x + m_y;  }
 	private:
 		int m_x{ 0 }, m_y{ 0 };
 	};
 
 	// A vector of Widgets.  Each inner {} specifies the values sent to one Widget constructor.
-	vector<Widget> wv{ {1,2}, {3,4}, {5,6}, {7,8} };
+	vector<Widget2> wv{ {1,2}, {3,4}, {5,6}, {7,8} };
 	size_t vectorSize = wv.size();
 	assert(vectorSize == 4);
-	cout << "Widget Vector size (expecting 4):" << vectorSize << endl;
-	cout << "Widget Sizes:" << endl;
+	cout << "Widget2 Vector size (expecting 4):" << vectorSize << endl;
+	cout << "Widget2 Sizes:" << endl;
 	for (auto it : wv )
 	{
 		// Note that "it" in this case contains a copy of each Widget in the vector; I don't think it points to the original widget.
-		cout << "    Widget Sum:" << it.getSum() << endl;
+		cout << "    Widget2 Sum:" << it.getSum() << endl;
 	}
 }
 
@@ -215,6 +215,13 @@ void CPP11Features::UsingEnums()
 	cout << "Status Code (Expecting 9): " << static_cast<unsigned int>(status) << endl;
 }
 
+
+unique_ptr<Widget> FactoryMethod( int x )
+{
+	unique_ptr<Widget> pw = make_unique<Widget>(x);
+	return( pw );
+}
+
 void CPP11Features::UsingPointerTypes()
 {
 	cout << "Smart Pointers ******************** " << endl;
@@ -228,4 +235,8 @@ void CPP11Features::UsingPointerTypes()
 	Widget * rawPtr = new Widget(3);
 	shared_ptr<Widget> p3(rawPtr);
 	// delete rawPtr;  // If we did this, when p3 goes out of scope it will delete the same memory twice...  BAD...
+
+	// Using a factory method which returns a unique_ptr, but converting it to a shared_ptr.
+	shared_ptr<Widget> p4 = FactoryMethod(3);
+
 }
