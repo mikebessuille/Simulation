@@ -8,6 +8,7 @@
 #include "CPP11Threads.h"
 #include "ProducerConsumer.h"
 #include "CPP11AsyncTasks.h"
+#include "ParamsAndReturns.h"
 
 using namespace std;
 
@@ -47,6 +48,10 @@ int main()
 	WaitForChar("Hit any key to start Producer Consumer test (then any key to stop)");
 	ProducerConsumer pc;
 	pc.run();
+
+	WaitForChar("Hit any key to start Params And Returns test (then any key to stop)");
+	ParamsAndReturns paramTest;
+	paramTest.run();
 
 	WaitForChar("Learning Code Project Complete.  Hit any key to end.");	
 	this_thread::sleep_for(chrono::seconds(3));

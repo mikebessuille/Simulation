@@ -1,9 +1,10 @@
+#pragma once
+
 #include <memory>
 #include <iostream>
 
 using namespace std;
 
-#pragma once
 class CPP11SpecialFunctions
 {
 public:

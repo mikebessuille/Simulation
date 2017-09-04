@@ -158,11 +158,13 @@
     <ClCompile Include="PimplPattern.cpp" />
     <ClCompile Include="CPP11Threads.cpp" />
     <ClCompile Include="ProducerConsumer.cpp" />
+    <ClCompile Include="ParamsAndReturns.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CPP11AsyncTasks.h" />
     <ClInclude Include="CPP11Features.h" />
     <ClInclude Include="CPP11SpecialFunctions.h" />
+    <ClInclude Include="ParamsAndReturns.h" />
     <ClInclude Include="MessageQueue.h" />
     <ClInclude Include="PimplPattern.h" />
     <ClInclude Include="CPP11Threads.h" />
