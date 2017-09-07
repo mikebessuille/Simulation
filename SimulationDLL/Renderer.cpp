@@ -7,7 +7,7 @@
 
 
 
-// TODO:  This class contains a lot of stuff (bRunning, thread management) that could be more easily handled by the Game class.
+// LATER:  This class contains a lot of stuff (bRunning, thread management) that could be more easily handled by the Game class.
 Renderer::Renderer( Game *parent ) :
 	bRunning(false),
 	pRenderThread(nullptr),

@@ -1,6 +1,6 @@
 ﻿#include "Simulation.h"
 #include "Game.h"
-#include "UnitMgr.h"
+// #include "UnitMgr.h"
 #include <thread>
 #include <assert.h>
 #include <mutex>
@@ -20,10 +20,6 @@ Simulation::Simulation(Game *parent) :
 	assert( pGame );
 
 	// Put Simulation initialization code here?  (Load UnitMgr objects, players, ...)
-
-	// TODO: need to use simLock mutex to lock access to Simulation data that may be accessed by multiple threads.
-	// Including Ticker?
-	// Probably should move that mutext to the GameState class?
 }
 
 
@@ -103,7 +99,7 @@ void Simulation::Loop()
 				
 		if (pTicker->Late())
 		{
-			// TODO:  We spent more time processing that tick than the ticksize; if so, we are falling behind and need
+			// LATER:  We spent more time processing that tick than the ticksize; if so, we are falling behind and need
 			// to inform the other computers in the simulation?  Or we need to try to catch up somehow on this machine...
 			cout << endl << "LATE!!  Took too long to process a tick." << endl;
 		}
@@ -124,11 +120,11 @@ void Simulation::Loop()
 void Simulation::Update( const unsigned long nTick )
 {
 	GameState & gs = pGame->GetGameState();
-	// TODO:  THis next line seems to make a COPY of the player (which copies its entire UnitManager!!!)
-	// That is likely not true anymore, now that playerList is a list of shared_ptr's to players
+	// When playerList was a list of players (rather than pointers to players), this use of auto was
+	// making a COPY of the player (which copies its entire UnitManager!!!)
 	for (auto player : pGame->playerList)
 	{
-		lock_guard<mutex> c_lock( player->UM.GetMutex() );
-		player->UM.Update( gs, nTick);
+		lock_guard<mutex> c_lock( player->GetMutex() );
+		player->Update( gs, nTick);
 	}
 }

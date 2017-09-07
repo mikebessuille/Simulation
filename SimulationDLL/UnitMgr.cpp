@@ -15,14 +15,15 @@ UnitMgr::UnitMgr()
 
 UnitMgr::~UnitMgr()
 {
-	// C++11 functionality for iterators!
+	// C++11 functionality for iterators!  Make sure to use & for a reference, so we don't make a copy of each unit in the list
 	for (auto &it : unitList)
 	{
 		// delete it; // this was needed when unitList was a list of UnitBase*.  Now that it's a list of shared_ptr, we just need to clear the ptrs.
 		// it = unitList.erase(it); // No need to erase each value if we're going to clear the entire vector!
 
-		// TODO:  CLear the orders of the unit first; they may point to other units, and because we're using smart points,
+		// Clear the orders of the unit first; they may point to other units, and because we're using smart pointers,
 		// the units may never get deleted if they're pointing at each other.
+		it->ClearOrders();
 	}
 	unitList.clear();
 }
@@ -39,13 +40,12 @@ void UnitMgr::DestroyUnit(std::list<shared_ptr<UnitBase>>::iterator it)
 	shared_ptr<UnitBase> pUnit = *it;
 	if( pUnit )
 	{
-		// TODO: need to clear its orders first
-
+		pUnit->ClearOrders();
 		unitList.erase( it );
 		// delete pUnit; // No need to delete since it's a smart pointer.
 	}
-	// TODO:  else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
-	// Having to use iterators and lists is probably not very efficient.  We probably want a way to directly access
+	// LATER: else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
+	// LATER: Having to use iterators and lists is probably not very efficient.  We probably want a way to directly access
 	// units, like a big array where the index is just the Unit ID (or ID of that component).
 }
 
@@ -60,7 +60,7 @@ void UnitMgr::RemoveUnit(std::list<shared_ptr<UnitBase>>::iterator it )
 	{
 		unitList.erase( it );
 	}
-	// TODO:  else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
+	// LATER:  else, we've passed an iterator that doesn't correctly point to a valid Unit.  Throw exception?
 }
 
 
@@ -92,13 +92,3 @@ void UnitMgr::Render(GameState &gs, Map &map)
 		it->Render( gs, map );
 	}
 }
-
-
-//TODO:  Is this the best place (for now) to put some static factory methods to create new UnitBase objects?
-// It should create it with the correct Components as well.
-// For example: 
-/*
-shared_ptr<UnitTestProject::UnitMgrTest::MoveComponentBasic> mcptr(new UnitTestProject::UnitMgrTest::MoveComponentBasic((double)10 / (i + 1), 1));
-UnitBase *pUnit = new UnitBase( 0, i, mcptr );
-UM.AddUnit( pUnit );
-*/

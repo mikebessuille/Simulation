@@ -24,6 +24,7 @@ private:
 	TickControl *pTicker;	// Needs to be a pointer in order to avoid warnings about STL classes being exported.
 	Game *pGame;			// parent!
 	static mutex simLock;	// For locking any data within Simulation that might be accessed by multiple threads.
+							// This isn't really used, since we lock each individual UnitMgr as we use it.
 
 public:
 	Simulation( Game *parent );
