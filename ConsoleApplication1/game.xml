@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<menus>
+  <menu name="mainroad">
+    <prompt>
+      You are on a road that heads East and West of your position.
+      Which way will you go?
+    </prompt>
+    <choices>
+      <choice link="spider">Go West</choice>
+      <choice link="brickhouse">Go East</choice>
+      <choice link="dragon">Wait for something to happen</choice>
+    </choices>
+  </menu>
+
+  <menu name="spider">
+    <prompt>
+      You travel down the road, about only 100 metres and you encounter
+      a giant spider with vicious poison coated fangs.
+      its hideous appearance causes your throat to dry and your knees to shake!
+      What on earth will you do?
+    </prompt>
+    <choices>
+      <choice link="spiderattack">Attempt to attack the spider with your sword.</choice>
+      <choice link="throwsword">Throw your sword in the off chance it might kill it.</choice>
+      <choice link="running">RUN FOR YOUR LIFE!</choice>
+    </choices>
+  </menu>
+
+  <menu name="spiderattack">
+    <prompt>
+      You viscously swing your sword at the spiders general direction.
+      The swing was so great, your arms jolts out of place,
+      creating a surge of pain.
+      Your arm is now broken, and you fall to the ground in pain...
+      The spider launches 3 metres straight into your body...
+      What on earth is it doing?
+      Oh My God! The spider is devouring everything...
+      All that remained was bones of the once mobile adventurer.
+    </prompt>
+  </menu>
+  
+  <menu name="brickhouse">
+    <prompt>
+      You discover a brick house whose old front door is slightly ajar.
+    </prompt>
+    <choices>
+      <choice link="mainroad">Go back the other way down the road.</choice>
+      <choice link="brickhouse1">Go in.</choice>
+      <choice link="house1_around">Wander around the house looking for another way in.</choice>
+    </choices>
+  </menu>
+
+  <menu name="brickhouse1">
+    <prompt>
+      You enter the house.  An old lady is there and she offers you some soup.
+    </prompt>
+    <choices>
+      <choice link="soup">Gratefully take the soup.</choice>
+      <choice link="witch">Scream at the woman for being a witch.</choice>
+      <choice link="mainroad">Leave and go back down the road the way you came.</choice>
+    </choices>
+  </menu>
+  
+  <menu name="dragon">
+    <prompt>
+      As you stand there in the middle of the road, eventually you notice a large bird circling overhead.
+      Wait, no, it's not a bird.  It's a...  it's a....
+      You are roasted alive by a giant dragon.
+    </prompt>
+  </menu>
+
+  <menu name="house1_around">
+    <prompt>
+      You wander around the house.  You step on a rusty nail.  It gets infected and you die.
+    </prompt>
+  </menu>
+</menus>

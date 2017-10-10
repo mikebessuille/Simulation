@@ -5,6 +5,8 @@
 #include <iostream>
 #include <conio.h>
 #include <string>
+#include "GameFile.h"
+#include "GameGraph.h"
 
 using namespace std;
 
@@ -33,6 +35,17 @@ int main()
 	else
 		cout << "You go back to eating your cereal." << endl;
 	WaitForChar("Hit any key to exit.");
+
+	/*
+	GameFile game;
+	game.play();
+	*/
+
+	GameGraph game; // This should take an arg as the filename
+	game.play();
+
+	WaitForChar("GAME OVER.  Hit any key to exit.");
+
     return 0;
 }
 
