@@ -17,6 +17,11 @@ public:
 	bool operator==(const string&) const;
 
 private:
+	void Display() const;
+	void DisplayHelp() const; // should be moved to other class...
+	unsigned int HandleInput() const;
+
+private:
 	string _title;
 	string _desc;
 	vector<pair<int, string>> _choices; // int = destination node;  string = prompt
