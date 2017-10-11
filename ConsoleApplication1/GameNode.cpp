@@ -91,6 +91,10 @@ unsigned int GameNode::HandleInput() const
 	{
 		// TODO: quit this program
 	}
+	else if (cmd == "inventory" || cmd == "i")
+	{
+		DisplayInventory();
+	}
 	else
 	{
 		// No command found.  Could be a choice.
@@ -109,4 +113,12 @@ void GameNode::DisplayHelp() const
 	cout << "exit / x:              exits game." << endl;
 	cout << "get / pickup <item>    picks up item." << endl;
 	cout << "drop <item>            drops item." << endl;
+}
+
+void GameNode::DisplayInventory() const
+{
+	// Must use spaces, not tabs, when aligning these strings!
+	cout << " ---- INVENTORY: ---- " << endl;
+	// TODO: display user's inventory
+	cout << endl;
 }

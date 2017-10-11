@@ -18,8 +18,10 @@ public:
 
 private:
 	void Display() const;
-	void DisplayHelp() const; // should be moved to other class...
 	unsigned int HandleInput() const;
+
+	void DisplayHelp() const; // should be moved to other class...
+	void DisplayInventory() const; // move to other class
 
 private:
 	string _title;
