@@ -40,12 +40,20 @@ const int GameNode::takeChoice() const
 	}
 
 	unsigned int choice;
+	bool bRunning = true;
 	do
 	{
 		Display();
-		choice = HandleInput();
+		choice = HandleInput( bRunning );
 		choice--;
-	} while (choice >= _choices.size());
+	} while (choice >= _choices.size() && bRunning );
+
+	if (!bRunning)
+	{
+		// program was aborted with "exit" command
+		return(-1);
+	}
+
 	// Return the index of the next node.
 	return _choices[choice].first;
 }
@@ -69,7 +77,7 @@ void GameNode::Display() const
 
 // Returns the choice # (returns 0 if some other command was typed, or the choice was invalid)
 // Handles other types of input for other commands (inventory, exit, etc...)
-unsigned int GameNode::HandleInput() const
+unsigned int GameNode::HandleInput( bool &bRunning ) const
 {
 	unsigned int choiceInput = 0;
 	string inputStr;
@@ -87,9 +95,9 @@ unsigned int GameNode::HandleInput() const
 	{
 		DisplayHelp();
 	}
-	else if ((cmd == "exit") || (cmd == "x"))
+	else if ((cmd == "exit"))
 	{
-		// TODO: quit this program
+		bRunning = false;
 	}
 	else if (cmd == "inventory" || cmd == "i")
 	{
@@ -110,7 +118,7 @@ void GameNode::DisplayHelp() const
 	// Must use spaces, not tabs, when aligning these strings!
 	cout << " ---- HELP: ---- "  << endl;
 	cout << "? / help / h:          help" << endl;
-	cout << "exit / x:              exits game." << endl;
+	cout << "exit:                  exits game." << endl;
 	cout << "get / pickup <item>    picks up item." << endl;
 	cout << "drop <item>            drops item." << endl;
 }

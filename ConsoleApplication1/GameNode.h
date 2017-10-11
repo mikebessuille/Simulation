@@ -18,7 +18,7 @@ public:
 
 private:
 	void Display() const;
-	unsigned int HandleInput() const;
+	unsigned int HandleInput( bool &) const;
 
 	void DisplayHelp() const; // should be moved to other class...
 	void DisplayInventory() const; // move to other class
