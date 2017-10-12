@@ -59,6 +59,7 @@ const int GameNode::takeChoice() const
 }
 
 
+// Displays this node
 void GameNode::Display() const
 {
 	cout << "------------------------------------------" << endl;
@@ -75,6 +76,7 @@ void GameNode::Display() const
 }
 
 
+// TODO: this method shouldn't be part of the GameNode class
 // Returns the choice # (returns 0 if some other command was typed, or the choice was invalid)
 // Handles other types of input for other commands (inventory, exit, etc...)
 unsigned int GameNode::HandleInput( bool &bRunning ) const
@@ -113,6 +115,8 @@ unsigned int GameNode::HandleInput( bool &bRunning ) const
 	return(choiceInput);
 }
 
+
+// TODO: probably shouldn't be part of the GameNode class
 void GameNode::DisplayHelp() const
 {
 	// Must use spaces, not tabs, when aligning these strings!
@@ -123,6 +127,8 @@ void GameNode::DisplayHelp() const
 	cout << "drop <item>            drops item." << endl;
 }
 
+
+// TODO: probably shouldn't be part of the GameNode class
 void GameNode::DisplayInventory() const
 {
 	// Must use spaces, not tabs, when aligning these strings!

@@ -129,9 +129,3 @@ bool GameGraph::parseXML(string file)
 
 	return(true);
 }
-
-
-
-// TODO:
-// Different things than choices?  Other attributes?  HP for the character?  Experience?  Levels?  Items that can be held / dropped ?
-// States for various nodes? (Door is open / closed...)
