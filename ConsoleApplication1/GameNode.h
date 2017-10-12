@@ -3,6 +3,8 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <memory>
+#include "GamePlayer.h"
 
 using namespace std;
 
@@ -13,15 +15,12 @@ public:
 				const vector<pair<int, string>>& = vector<pair<int, string>>{}); // default value is an empty vector
 	~GameNode();
 	void AddChoice( const pair<int, string> &choice );
-	const int takeChoice() const;
+	const int takeChoice( GamePlayer &player ) const;
 	bool operator==(const string&) const;
 
 private:
 	void Display() const;
-	unsigned int HandleInput( bool &) const;
-
-	void DisplayHelp() const; // should be moved to other class...
-	void DisplayInventory() const; // move to other class
+	
 
 private:
 	string _title;

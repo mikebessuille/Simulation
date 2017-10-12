@@ -27,6 +27,7 @@ void Print(string str)
 
 int main()
 {
+	/*
 	Print("Henry is a wonderful boy.");
 	cout << "Day 1, Breakfast: I had cereal which made me sick. Then the doorbell rang." << endl;
 	char ch = WaitForChar("Do you answer it? (y/n)");
@@ -35,6 +36,7 @@ int main()
 	else
 		cout << "You go back to eating your cereal." << endl;
 	WaitForChar("Hit any key to exit.");
+	*/
 
 	/*
 	GameFile game;

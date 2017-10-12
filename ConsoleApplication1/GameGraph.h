@@ -4,6 +4,7 @@
 #include <vector>
 #include <list>
 #include "GameNode.h"
+#include "GamePlayer.h"
 
 using namespace std;
 
@@ -20,5 +21,6 @@ private:
 
 private:
 	vector<GameNode> graph;
+	GamePlayer player;
 };
 

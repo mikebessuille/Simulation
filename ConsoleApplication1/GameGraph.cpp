@@ -10,7 +10,7 @@
 
 GameGraph::GameGraph()
 {
-	bool bRet = parseXML("game.xml");
+	bool bRet = parseXML("game.xml" );
 	if (bRet == false)
 	{
 		cout << "*** ERROR: GAME NOT LOADED ***" << endl;
@@ -33,7 +33,7 @@ void GameGraph::play()
 	int current = 0;
 	while (( current >= 0 ) && ( current < graph.size()))
 	{
-		current = graph[current].takeChoice();
+		current = graph[current].takeChoice( player );
 	}
 
 	if (current != -1 && current >= graph.size())
@@ -50,7 +50,7 @@ struct TempChoice
 	string prompt;
 };
 
-bool GameGraph::parseXML(string file)
+bool GameGraph::parseXML(string file )
 {
 	pugi::xml_document doc;
 	const char *cstr = file.c_str();
@@ -81,6 +81,9 @@ bool GameGraph::parseXML(string file)
 		}
 		index++;
 	}
+
+	// TODO:  inventory items
+
 
 	// SECOND PASS:  convert all the string names into indices, now that we have all the node names.
 	unsigned int nodeIndex = 0;
