@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26403.7
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SimulationConsole", "SimulationConsole\SimulationConsole.vcxproj", "{5FFC01CB-DEDF-435C-A4FD-DAD9EEBAB02E}"
 EndProject
@@ -21,6 +21,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "SocketTestConsole", "Socket
 	ProjectSection(ProjectDependencies) = postProject
 		{5B274524-9975-41DC-8072-14024E0B6730} = {5B274524-9975-41DC-8072-14024E0B6730}
 	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Blockchain", "Blockchain\Blockchain.vcxproj", "{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -113,6 +115,16 @@ Global
 		{A5CD0A0F-9FD4-43F8-BE3B-F8A216D50002}.Release|x64.Build.0 = Release|x64
 		{A5CD0A0F-9FD4-43F8-BE3B-F8A216D50002}.Release|x86.ActiveCfg = Release|Win32
 		{A5CD0A0F-9FD4-43F8-BE3B-F8A216D50002}.Release|x86.Build.0 = Release|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Debug|ARM.ActiveCfg = Debug|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Debug|x64.ActiveCfg = Debug|x64
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Debug|x64.Build.0 = Debug|x64
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Debug|x86.ActiveCfg = Debug|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Debug|x86.Build.0 = Debug|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Release|ARM.ActiveCfg = Release|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Release|x64.ActiveCfg = Release|x64
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Release|x64.Build.0 = Release|x64
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Release|x86.ActiveCfg = Release|Win32
+		{DEA67D41-C79A-4B9F-A91F-C5DF7ABA51F4}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
