@@ -29,14 +29,14 @@
 
   <menu name="spiderattack">
     <prompt>
-      You viscously swing your sword at the spiders general direction.
-      The swing was so great, your arms jolts out of place,
+      You visciously swing your sword at the spider's general direction.
+      The swing was so great that your arm jolts out of place,
       creating a surge of pain.
       Your arm is now broken, and you fall to the ground in pain...
-      The spider launches 3 metres straight into your body...
+      The spider launches 3 meters straight into your body...
       What on earth is it doing?
       Oh My God! The spider is devouring everything...
-      All that remained was bones of the once mobile adventurer.
+      All that remained was bones of the once-mobile adventurer.
     </prompt>
   </menu>
   
@@ -73,6 +73,12 @@
   <menu name="house1_around">
     <prompt>
       You wander around the house.  You step on a rusty nail.  It gets infected and you die.
+    </prompt>
+  </menu>
+  
+  <menu name="soup">
+    <prompt>
+      You eat the delicious soup.  Yummy!  The end.
     </prompt>
   </menu>
 </menus>
