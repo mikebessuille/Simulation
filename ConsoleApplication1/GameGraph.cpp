@@ -82,8 +82,6 @@ bool GameGraph::parseXML(string file )
 		index++;
 	}
 
-	// TODO:  inventory items
-
 
 	// SECOND PASS:  convert all the string names into indices, now that we have all the node names.
 	unsigned int nodeIndex = 0;
@@ -132,3 +130,7 @@ bool GameGraph::parseXML(string file )
 
 	return(true);
 }
+
+// TODO:
+// Different things than choices?  Other attributes?  HP for the character?  Experience?  Levels?  Items that can be held / dropped ?
+// States for various nodes? (Door is open / closed...)  Inventory items?
