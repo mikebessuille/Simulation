@@ -34,7 +34,7 @@ int MethodReturnTypeMayChange()
 }
 
 
-class Something // A local class which is defined only in the scope of this function.
+class Something // A local class which is defined only in the scope of this compilation unit (file).
 {
 public:
 	Something(int x, int y) : m_x(x), m_y(y) {};
@@ -61,7 +61,7 @@ void UsingAutoIterators()
 	cout << "Auto as Iterators ***************** " << endl;
 	printVector(vec, "Original ");
 
-	// This makes a copy of each Widget and modifies the copy:
+	// This makes a copy of each "Something" object and modifies the copy:
 	for (auto it : vec)
 	{
 		it.increment();
