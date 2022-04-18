@@ -25,6 +25,7 @@ void Print(string str)
 	cout << str << endl;
 }
 
+
 int main()
 {
 	/*
@@ -50,6 +51,7 @@ int main()
 
     return 0;
 }
+
 
 
 
